@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class HoverController : MonoBehaviour {
 	
-	private float hoverSpeed;
-
-	private Vector3 hoverPosition;
-	private Vector3 hoverDirection;
+	public float hoverSpeed
+	{ get; protected set; }
+	public Vector3 hoverPosition
+	{ get; protected set; }
+	public Vector3 hoverDirection
+	{ get; protected set; }
 
 	// Use this for initialization
 	public void Start () {
@@ -21,10 +23,6 @@ public class HoverController : MonoBehaviour {
 	}
 	
 	public void FixedUpdate() {
-
-		Debug.Log("HoverSpeed = " + this.hoverSpeed);
-		Debug.Log("HoverPosition = " + this.hoverPosition);
-		Debug.Log("HoverDirection = " + this.hoverDirection);
 
 		if(this.hoverPosition.magnitude > 0.5f) {
 

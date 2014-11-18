@@ -2,24 +2,24 @@ using UnityEngine;
 
 public class SpaceshipController : MonoBehaviour {
 
-	private float forwardSpeed
+	public float speed
 	{ get; protected set; }
-	private float steeringAngle
+	public float steeringAngle
 	{ get; protected set; }
 	
-	private Transform backLeftCorner
+	public Transform backLeftCorner
 	{ get; protected set; }
-	private Transform backRightCorner
+	public Transform backRightCorner
 	{ get; protected set; }
-	private Transform frontLeftCorner
+	public Transform frontLeftCorner
 	{ get; protected set; }
-	private Transform frontRightCorner
+	public Transform frontRightCorner
 	{ get; protected set; }
 	
 	// Use this for initialization
 	public void Start () {
 		
-		this.forwardSpeed = 2;
+		this.speed = 2;
 		this.steeringAngle = 30;
 
 		this.backLeftCorner = this.transform.FindChild("Back Left Corner");
@@ -42,10 +42,10 @@ public class SpaceshipController : MonoBehaviour {
 		RaycastHit frontRightHit;
 
 		// Cast Rays from each of the Spaceships Corners heading towards the Track
-		bool backLeftRay = Physics.Raycast(backLeftCorner.position, Vector3.down, out backLeftHit, 5.0f, ~(1<<LayerMask.NameToLayer("Spaceships")));
-		bool backRightRay = Physics.Raycast(backRightCorner.position, Vector3.down, out backRightHit, 5.0f, ~(1<<LayerMask.NameToLayer("Spaceships")));
-		bool frontLeftRay = Physics.Raycast(frontLeftCorner.position, Vector3.down, out frontLeftHit, 5.0f, ~(1<<LayerMask.NameToLayer("Spaceships")));
-		bool frontRightRay = Physics.Raycast(frontRightCorner.position, Vector3.down, out frontRightHit, 5.0f, ~(1<<LayerMask.NameToLayer("Spaceships")));
+		bool backLeftRay = Physics.Raycast(backLeftCorner.position, Vector3.down, out backLeftHit, 5.0f, 1 << LayerMask.NameToLayer("Tracks"));
+		bool backRightRay = Physics.Raycast(backRightCorner.position, Vector3.down, out backRightHit, 5.0f, 1 << LayerMask.NameToLayer("Tracks"));
+		bool frontLeftRay = Physics.Raycast(frontLeftCorner.position, Vector3.down, out frontLeftHit, 5.0f, 1 << LayerMask.NameToLayer("Tracks"));
+		bool frontRightRay = Physics.Raycast(frontRightCorner.position, Vector3.down, out frontRightHit, 5.0f, 1 << LayerMask.NameToLayer("Tracks"));
 
 		if(backLeftRay == true && backRightRay == true && frontLeftRay == true && frontRightRay == true) {
 
@@ -88,7 +88,26 @@ public class SpaceshipController : MonoBehaviour {
 		float verticalAxis = Input.GetAxis("Vertical");
 
 		// Update the Spaceships Acceleration
-		this.rigidbody.velocity += this.transform.forward * verticalAxis * forwardSpeed;
+
+		// Accelerator
+		if((Input.GetKey(KeyCode.W) == true || Input.GetKey(KeyCode.UpArrow) == true) && Input.GetKey(KeyCode.B) == false) {
+
+			if(this.speed < 5.0f)
+				this.speed += 0.05f;
+
+			this.rigidbody.velocity += this.transform.forward * verticalAxis * speed;
+		}
+		else {
+			
+			this.speed = 0.0f;
+		}
+
+		// Brake
+		if(Input.GetKey(KeyCode.B) == true) {
+
+			this.rigidbody.velocity = this.rigidbody.velocity * 0.9f;
+			this.rigidbody.angularVelocity = this.rigidbody.angularVelocity * 0.9f;
+		}
 
 		// Update the Spaceships Steering
 		this.rigidbody.AddTorque(this.transform.up * horizontalAxis * steeringAngle, ForceMode.Acceleration);
@@ -103,10 +122,10 @@ public class SpaceshipController : MonoBehaviour {
 			RaycastHit frontLeftHit;
 			RaycastHit frontRightHit;
 
-			bool backLeftRay = Physics.Raycast(backLeftCorner.position, Vector3.down, out backLeftHit, 5.0f, ~(1<<LayerMask.NameToLayer("Spaceships")));
-			bool backRightRay = Physics.Raycast(backRightCorner.position, Vector3.down, out backRightHit, 5.0f, ~(1<<LayerMask.NameToLayer("Spaceships")));
-			bool frontLeftRay = Physics.Raycast(frontLeftCorner.position, Vector3.down, out frontLeftHit, 5.0f, ~(1<<LayerMask.NameToLayer("Spaceships")));
-			bool frontRightRay = Physics.Raycast(frontRightCorner.position, Vector3.down, out frontRightHit, 5.0f, ~(1<<LayerMask.NameToLayer("Spaceships")));
+			bool backLeftRay = Physics.Raycast(backLeftCorner.position, Vector3.down, out backLeftHit, 5.0f, 1 << LayerMask.NameToLayer("Tracks"));
+			bool backRightRay = Physics.Raycast(backRightCorner.position, Vector3.down, out backRightHit, 5.0f, 1 << LayerMask.NameToLayer("Tracks"));
+			bool frontLeftRay = Physics.Raycast(frontLeftCorner.position, Vector3.down, out frontLeftHit, 5.0f, 1 << LayerMask.NameToLayer("Tracks"));
+			bool frontRightRay = Physics.Raycast(frontRightCorner.position, Vector3.down, out frontRightHit, 5.0f, 1 << LayerMask.NameToLayer("Tracks"));
 
 			if(backLeftRay == true && backRightRay == true && frontLeftRay == true && frontRightRay == true) {
 
