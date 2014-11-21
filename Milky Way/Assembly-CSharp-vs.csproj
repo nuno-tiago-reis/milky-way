@@ -39,24 +39,25 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>F:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>F:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Ability.cs" />
-     <Compile Include="Assets\Scripts\AbilityItem.cs" />
-     <Compile Include="Assets\Scripts\BombAbility.cs" />
+     <Compile Include="Assets\Scripts\Ability\Ability.cs" />
+     <Compile Include="Assets\Scripts\Ability\AbilityItem.cs" />
+     <Compile Include="Assets\Scripts\Ability\BombAbility.cs" />
+     <Compile Include="Assets\Scripts\Ability\ShieldAbility.cs" />
+     <Compile Include="Assets\Scripts\Ability\SmokeScreenAbility.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
-     <Compile Include="Assets\Scripts\GoldItem.cs" />
+     <Compile Include="Assets\Scripts\HUD\HUD.cs" />
      <Compile Include="Assets\Scripts\HoverController.cs" />
-     <Compile Include="Assets\Scripts\Item.cs" />
-     <Compile Include="Assets\Scripts\ShieldAbility.cs" />
-     <Compile Include="Assets\Scripts\SmokeScreenAbility.cs" />
-     <Compile Include="Assets\Scripts\Spaceship.cs" />
-     <Compile Include="Assets\Scripts\SpaceshipController.cs" />
+     <Compile Include="Assets\Scripts\Item\GoldItem.cs" />
+     <Compile Include="Assets\Scripts\Item\Item.cs" />
+     <Compile Include="Assets\Scripts\SpaceShip\Spaceship.cs" />
+     <Compile Include="Assets\Scripts\SpaceShip\SpaceshipController.cs" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
@@ -64,7 +65,7 @@
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>F:/BitBucket/milky-way/Milky Way/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Eduardo/Desktop/DDJ/milky-way/Milky Way/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

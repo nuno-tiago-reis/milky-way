@@ -1,17 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SpaceshipController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HUD\HUD.cs">
     <Files>
-      <File FileName="Assets\Scripts\SpaceshipController.cs" Line="108" Column="22" />
-      <File FileName="Assets\Scripts\HoverController.cs" Line="25" Column="29" />
-      <File FileName="Assets\Scripts\Spaceship.cs" Line="40" Column="3" />
-      <File FileName="Assets\Scripts\Item.cs" Line="16" Column="33" />
-      <File FileName="Assets\Scripts\AbilityItem.cs" Line="25" Column="16" />
-      <File FileName="Assets\Scripts\GoldItem.cs" Line="6" Column="19" />
-      <File FileName="Assets\Scripts\Ability.cs" Line="7" Column="24" />
-      <File FileName="Assets\Scripts\SmokeScreenAbility.cs" Line="7" Column="17" />
-      <File FileName="Assets\Scripts\ShieldAbility.cs" Line="7" Column="17" />
-      <File FileName="Assets\Scripts\BombAbility.cs" Line="13" Column="34" />
+      <File FileName="Assets\Scripts\HUD\HUD.cs" Line="40" Column="79" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
