@@ -17,4 +17,6 @@ public abstract class Ability : MonoBehaviour {
 	}
 	
 	public abstract void Activate(Spaceship spaceship);
+
+	public abstract Texture2D getTexture();
 }

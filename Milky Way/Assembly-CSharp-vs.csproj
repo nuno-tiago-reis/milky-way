@@ -48,7 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Ability\Ability.cs" />
      <Compile Include="Assets\Scripts\Ability\AbilityItem.cs" />
-     <Compile Include="Assets\Scripts\Ability\BombAbility.cs" />
+     <Compile Include="Assets\Scripts\Ability\RocketAbility.cs" />
      <Compile Include="Assets\Scripts\Ability\ShieldAbility.cs" />
      <Compile Include="Assets\Scripts\Ability\SmokeScreenAbility.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
