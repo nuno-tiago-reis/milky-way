@@ -34,6 +34,16 @@ public class Spaceship : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Update () {
+
+		if (Input.GetKey (KeyCode.Z) == true) {
+
+			Ability rocketAbility = null;
+
+			if(abilityMap.TryGetValue("Rocket", out rocketAbility)) {
+
+				rocketAbility.Activate(this);
+			}
+		}
 	}
 
 	public bool AddGold(int gold) {

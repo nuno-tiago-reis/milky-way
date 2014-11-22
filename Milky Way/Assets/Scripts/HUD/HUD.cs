@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class HUD : MonoBehaviour {
 
-	private Spaceship spaceShip
+	private Spaceship spaceship
 	{ get; set; }
 	
 	private Texture2D placeTexture
@@ -38,7 +38,7 @@ public class HUD : MonoBehaviour {
 
 		Debug.Log ("Start of HUD");
 
-		this.spaceShip = GameObject.Find("Spaceship").GetComponent<Spaceship>();
+		this.spaceship = GameObject.Find("Spaceship").GetComponent<Spaceship>();
 
 		this.placeTexture = (Texture2D)Resources.Load("Textures/HUD/1stPlace",typeof(Texture2D)) as Texture2D;
 
@@ -62,7 +62,7 @@ public class HUD : MonoBehaviour {
 
 		Vector2 newEnd;
 
-		float velocity = Mathf.Abs(spaceShip.rigidbody.velocity.magnitude);
+		float velocity = Mathf.Abs(spaceship.rigidbody.velocity.magnitude);
 
 		float angle = (velocity / 150.0f  + 0.75f) * Mathf.PI;
 
@@ -96,8 +96,8 @@ public class HUD : MonoBehaviour {
 		GUI.DrawTexture(new Rect(start.x, start.y - width2, distance.magnitude, width), pointerTexture);
 		GUIUtility.RotateAroundPivot(-a, start);
 
-		if(spaceShip.abilityMap.Keys != null)
-			foreach (Ability ability in spaceShip.abilityMap.Values) {
+		if(spaceship.abilityMap.Keys != null)
+			foreach (Ability ability in spaceship.abilityMap.Values) {
 				
 				GUI.DrawTexture (new Rect (Screen.width * 0.01f +  size, Screen.height * 0.8f - 10.0f, 100.0f, 120.0f), ability.getTexture());
 				size += 120.0f;
