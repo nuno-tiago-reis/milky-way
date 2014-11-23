@@ -39,17 +39,16 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Ability\Ability.cs" />
      <Compile Include="Assets\Scripts\Ability\AbilityItem.cs" />
      <Compile Include="Assets\Scripts\Ability\RocketAbility.cs" />
-     <Compile Include="Assets\Scripts\Ability\RocketController.cs" />
      <Compile Include="Assets\Scripts\Ability\ShieldAbility.cs" />
      <Compile Include="Assets\Scripts\Ability\SmokeScreenAbility.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
@@ -66,7 +65,7 @@
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Eduardo/Desktop/DDJ/milky-way/Milky Way/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>D:/2UNITY PROJ/milky-way/Milky Way/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
