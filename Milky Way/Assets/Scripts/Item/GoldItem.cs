@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
 public class GoldItem: Item {
 
@@ -13,14 +12,10 @@ public class GoldItem: Item {
 	public override void Update () {
 	}
 	
-	public override bool AddItem(Spaceship spaceship) {
+	public override bool AddItem(SpaceshipController spaceship) {
 
-		if(spaceship != null) {
-
-			spaceship.AddGold(value);
-
-			return true;
-		}
+		if(spaceship != null)
+			return spaceship.AddGold(value);
 
 		return false;
 	}

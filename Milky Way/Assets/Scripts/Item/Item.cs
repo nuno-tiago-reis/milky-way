@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
 public abstract class Item : MonoBehaviour {
 
@@ -20,12 +19,12 @@ public abstract class Item : MonoBehaviour {
 
 		if(collider.transform.gameObject.layer == LayerMask.NameToLayer("Spaceships")) {
 
-			Spaceship spaceship = collider.transform.GetComponent<Spaceship>();
+			SpaceshipController spaceship = collider.transform.GetComponent<SpaceshipController>();
 
 			if(AddItem(spaceship) == true)
 				Destroy(gameObject);
 		}
 	}
 
-	public abstract bool AddItem(Spaceship spaceship);
+	public abstract bool AddItem(SpaceshipController spaceship);
 }

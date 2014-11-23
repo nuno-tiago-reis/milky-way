@@ -1,7 +1,6 @@
 using UnityEngine;
-using System.Collections;
 
-public abstract class Ability : MonoBehaviour {
+public abstract class AbilityController : MonoBehaviour {
 	
 	public string abilityName
 	{ get; protected set;}
@@ -16,7 +15,7 @@ public abstract class Ability : MonoBehaviour {
 	public virtual void Update () {
 	}
 	
-	public abstract void Activate(Spaceship spaceship);
+	public abstract void Activate(Transform spaceshipTransform);
 
 	public abstract Texture2D getTexture();
 }
