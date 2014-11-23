@@ -20,7 +20,7 @@ public class SpaceshipController : MonoBehaviour {
 	public void Start () {
 		
 		this.speed = 2;
-		this.steeringAngle = 1;
+		this.steeringAngle = 10;
 
 		this.backLeftCorner = this.transform.FindChild("Back Left Corner");
 		this.backRightCorner = this.transform.FindChild("Back Right Corner");
@@ -113,7 +113,8 @@ public class SpaceshipController : MonoBehaviour {
 
 			this.transform.RotateAround(this.transform.forward, -horizontalAxis * 0.25f);
 			// Update the Spaceships Steering
-			this.rigidbody.AddTorque(this.transform.up * horizontalAxis * steeringAngle, ForceMode.VelocityChange);
+			//this.rigidbody.AddTorque(this.transform.up * horizontalAxis * steeringAngle, ForceMode.VelocityChange);
+			this.rigidbody.AddTorque(this.transform.up * horizontalAxis * steeringAngle, ForceMode.Acceleration);
 		}
 	}
 
