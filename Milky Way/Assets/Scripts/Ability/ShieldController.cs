@@ -36,11 +36,11 @@ public class ShieldController : AbilityController {
 
 	public void FixedUpdate() {
 
-		float angle = this.transform.localRotation.eulerAngles.y;
+		Vector3 eulerAngles = this.transform.localRotation.eulerAngles;
 		
-		angle += 0.5f;
+		eulerAngles.y += 5.0f;
 		
-		this.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, angle);
+		this.transform.localRotation = Quaternion.Euler(eulerAngles.x, eulerAngles.y, eulerAngles.z);
 	}
 	
 	public override void Activate(Transform spaceshipTransform) {

@@ -1,13 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\JoystickController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Ability\ShieldController.cs">
     <Files>
-      <File FileName="Assets\Scripts\SpaceShip\SpaceshipController.cs" Line="153" Column="1" />
+      <File FileName="Assets\Scripts\SpaceShip\SpaceshipController.cs" Line="225" Column="21" />
       <File FileName="Assets\Scripts\SpaceShip\HUD.cs" Line="86" Column="45" />
       <File FileName="Assets\Scripts\SpaceShip\TrailController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\JoystickController.cs" Line="3" Column="32" />
+      <File FileName="Assets\Scripts\JoystickController.cs" Line="52" Column="29" />
       <File FileName="Assets\Scripts\SpaceShip\CameraController.cs" Line="24" Column="34" />
-      <File FileName="Assets\Scripts\SpaceShip\ModelController.cs" Line="3" Column="47" />
+      <File FileName="Assets\Scripts\SpaceShip\ModelController.cs" Line="12" Column="21" />
+      <File FileName="Assets\Scripts\Ability\ShieldController.cs" Line="31" Column="3" />
+      <File FileName="Assets\Scripts\Item\GoldItem.cs" Line="5" Column="19" />
+      <File FileName="Assets\Scripts\Item\AbilityItem.cs" Line="5" Column="28" />
+      <File FileName="Assets\Scripts\HoverController.cs" Line="28" Column="50" />
+      <File FileName="Assets\Scripts\Item\Item.cs" Line="22" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

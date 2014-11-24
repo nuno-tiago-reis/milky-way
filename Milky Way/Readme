@@ -1,0 +1,74 @@
+Milky Way 1.0
+
+- Requirements:
+
+	- Unity 4.5
+	
+- Recommended:
+
+	- 2 Controllers (PS3 Dualshock 3)
+		- Motioninjoy driver is also recommended.
+	
+- Implemented Features:
+
+	- Power-up Ability: Rockets
+		- Shoots bullets that slow down the opponent. If the opponent runs out of health he will remain grounded for 1 second.
+	
+	- Power-up Ability: Shield
+		- Protects the player from the opponents projectiles (Rockets only for now).
+	
+	- Power-up Ability: Smokescreen
+		- Creates a Smokescreen that impairs vision on the place it is used.
+	
+	- Gold Coins:
+		- Spaceship upgrades aren't implemented yet, therefore there is no use for them in this prototype.
+	
+	- Physics
+		- The car will stick the to track and collide with the boundaries appropriately.
+		
+	- Engine Trail Particle System
+	
+	
+- Unimplemented Features:
+
+	- Race Logic
+		- Checkpoints, Laps and Standings aren't implemented yet.
+		
+- Controls (PS3 Dualshock):
+
+	- Accelerate: Cross (X)
+	- Brake: Square
+	- Reverse: Triangle
+	
+	- Steering: Left Analog Stick (Horizontal Axis only) or Directional Pad (Horizontal Axis only)
+	
+	- Power-up Abilities:
+		- Rockets: L1
+		- Shield: R1
+		- Smokescreen: L2
+		
+- Controls (PC - Player 1):
+
+	- Accelerate: W 
+	- Brake: Q
+	- Reverse: S
+	
+	- Steering: A and D
+	
+	- Power-up Abilities:
+		- Rockets: F1
+		- Shield: F2
+		- Smokescreen: F3
+		
+- Controls (PC - Player 2):
+
+	- Accelerate: Up Arrow
+	- Brake: B
+	- Reverse: Down Arrow
+	
+	- Steering: Left Arrow and Right Arrow
+	
+	- Power-up Abilities:
+		- Rockets: Alpha 1
+		- Shield: Alpha 2
+		- Smokescreen: Alpha 3		
