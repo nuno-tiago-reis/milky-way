@@ -2,21 +2,27 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
+	// Cameras ID
+	public int joystickID
+	{ get; protected set; }
+
+	// Cameras Spaceship
 	public Transform spaceship
 	{ get; protected set; }
 	
 	// Use this for initialization
 	public void Start () {
 
-		this.spaceship = this.transform.parent.FindChild("Spaceship").transform;
+		// Cameras reference to its Spaceships
+		this.spaceship = this.transform.parent.FindChild("Spaceship");
+
+		// Set the Cameras Offset according to the Spaceships ID
+		Camera camera = this.transform.GetComponent<Camera>();
 
 		SpaceshipController spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
 
-		// Set the Cameras screen Offset
-		Camera camera = this.transform.GetComponent<Camera>();
-
-		if(spaceshipController.id != -1)
-			camera.rect = new Rect(0.5f * (float)spaceshipController.id, 0.0f, 0.5f, 1.0f);
+		if(spaceshipController.id != 0)
+			camera.rect = new Rect(0.5f * (float)(spaceshipController.id - 1), 0.0f, 0.5f, 1.0f);
 	}
 
 	// Update is called once per frame

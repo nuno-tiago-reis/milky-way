@@ -11,10 +11,6 @@ public abstract class AbilityController : MonoBehaviour {
 		this.abilityName = "Uninitialized";
 	}
 	
-	// Update is called once per frame
-	public virtual void Update () {
-	}
-	
 	public abstract void Activate(Transform spaceshipTransform);
 
 	public abstract Texture2D getTexture();

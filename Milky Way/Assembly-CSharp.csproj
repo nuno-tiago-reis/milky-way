@@ -54,9 +54,12 @@
      <Compile Include="Assets\Scripts\Item\AbilityItem.cs" />
      <Compile Include="Assets\Scripts\Item\GoldItem.cs" />
      <Compile Include="Assets\Scripts\Item\Item.cs" />
+     <Compile Include="Assets\Scripts\JoystickController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\CameraController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\HUD.cs" />
+     <Compile Include="Assets\Scripts\SpaceShip\ModelController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\SpaceshipController.cs" />
+     <Compile Include="Assets\Scripts\SpaceShip\TrailController.cs" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />

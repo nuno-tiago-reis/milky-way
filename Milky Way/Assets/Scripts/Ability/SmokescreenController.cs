@@ -15,11 +15,11 @@ public class SmokescreenController : AbilityController {
 		if(SmokescreenController.abilityTexture == null)
 			SmokescreenController.abilityTexture = (Texture2D)Resources.Load("Textures/HUD/SmokeScreen", typeof(Texture2D)) as Texture2D;
 		
-		this.abilityName = "SmokeScreen";
+		this.abilityName = "Smokescreen";
 	}
 	
 	// Update is called once per frame
-	public override void Update () {
+	public void Update () {
 	}
 	
 	public override void Activate(Transform spaceshipTransform) {

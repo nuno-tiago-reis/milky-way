@@ -6,10 +6,10 @@ using System.IO;
 
 public class SpaceshipController : MonoBehaviour {
 
-	/* Spaceships ID */ 
+	// Spaceships ID
 	public int id;
 
-	/* Spaceships Health */ 
+	// Spaceships Health
 	public float health
 	{ get; protected set; }
 	public float maximumHealth
@@ -17,14 +17,14 @@ public class SpaceshipController : MonoBehaviour {
 	public float minimumHealth
 	{ get; protected set; }
 
-	/* Spaceships Gold */ 
+	// Spaceships Gold
 	public int gold
 	{ get; protected set; }
 	
-	/* Spaceships Ability Map */
+	// Spaceships Ability Map
 	public Dictionary<string, GameObject> abilityInventory;
 
-	/* Spaceships Controller Attributes */
+	// Spaceships Controller Attributes
 	public float speed
 	{ get; protected set; }
 	public float steeringAngle
@@ -39,6 +39,10 @@ public class SpaceshipController : MonoBehaviour {
 
 	public float directionInterpolator
 	{ get; protected set; }
+
+	// Spaceships Children Transforms
+	public Transform model
+	{ get; protected set; }
 	
 	public Transform backLeftCorner
 	{ get; protected set; }
@@ -49,8 +53,11 @@ public class SpaceshipController : MonoBehaviour {
 	public Transform frontRightCorner
 	{ get; protected set; }
 
+	// Spaceships Controller
+	public JoystickController joystick
+	{ get; protected set; }
+
 	#region Initialization
-	// Use this for initialization
 	public void Start () {
 	
 		// Spaceships starting Health
@@ -63,43 +70,25 @@ public class SpaceshipController : MonoBehaviour {
 
 		// Spaceships steering values
 		this.speed = 2;
-		this.steeringAngle = 10;
+		this.steeringAngle = 15;
 
-		// Spaceships reference to the hitboxes corners
+		// Spaceships reference to its Children
+		this.model = this.transform.FindChild("Model");
+
 		this.backLeftCorner = this.transform.FindChild("Back Left Corner");
 		this.backRightCorner = this.transform.FindChild("Back Right Corner");
 		this.frontLeftCorner = this.transform.FindChild("Front Left Corner");
 		this.frontRightCorner = this.transform.FindChild("Front Right Corner");
+
+		// Spaceships reference to its Joystick
+		this.joystick = this.transform.GetComponent<JoystickController>();
 	}
 	#endregion
 
 	#region GameLogic
-	// Update is called once per frame
-	public void Update () {
-
-		if(Input.GetKey(KeyCode.Z) == true) {
-				
-			GameObject ability = null;
-
-			if(abilityInventory.TryGetValue("Rocket", out ability)) {
-
-				AbilityController abilityController = ability.GetComponent<RocketController>();
-
-				if(abilityController != null) {
-
-					abilityController.Activate(this.transform);
-
-					abilityInventory.Remove(abilityController.abilityName);
-
-					AddAbility("Rocket");
-				}
-			}
-		}
-	}
-	#endregion
-
-	#region Controller
 	public void FixedUpdate() {
+
+		/*********************************************************************** Road-sticking Logic ***********************************************************************/
 		
 		// Spaceship Rotation Ajustments
 		RaycastHit backLeftHit;
@@ -116,7 +105,7 @@ public class SpaceshipController : MonoBehaviour {
 		if(backLeftRay == true && backRightRay == true && frontLeftRay == true && frontRightRay == true) {
 			
 			// If there is a Collision, adjust the Spaceships Rotation
-			if(backLeftHit.collider.tag == "Track" && backRightHit.collider.tag == "Track" && frontLeftHit.collider.tag == "Track"  && frontRightHit.collider.tag == "Track" ) {
+			if(backLeftHit.collider.tag == "Road" && backRightHit.collider.tag == "Road" && frontLeftHit.collider.tag == "Road"  && frontRightHit.collider.tag == "Road" ) {
 				
 				this.up = 
 					Vector3.Cross(backRightHit.point - backRightHit.normal, backLeftHit.point - backLeftHit.normal) +
@@ -148,55 +137,137 @@ public class SpaceshipController : MonoBehaviour {
 		RaycastHit centerHit;
 		
 		// Cast a Ray from he Spaceships Center heading towards the Track
-		if(Physics.Raycast(this.transform.position, -this.transform.up, out centerHit, 5.0f, 1 << LayerMask.NameToLayer("Tracks")) == true) {
+		if(Physics.Raycast(this.transform.position, -this.transform.up, out centerHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks")) == true) {
 			
 			// If there is a Collision, adjust the Spaceships Position
-			if(centerHit.collider.tag == "Track") {
+			if(centerHit.collider.tag == "Road") {
 				
 				// Adjust the Spaceships Position so that it's slightly above the Track.
-				this.transform.position = centerHit.point + this.transform.up * 3.0f;
+				this.transform.position = centerHit.point + this.transform.up * 2.5f;
 			}
 		}
-		
-		// User Input
-		float horizontalAxis = Input.GetAxis("Horizontal");
-		float verticalAxis = Input.GetAxis("Vertical");
-		
-		// Update the Spaceships Acceleration
-		
-		// Accelerator
-		if((Input.GetKey(KeyCode.W) == true || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) == true) && Input.GetKey(KeyCode.B) == false) {
+
+		/************************************************************************** Input **************************************************************************/
+
+		// Accelerator = Cross & Brake = Square
+		if(Input.GetKey(this.joystick.cross) == true && Input.GetKey(this.joystick.square) == false) {
+
+			// "Shifts"
+			if(this.speed < 10.0f)
+				this.speed += 0.05f + (0.10f * 10.0f/(this.speed+1.0f));
+		}
+		// Reverse = Triangle & Brake = Square
+		else if(Input.GetKey(this.joystick.triangle) == true && Input.GetKey(this.joystick.square) == false) {
 			
-			if(this.speed < 5.0f)
-				this.speed += 0.05f + (0.05f * 5.0f/(this.speed+1.0f));
-			
-			this.rigidbody.velocity += this.transform.forward * verticalAxis * speed;
+			// "Shifts"
+			if(this.speed > -2.0f)
+				this.speed -= 0.05f;
 		}
 		else {
 			
-			this.speed = 0.0f;
+			this.speed = this.speed * 0.95f;
 		}
 		
-		// Brake
-		if(Input.GetKey(KeyCode.B) == true) {
-			
-			this.rigidbody.velocity = this.rigidbody.velocity * 0.9f;
-			this.rigidbody.angularVelocity = this.rigidbody.angularVelocity * 0.9f;
+		// Brake = Square
+		if(Input.GetKey(this.joystick.square) == true) {
+
+			// Reduce the Spaceships Velocity (Acceleration)
+			this.rigidbody.velocity = this.rigidbody.velocity * 0.99f;
+			// Reduce the Spaceships Angular Velocity (Steering)
+			this.rigidbody.angularVelocity = this.rigidbody.angularVelocity * 0.99f;
 		}
-		
+
+		// Steering = Stick and Directional Pad
+		float horizontalAxis = Input.GetAxis(this.joystick.horizontalAxis);
+
 		if(horizontalAxis != 0) {
+
+			float angle = this.model.localRotation.eulerAngles.z;
+
+			if(angle > 180.0f)
+				angle -= 360.0f;
+
+			if(angle <  45.0f && horizontalAxis < 0.0f)
+				this.model.RotateAround(this.model.position, this.model.forward, -horizontalAxis * 0.50f);
+
+			if(angle > -45.0f && horizontalAxis > 0.0f)
+				this.model.RotateAround(this.model.position, this.model.forward, -horizontalAxis * 0.50f);
+
+			this.speed *= 0.95f;
+		}
+
+		// Increment the Spaceships Velocity
+		this.rigidbody.velocity += this.transform.forward * speed;
+
+		// Increment the Spaceships Angular Velocity
+		this.rigidbody.AddTorque(this.transform.up * horizontalAxis * steeringAngle, ForceMode.Impulse);
+		
+		// Rockets - L1
+		if(Input.GetKey(this.joystick.L1) == true) {
 			
-			this.transform.Rotate(this.transform.forward, -horizontalAxis * 0.25f);
-			// Update the Spaceships Steering
-			//this.rigidbody.AddTorque(this.transform.up * horizontalAxis * steeringAngle, ForceMode.VelocityChange);
-			this.rigidbody.AddTorque(this.transform.up * horizontalAxis * steeringAngle, ForceMode.Impulse);
+			GameObject ability = null;
+			
+			if(abilityInventory.TryGetValue("Rocket", out ability)) {
+				
+				AbilityController abilityController = ability.GetComponent<RocketController>();
+				
+				if(abilityController != null) {
+					
+					abilityController.Activate(this.transform);
+					
+					abilityInventory.Remove(abilityController.abilityName);
+					
+					AddAbility("Rocket");
+				}
+			}
+		}
+
+		// Shield - R1
+		if(Input.GetKey(this.joystick.R1) == true) {
+			
+			GameObject ability = null;
+			
+			if(abilityInventory.TryGetValue("Shield", out ability)) {
+				
+				AbilityController abilityController = ability.GetComponent<ShieldController>();
+				
+				if(abilityController != null) {
+					
+					abilityController.Activate(this.transform);
+					
+					abilityInventory.Remove(abilityController.abilityName);
+				}
+			}
 		}
 	}
+
 	public void InflictDamage(float damage) {
 
 		this.health = Mathf.Clamp(this.health - damage, this.minimumHealth, this.maximumHealth);
 
+		this.speed *= 0.75f;
+
 		Debug.Log("Took Damage (" + damage + ")! Remaining Health is " + this.health + "!");
+	}
+
+	public void OnCollisionEnter(Collision collision) {
+		
+		// If colliding with a track boundary
+		if(collision.collider.transform.tag == "Boundary") {
+
+			this.speed *= 0.5f;
+
+			Debug.Log("Boundary Hit!");
+
+			foreach(ContactPoint contactPoint in collision.contacts) {
+
+				Vector3 contactNormal = contactPoint.normal;
+
+				Debug.Log("Repulsion!");
+
+				this.rigidbody.velocity = Vector3.Reflect(this.rigidbody.velocity.normalized, contactNormal.normalized) * this.rigidbody.velocity.magnitude * 0.75f; 
+			}
+		}
 	}
 
 	#endregion

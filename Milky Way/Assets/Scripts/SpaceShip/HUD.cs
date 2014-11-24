@@ -77,11 +77,13 @@ public class HUD : MonoBehaviour {
 	// Use this for initialization
 	public void Start () {
 
+		// HUDs reference to its Spaceship
 		this.spaceship = this.transform.parent.FindChild("Spaceship").transform;
 
+		// Set the ScreensID according to the Spaceships ID
 		SpaceshipController spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
 
-		this.screenID = spaceshipController.id;
+		this.screenID = spaceshipController.id - 1;
 
 		// Standings Attributes
 		this.standingsTexture = (Texture2D)Resources.Load("Textures/HUD/1stPlace",typeof(Texture2D)) as Texture2D;
@@ -95,7 +97,7 @@ public class HUD : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Update () {
-
+			
 		if(this.screenID != -1) {
 			this.screenOffset = new Vector2(Screen.width * (0.5f * (float)this.screenID), 0.0f);
 			this.speedometerOffset = new Vector2(Screen.width * (0.5f * (float)(this.screenID - 1)), 0.0f);

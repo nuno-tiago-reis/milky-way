@@ -12,7 +12,7 @@ public class ShieldController : AbilityController {
 	public override void Awake() {
 
 		// Initialize the Shields lifetime - It will be destroyed when the lifetime ends.
-		this.lifetime = 180.0f;
+		this.lifetime = 15.0f;
 
 		// Load the HUD texture if it hasn't been loaded yet
 		if(ShieldController.abilityTexture == null)
@@ -22,7 +22,7 @@ public class ShieldController : AbilityController {
 	}
 	
 	// Update is called once per frame
-	public override void Update () {
+	public void Update () {
 
 		if(this.gameObject.activeSelf == false)
 			return;
@@ -33,10 +33,19 @@ public class ShieldController : AbilityController {
 		if(this.lifetime < 0.0f)
 			Destroy(this.gameObject);
 	}
+
+	public void FixedUpdate() {
+
+		float angle = this.transform.localRotation.eulerAngles.y;
+		
+		angle += 0.5f;
+		
+		this.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, angle);
+	}
 	
 	public override void Activate(Transform spaceshipTransform) {
 
-		//Debug.Log("Shield activated");
+		Debug.Log("Shield activated");
 
 		this.gameObject.SetActive(true);
 	}

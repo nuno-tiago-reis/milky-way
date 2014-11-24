@@ -27,7 +27,7 @@ public class RocketController : AbilityController {
 	}
 	
 	// Update is called once per frame
-	public override void Update () {
+	public void Update () {
 
 		if(this.gameObject.activeSelf == false)
 			return;
@@ -41,7 +41,7 @@ public class RocketController : AbilityController {
 	
 	public override void Activate(Transform spaceshipTransform) {
 
-		//Debug.Log("Rocket activated");
+		Debug.Log("Rocket activated");
 
 		this.gameObject.SetActive(true);
 

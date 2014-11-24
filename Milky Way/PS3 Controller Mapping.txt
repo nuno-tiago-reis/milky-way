@@ -1,0 +1,18 @@
+* Axis X (Stick and Directional Pad) = Horizontal Joystick
+* Axis Y (Stick and Directional Pad) = Vertial Joystick
+* 
+* Triangle = Joystick Button 0
+* Circle = Joystick Button 1
+* Cross = Joystick Button 2
+* Square = Joystick Button 3
+* 
+* L1 = Joystick Button 4
+* R1 = Joystick Button 5
+* L2 = Joystick Button 6
+* R2 = Joystick Button 7
+* L3 = Joystick Button 10
+* R3 = Joystick Button 11
+* 
+* Select = Joystick Button 8
+* Start = Joystick Button 11
+* Playstation = Joystick Button 12
