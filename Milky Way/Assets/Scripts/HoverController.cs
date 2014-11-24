@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class HoverController : MonoBehaviour {
 	
-	public float hoverSpeed
-	{ get; protected set; }
+	public float hoverSpeed;
+
+	public float hoverDistance;
+
 	public Vector3 hoverPosition
 	{ get; protected set; }
 	public Vector3 hoverDirection
@@ -11,8 +13,7 @@ public class HoverController : MonoBehaviour {
 
 	// Use this for initialization
 	public void Start () {
-		
-		this.hoverSpeed = 0.01f;
+	
 		this.hoverPosition = new Vector3(0.0f, 0.0f, 0.0f);
 		this.hoverDirection = new Vector3(0.0f, -1.0f, 0.0f);
 	}
@@ -24,7 +25,7 @@ public class HoverController : MonoBehaviour {
 	
 	public void FixedUpdate() {
 
-		if(this.hoverPosition.magnitude > 0.5f) {
+		if(this.hoverPosition.magnitude > hoverDistance) {
 
 			this.hoverPosition = new Vector3(0.0f, 0.0f, 0.0f);
 			this.hoverDirection = -this.hoverDirection;

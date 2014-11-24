@@ -151,6 +151,7 @@ public class SpaceshipController : MonoBehaviour {
 
 		// Accelerator = Cross & Brake = Square
 		if(Input.GetKey(this.joystick.cross) == true && Input.GetKey(this.joystick.square) == false) {
+		//if((Input.GetKey(KeyCode.W) == true || Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.B) == false) {
 
 			// "Shifts"
 			if(this.speed < 10.0f)
@@ -158,6 +159,26 @@ public class SpaceshipController : MonoBehaviour {
 		}
 		// Reverse = Triangle & Brake = Square
 		else if(Input.GetKey(this.joystick.triangle) == true && Input.GetKey(this.joystick.square) == false) {
+		//if((Input.GetKey(KeyCode.S) == true || Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.B) == false) {
+			
+			// "Shifts"
+			if(this.speed > -2.0f)
+				this.speed -= 0.05f;
+		}
+		else {
+			
+			this.speed = this.speed * 0.95f;
+		}
+
+		// Accelerator = Cross & Brake = Square
+		if((Input.GetKey(KeyCode.W) == true || Input.GetKey(KeyCode.UpArrow)) && Input.GetKey(KeyCode.B) == false) {
+			
+			// "Shifts"
+			if(this.speed < 10.0f)
+				this.speed += 0.05f + (0.10f * 10.0f/(this.speed+1.0f));
+		}
+		// Reverse = Triangle & Brake = Square
+		else if((Input.GetKey(KeyCode.S) == true || Input.GetKey(KeyCode.DownArrow)) && Input.GetKey(KeyCode.B) == false) {
 			
 			// "Shifts"
 			if(this.speed > -2.0f)
@@ -170,7 +191,17 @@ public class SpaceshipController : MonoBehaviour {
 		
 		// Brake = Square
 		if(Input.GetKey(this.joystick.square) == true) {
+		//if(Input.GetKey(KeyCode.B) == true) {
 
+			// Reduce the Spaceships Velocity (Acceleration)
+			this.rigidbody.velocity = this.rigidbody.velocity * 0.99f;
+			// Reduce the Spaceships Angular Velocity (Steering)
+			this.rigidbody.angularVelocity = this.rigidbody.angularVelocity * 0.99f;
+		}
+
+		// Brake = Square
+		if(Input.GetKey(KeyCode.B) == true) {
+			
 			// Reduce the Spaceships Velocity (Acceleration)
 			this.rigidbody.velocity = this.rigidbody.velocity * 0.99f;
 			// Reduce the Spaceships Angular Velocity (Steering)
@@ -179,6 +210,7 @@ public class SpaceshipController : MonoBehaviour {
 
 		// Steering = Stick and Directional Pad
 		float horizontalAxis = Input.GetAxis(this.joystick.horizontalAxis);
+		//float horizontalAxis = Input.GetAxis("Horizontal");
 
 		if(horizontalAxis != 0) {
 
@@ -193,6 +225,25 @@ public class SpaceshipController : MonoBehaviour {
 			if(angle > -45.0f && horizontalAxis > 0.0f)
 				this.model.RotateAround(this.model.position, this.model.forward, -horizontalAxis * 0.50f);
 
+			this.speed *= 0.95f;
+		}
+
+		// Steering = Stick and Directional Pad
+		horizontalAxis = Input.GetAxis("Horizontal Axis PC");
+		
+		if(horizontalAxis != 0) {
+			
+			float angle = this.model.localRotation.eulerAngles.z;
+			
+			if(angle > 180.0f)
+				angle -= 360.0f;
+			
+			if(angle <  45.0f && horizontalAxis < 0.0f)
+				this.model.RotateAround(this.model.position, this.model.forward, -horizontalAxis * 0.50f);
+			
+			if(angle > -45.0f && horizontalAxis > 0.0f)
+				this.model.RotateAround(this.model.position, this.model.forward, -horizontalAxis * 0.50f);
+			
 			this.speed *= 0.95f;
 		}
 
