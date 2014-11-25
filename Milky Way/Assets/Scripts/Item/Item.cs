@@ -18,7 +18,8 @@ public abstract class Item : MonoBehaviour {
 	}
 
 	public virtual void FixedUpdate() {
-		
+
+		// Items Rotation Adjustments
 		Vector3 eulerAngles = this.transform.localRotation.eulerAngles;
 		
 		eulerAngles.y += rotationSpeed;

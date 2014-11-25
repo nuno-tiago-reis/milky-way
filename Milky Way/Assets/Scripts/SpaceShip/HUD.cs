@@ -4,8 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class HUD : MonoBehaviour {
-	
+
 	public Transform spaceship
+	{ get; private set; }
+	public SpaceshipController spaceshipController
 	{ get; private set; }
 
 	// HUD Screen offset
@@ -39,6 +41,18 @@ public class HUD : MonoBehaviour {
 
 	public Texture2D lapTexture
 	{ get; private set; }
+
+	// Health Attributes
+	private HUDBar healthBar
+	{ get; set; }
+
+	// Health Attributes
+	private HUDBar repairBar
+	{ get; set; }
+
+	// Gold Attributes
+	private HUDBar goldBar
+	{ get; set; }
 
 	// Speedometer Attributes
 	public Vector2 speedometerPosition
@@ -77,13 +91,28 @@ public class HUD : MonoBehaviour {
 	// Use this for initialization
 	public void Start () {
 
-		// HUDs reference to its Spaceship
-		this.spaceship = this.transform.parent.FindChild("Spaceship").transform;
+		// HUDs reference to its Spaceship 
+		this.spaceship = this.transform.parent.FindChild("Spaceship");
+		// HUDs reference to its Spaceship Controller
+		this.spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
 
 		// Set the ScreensID according to the Spaceships ID
-		SpaceshipController spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
-
 		this.screenID = spaceshipController.id - 1;
+
+		// Health Attributes
+		this.healthBar = new HUDBar();
+		
+		this.healthBar.text = "Health";
+
+		// Repair Attributes
+		this.repairBar = new HUDBar();
+		
+		this.repairBar.text = "Repair Time";
+
+		// Gold Attributes
+		this.goldBar = new HUDBar();
+		
+		this.goldBar.text = "Gold";
 
 		// Standings Attributes
 		this.standingsTexture = (Texture2D)Resources.Load("Textures/HUD/1stPlace",typeof(Texture2D)) as Texture2D;
@@ -115,6 +144,33 @@ public class HUD : MonoBehaviour {
 		this.lapWidth = Screen.height * 0.15f;
 		this.lapHeight = Screen.height * 0.05f;
 
+		// Update the Health Bars Position and Dimensions according to the Screens Resolution
+		this.healthBar.position = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + this.standingHeight * 1.1f + this.lapHeight * 2.0f) + screenOffset;
+		this.healthBar.width = Screen.width * 0.15f;
+		this.healthBar.height = Screen.height * 0.05f;
+	
+		this.healthBar.amount = this.spaceshipController.health;
+		this.healthBar.minimumAmount = spaceshipController.minimumHealth;
+		this.healthBar.maximumAmount = spaceshipController.maximumHealth;
+	
+		// Update the Repair Bars Position and Dimensions according to the Screens Resolution
+		this.repairBar.position = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + this.standingHeight * 1.1f + this.lapHeight * 2.0f + this.healthBar.height * 2.0f) + screenOffset;
+		this.repairBar.width = Screen.width * 0.15f;
+		this.repairBar.height = Screen.height * 0.05f;
+
+		this.repairBar.amount = this.spaceshipController.repairTime;
+		this.repairBar.minimumAmount = spaceshipController.minimumRepairTime;
+		this.repairBar.maximumAmount = spaceshipController.maximumRepairTime;
+
+		// Update the Gold Bars Position and Dimensions according to the Screens Resolution
+		this.goldBar.position = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + this.standingHeight * 1.1f + this.lapHeight * 2.0f + this.healthBar.height * 2.0f + this.repairBar.height * 2.0f) + screenOffset;
+		this.goldBar.width = Screen.width * 0.15f;
+		this.goldBar.height = Screen.height * 0.05f;
+		
+		this.goldBar.amount = this.spaceshipController.gold;
+		this.goldBar.minimumAmount = 0.0f;
+		this.goldBar.maximumAmount = 0.0f;
+
 		// Update the Speedometers size according to the Screens Resolution
 		this.speedometerPosition = new Vector2(Screen.width - this.speedometerWidth, Screen.height - this.speedometerHeight) + speedometerOffset;
 
@@ -143,6 +199,13 @@ public class HUD : MonoBehaviour {
 	}
 			
 	public void OnGUI() {
+
+		// Draw the Health Bar
+		this.healthBar.Draw();
+		// Draw the Repair Bar
+		this.repairBar.Draw();
+		// Draw the Gold Bar
+		this.goldBar.Draw();
 
 		// Draw the Standings
 		GUI.DrawTexture(new Rect(this.standingPosition.x, this.standingPosition.y, this.standingWidth, this.standingHeight), this.standingsTexture);

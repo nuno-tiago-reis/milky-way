@@ -17,6 +17,14 @@ public class SpaceshipController : MonoBehaviour {
 	public float minimumHealth
 	{ get; protected set; }
 
+	// Spaceships Timeout counter
+	public float repairTime
+	{ get; protected set; }
+	public float maximumRepairTime
+	{ get; protected set; }
+	public float minimumRepairTime
+	{ get; protected set; }
+
 	// Spaceships Gold
 	public int gold
 	{ get; protected set; }
@@ -64,6 +72,11 @@ public class SpaceshipController : MonoBehaviour {
 		this.health = 100.0f;
 		this.maximumHealth = 100.0f;
 		this.minimumHealth = 0.0f;
+
+		// Spaceships Repair Time
+		this.repairTime = 0.0f;
+		this.maximumRepairTime = 2.5f;
+		this.minimumRepairTime = 1.0f;
 
 		// Spaceships starting Abilities
 		this.abilityInventory = new Dictionary<string, GameObject>();
@@ -144,6 +157,43 @@ public class SpaceshipController : MonoBehaviour {
 				
 				// Adjust the Spaceships Position so that it's slightly above the Track.
 				this.transform.position = centerHit.point + this.transform.up * 2.5f;
+			}
+		}
+
+		/*********************************************************************** Health Test ***********************************************************************/
+
+		if(this.health == 0.0f) {
+
+			Debug.Log("Spaceship " + this.id + " broke down.");
+
+			this.repairTime = Mathf.Clamp(this.repairTime + Time.deltaTime, 0.0f, this.maximumRepairTime);
+
+			if(Input.GetKey(this.joystick.circle) == true || (Input.GetKey(KeyCode.E) && this.id == 1) || (Input.GetKey(KeyCode.R) && this.id == 2)) {
+
+				if(this.repairTime == maximumRepairTime)
+					this.health = this.maximumHealth;
+
+				if(this.repairTime >= minimumRepairTime)
+					this.health = this.maximumHealth * (this.repairTime / this.maximumRepairTime);
+
+				if(this.health != 0.0f)
+					this.repairTime = 0.0f;
+
+				Debug.Log("Repaired Health = " + this.health + "(" + this.repairTime + "seconds)");
+			}
+			else if(this.repairTime == maximumRepairTime) {
+
+				this.health = this.maximumHealth;
+
+				this.repairTime = 0.0f;
+
+				Debug.Log("Maximum repair Timed out");
+			}
+			else {
+
+				Debug.Log("Repair Time = " + this.repairTime + " seconds");
+				
+				return;
 			}
 		}
 

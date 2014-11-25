@@ -26,6 +26,10 @@ Milky Way 1.0
 	- Physics
 		- The car will stick the to track and collide with the boundaries appropriately.
 		
+	- Spaceship Health
+		- Once the Spaceship reaches 0 health it will stop and repair itself while standind still for 1 second.
+		After 2.5 seconds the Spaceships health will be back to full. However it is possible to start moving earlier although the Spaceship won't be at max health.
+		
 	- Engine Trail Particle System
 	
 	
@@ -47,6 +51,8 @@ Milky Way 1.0
 		- Shield: R1
 		- Smokescreen: L2
 		
+	- Stop Spaceship Repairs: Circle
+		
 - Controls (PC - Player 1):
 
 	- Accelerate: W 
@@ -60,6 +66,8 @@ Milky Way 1.0
 		- Shield: F2
 		- Smokescreen: F3
 		
+	- Stop Spaceship Repairs: E		
+		
 - Controls (PC - Player 2):
 
 	- Accelerate: Up Arrow
@@ -71,4 +79,6 @@ Milky Way 1.0
 	- Power-up Abilities:
 		- Rockets: Alpha 1
 		- Shield: Alpha 2
-		- Smokescreen: Alpha 3		
+		- Smokescreen: Alpha 3	
+
+	- Stop Spaceship Repairs: R

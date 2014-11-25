@@ -39,6 +39,8 @@ public class SmokescreenController : AbilityController {
 		Debug.Log("Smokescreen activated");
 		
 		this.gameObject.SetActive(true);
+
+		this.transform.parent = null;
 	}
 
 	public override Texture2D getTexture() {
