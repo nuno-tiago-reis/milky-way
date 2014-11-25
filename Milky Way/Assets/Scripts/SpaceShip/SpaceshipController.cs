@@ -299,7 +299,7 @@ public class SpaceshipController : MonoBehaviour {
 		}
 
 		// Smokescreen - L2
-		if(Input.GetKey(this.joystick.L2) == true || (Input.GetKey(KeyCode.F3) == true && this.id == 1) || (Input.GetKey(KeyCode.Alpha3) == true && this.id == 2)) {
+		if(Input.GetKey(KeyCode.X) == true || Input.GetKey(this.joystick.L2) == true || (Input.GetKey(KeyCode.F3) == true && this.id == 1) || (Input.GetKey(KeyCode.Alpha3) == true && this.id == 2)) {
 			
 			GameObject ability = null;
 			
