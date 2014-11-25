@@ -41,6 +41,8 @@ public class SmokescreenController : AbilityController {
 		this.gameObject.SetActive(true);
 
 		this.transform.parent = null;
+
+		this.transform.position = this.transform.position + this.transform.up * 7.0f;
 	}
 
 	public override Texture2D getTexture() {
