@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SpaceShip\SpaceshipController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Ability\SmokescreenController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Ability\SmokescreenController.cs" Line="37" Column="37" />
-      <File FileName="Assets\Scripts\SpaceShip\SpaceshipController.cs" Line="304" Column="30" />
+      <File FileName="Assets\Scripts\Ability\SmokescreenController.cs" Line="45" Column="76" />
+      <File FileName="Assets\Scripts\SpaceShip\SpaceshipController.cs" Line="375" Column="114" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
