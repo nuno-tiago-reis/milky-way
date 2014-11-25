@@ -15,7 +15,7 @@ public class RocketController : AbilityController {
 	public override void Awake() {
 
 		// Initialize the Rockets damage.
-		this.damage = 50.0f;
+		this.damage = 5.0f;
 		// Initialize the Rockets lifetime - It will be destroyed when the lifetime ends.
 		this.lifetime = 2.0f;
 
