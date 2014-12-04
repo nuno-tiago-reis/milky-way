@@ -12,10 +12,6 @@ public abstract class Item : MonoBehaviour {
 
 		this.itemName = "Uninitialized Item";
 	}
-	
-	// Update is called once per frame
-	public virtual void Update () {
-	}
 
 	public virtual void FixedUpdate() {
 
