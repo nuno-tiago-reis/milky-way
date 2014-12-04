@@ -68,6 +68,8 @@ public class RaceManager : MonoBehaviour {
 
 			int currentLap = spaceshipController.raceRecord.currentLap;
 
+			Debug.Log("Current Lap = " + currentLap);
+
 			if(currentLap == this.lapTotal) {
 
 				Debug.Log("Winrar!");

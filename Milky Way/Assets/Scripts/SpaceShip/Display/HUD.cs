@@ -10,6 +10,9 @@ public class HUD : MonoBehaviour {
 	public SpaceshipController spaceshipController
 	{ get; private set; }
 
+	public RaceManager raceManager
+	{ get; private set; }
+
 	// HUD Screen offset
 	public int screenID
 	{ get; private set; }
@@ -99,6 +102,9 @@ public class HUD : MonoBehaviour {
 		this.spaceship = this.transform.parent.FindChild("Spaceship");
 		// HUDs reference to its Spaceship Controller
 		this.spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
+
+		// HUDs reference to the Race Manager
+		this.raceManager = GameObject.Find("Race Manager").GetComponent<RaceManager>();
 
 		// Set the ScreensID according to the Spaceships ID
 		this.screenID = spaceshipController.id - 1;
@@ -196,7 +202,7 @@ public class HUD : MonoBehaviour {
 		this.pointerHeight = speedometerWidth * 0.35f;
 
 		// Update the Pointers position according to the Screens Resolution and to the Spaceships Velocity
-		float pointerAngle = (Mathf.Abs(this.spaceship.rigidbody.velocity.magnitude) / 150.0f  + 0.75f) * Mathf.PI;
+		float pointerAngle = (Mathf.Abs(this.spaceship.rigidbody.velocity.magnitude) / 300.0f  + 0.75f) * Mathf.PI;
 
 		Vector2 pointerDistance = new Vector3(
 			this.pointerHeight * Mathf.Cos (pointerAngle) - this.pointerHeight * Mathf.Sin (pointerAngle),
@@ -227,7 +233,7 @@ public class HUD : MonoBehaviour {
 		GUI.DrawTexture(new Rect(this.standingPosition.x, this.standingPosition.y, this.standingWidth, this.standingHeight), this.standingsTextureList[standing-1]);
 
 		// Draw the Laps
-		int lap = this.spaceshipController.raceRecord.currentLap;
+		int lap = Mathf.Clamp(this.spaceshipController.raceRecord.currentLap, 0, this.raceManager.lapTotal);
 
 		GUI.DrawTexture(new Rect(this.lapPosition.x, this.lapPosition.y, this.lapWidth, this.lapHeight), this.lapTextureList[lap]);
 
