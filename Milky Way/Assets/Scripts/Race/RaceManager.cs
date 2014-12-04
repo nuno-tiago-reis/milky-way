@@ -44,7 +44,11 @@ public class RaceManager : MonoBehaviour {
 					spaceshipController.raceRecord.currentCheckpoint = 0;
 					spaceshipController.raceRecord.currentLap = 0;
 					spaceshipController.raceRecord.currentStanding = this.spaceshipTotal;
-					
+
+					spaceshipController.raceRecord.bestLapTime = 0.0f;
+					spaceshipController.raceRecord.currentLapTime = 0.0f;
+					spaceshipController.raceRecord.totalLapTime = 0.0f;
+
 					this.spaceshipList.Add(spaceship);
 				}
 			}
@@ -58,17 +62,25 @@ public class RaceManager : MonoBehaviour {
 
 			SpaceshipController spaceshipController = spaceship.GetComponent<SpaceshipController>();
 
+			spaceshipController.raceRecord.currentLapTime += Time.fixedDeltaTime;
+			spaceshipController.raceRecord.totalLapTime += Time.fixedDeltaTime;
+
 			int currentCheckpoint = spaceshipController.raceRecord.currentCheckpoint;
 
 			if(currentCheckpoint == this.checkpointManager.checkpointTotal) {
 
 				spaceshipController.raceRecord.currentLap++;
 				spaceshipController.raceRecord.currentCheckpoint = 0;
+
+				if(spaceshipController.raceRecord.currentLapTime < spaceshipController.raceRecord.bestLapTime || spaceshipController.raceRecord.bestLapTime == 0.0f) {
+
+					spaceshipController.raceRecord.bestLapTime = spaceshipController.raceRecord.currentLapTime;
+
+					spaceshipController.raceRecord.currentLapTime = 0.0f;
+				}
 			}
 
 			int currentLap = spaceshipController.raceRecord.currentLap;
-
-			Debug.Log("Current Lap = " + currentLap);
 
 			if(currentLap == this.lapTotal) {
 

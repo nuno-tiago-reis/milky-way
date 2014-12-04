@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\SpaceShip\Camera\CameraController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUD.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUDBar.cs" />
+     <Compile Include="Assets\Scripts\SpaceShip\Display\HUDLabel.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\StyleContainer.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Joystick\JoystickController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Model\ModelController.cs" />

@@ -1,62 +1,71 @@
 using UnityEngine;
 
+using System;
+
 using System.Collections;
 using System.Collections.Generic;
 
 public class HUD : MonoBehaviour {
 
 	public Transform spaceship
-	{ get; private set; }
+	{ get; protected set; }
 	public SpaceshipController spaceshipController
-	{ get; private set; }
+	{ get; protected set; }
 
 	public RaceManager raceManager
-	{ get; private set; }
+	{ get; protected set; }
 
 	// HUD Screen offset
 	public int screenID
-	{ get; private set; }
+	{ get; protected set; }
 	public Vector2 screenOffset
-	{ get; private set; }
+	{ get; protected set; }
 	public Vector2 speedometerOffset
-	{ get; private set; }
+	{ get; protected set; }
 
 	// Standings Attributes
 	public Vector2 standingPosition
-	{ get; private set; }
+	{ get; protected set; }
 
 	public float standingWidth
-	{ get; private set; }
+	{ get; protected set; }
 	public float standingHeight
-	{ get; private set; }
+	{ get; protected set; }
 
 	public List<Texture2D> standingsTextureList
-	{ get; private set; }
-
+	{ get; protected set; }
 
 	// Current Lap Attributes
 	public Vector2 lapPosition
-	{ get; private set; }
+	{ get; protected set; }
 
 	public float lapWidth
-	{ get; private set; }
+	{ get; protected set; }
 	public float lapHeight
-	{ get; private set; }
+	{ get; protected set; }
 
 	public List<Texture2D> lapTextureList
-	{ get; private set; }
+	{ get; protected set; }
 
+	// Best Lap Time Attributes
+	public HUDLabel bestLapTimeLabel
+	{ get; protected set; }
+
+	// Current Lap Time Attributes
+	public HUDLabel currentLapTimeLabel
+	{ get; protected set; }
+	
 	// Health Attributes
-	private HUDBar healthBar
-	{ get; set; }
+	public HUDBar healthBar
+	{ get; protected set; }
 
 	// Repair Attributes
-	private HUDBar repairBar
-	{ get; set; }
+	public HUDBar repairBar
+	{ get; protected set; }
 
 	// Gold Attributes
-	private HUDBar goldBar
-	{ get; set; }
+	public HUDBar goldBar
+	{ get; protected set; }
 
 	// Speedometer Attributes
 	public Vector2 speedometerPosition
@@ -109,6 +118,14 @@ public class HUD : MonoBehaviour {
 		// Set the ScreensID according to the Spaceships ID
 		this.screenID = spaceshipController.id - 1;
 
+		// Best Lap Attributes
+		this.bestLapTimeLabel = new HUDLabel();
+		this.bestLapTimeLabel.label = "Best Lap Time";
+
+		// Current Lap Attributes
+		this.currentLapTimeLabel = new HUDLabel();
+		this.currentLapTimeLabel.label = "Current Lap Time";
+
 		// Health Attributes
 		this.healthBar = new HUDBar();
 		this.healthBar.text = "Health";
@@ -148,44 +165,97 @@ public class HUD : MonoBehaviour {
 	public void Update () {
 			
 		if(this.screenID != -1) {
+
 			this.screenOffset = new Vector2(Screen.width * (0.5f * (float)this.screenID), 0.0f);
 			this.speedometerOffset = new Vector2(Screen.width * (0.5f * (float)(this.screenID - 1)), 0.0f);
 		}
 
 		// Update the Standings Position and Dimensions according to the Screens Resolution
-		this.standingPosition = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f) + screenOffset;
+		this.standingPosition = 
+			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f) + 
+				screenOffset;
 
 		this.standingWidth = Screen.height * 0.15f;
 		this.standingHeight = Screen.height * 0.05f;
 
 		// Update the Laps Position and Dimensions according to the Screens Resolution
-		this.lapPosition = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + this.standingHeight * 1.1f) + screenOffset;
+		this.lapPosition = 
+			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
+			            this.standingHeight * 1.1f) + screenOffset;
 
 		this.lapWidth = Screen.height * 0.15f;
 		this.lapHeight = Screen.height * 0.05f;
 
+		// Update the Best Lap Time Position and value
+		this.bestLapTimeLabel.position = 
+			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
+			            this.standingHeight * 1.1f + 
+			            this.lapHeight * 1.75f) + screenOffset;
+
+		this.bestLapTimeLabel.width = Screen.height * 0.15f;
+		this.bestLapTimeLabel.height = Screen.height * 0.025f;
+
+		TimeSpan bestLapTime = TimeSpan.FromSeconds(this.spaceshipController.raceRecord.bestLapTime);
+		
+		this.bestLapTimeLabel.text = string.Format("{0:00}:{1:00}:{2:000}", bestLapTime.Minutes, bestLapTime.Seconds, bestLapTime.Milliseconds);
+
+		// Update the Current Lap Time Position and value
+		this.currentLapTimeLabel.position = 
+			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
+			            this.standingHeight * 1.1f + 
+			            this.lapHeight * 1.75f + 
+			            this.bestLapTimeLabel.height * 2.0f) + screenOffset;
+		
+		this.currentLapTimeLabel.width = Screen.height * 0.15f;
+		this.currentLapTimeLabel.height = Screen.height * 0.025f;
+
+		TimeSpan currentLapTime = TimeSpan.FromSeconds(this.spaceshipController.raceRecord.currentLapTime);
+		
+		this.currentLapTimeLabel.text = string.Format("{0:00}:{1:00}:{2:000}", currentLapTime.Minutes, currentLapTime.Seconds, currentLapTime.Milliseconds);
+
 		// Update the Health Bars Position and Dimensions according to the Screens Resolution
-		this.healthBar.position = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + this.standingHeight * 1.1f + this.lapHeight * 2.0f) + screenOffset;
+		this.healthBar.position = 
+			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
+			            this.standingHeight * 1.1f + 
+			            this.lapHeight * 2.0f + 
+			            this.bestLapTimeLabel.height * 2.0f + 
+			            this.currentLapTimeLabel.height * 2.0f) + screenOffset;
+
 		this.healthBar.width = Screen.width * 0.15f;
-		this.healthBar.height = Screen.height * 0.05f;
+		this.healthBar.height = Screen.height * 0.025f;
 	
 		this.healthBar.amount = this.spaceshipController.health;
 		this.healthBar.minimumAmount = spaceshipController.minimumHealth;
 		this.healthBar.maximumAmount = spaceshipController.maximumHealth;
 	
 		// Update the Repair Bars Position and Dimensions according to the Screens Resolution
-		this.repairBar.position = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + this.standingHeight * 1.1f + this.lapHeight * 2.0f + this.healthBar.height * 2.0f) + screenOffset;
+		this.repairBar.position = 
+			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
+			            this.standingHeight * 1.1f + 
+			            this.lapHeight * 2.0f + 
+			            this.bestLapTimeLabel.height * 2.0f + 
+			            this.currentLapTimeLabel.height * 2.0f +
+			            this.healthBar.height * 2.0f) + screenOffset;
+
 		this.repairBar.width = Screen.width * 0.15f;
-		this.repairBar.height = Screen.height * 0.05f;
+		this.repairBar.height = Screen.height * 0.025f;
 
 		this.repairBar.amount = this.spaceshipController.repairTime;
 		this.repairBar.minimumAmount = spaceshipController.minimumRepairTime;
 		this.repairBar.maximumAmount = spaceshipController.maximumRepairTime;
 
 		// Update the Gold Bars Position and Dimensions according to the Screens Resolution
-		this.goldBar.position = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + this.standingHeight * 1.1f + this.lapHeight * 2.0f + this.healthBar.height * 2.0f + this.repairBar.height * 2.0f) + screenOffset;
+		this.goldBar.position = 
+			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
+			            this.standingHeight * 1.1f + 
+			            this.lapHeight * 2.0f + 
+			            this.bestLapTimeLabel.height * 2.0f + 
+			            this.currentLapTimeLabel.height * 2.0f +
+			            this.healthBar.height * 2.0f + 
+			            this.repairBar.height * 2.0f) + screenOffset;
+
 		this.goldBar.width = Screen.width * 0.15f;
-		this.goldBar.height = Screen.height * 0.05f;
+		this.goldBar.height = Screen.height * 0.025f;
 		
 		this.goldBar.amount = this.spaceshipController.gold;
 		this.goldBar.minimumAmount = 0.0f;
@@ -220,6 +290,11 @@ public class HUD : MonoBehaviour {
 			
 	public void OnGUI() {
 
+		// Draw the Best Lap Label
+		this.bestLapTimeLabel.Draw();
+		// Draw the Current Lap Label
+		this.currentLapTimeLabel.Draw();
+
 		// Draw the Health Bar
 		this.healthBar.Draw();
 		// Draw the Repair Bar
@@ -233,17 +308,18 @@ public class HUD : MonoBehaviour {
 		GUI.DrawTexture(new Rect(this.standingPosition.x, this.standingPosition.y, this.standingWidth, this.standingHeight), this.standingsTextureList[standing-1]);
 
 		// Draw the Laps
-		int lap = Mathf.Clamp(this.spaceshipController.raceRecord.currentLap, 0, this.raceManager.lapTotal);
+		int lap = Mathf.Clamp(this.spaceshipController.raceRecord.currentLap, 0, this.raceManager.lapTotal-1);
 
 		GUI.DrawTexture(new Rect(this.lapPosition.x, this.lapPosition.y, this.lapWidth, this.lapHeight), this.lapTextureList[lap]);
 
 		// Draw the Speedometer
 		GUI.DrawTexture(new Rect(this.speedometerPosition.x, this.speedometerPosition.y, this.speedometerWidth, this.speedometerHeight), this.speedometerTexture);
+
 		// Draw the Pointer
 		Vector2 distance = this.pointerFinish - this.pointerStart;
 		float a = Mathf.Rad2Deg * Mathf.Atan(distance.y / distance.x);
 
-		if (distance.x < 0)
+		if(distance.x < 0)
 			a += 180;
 		
 		int width = (int)Mathf.Ceil(this.pointerWidth / 2);
