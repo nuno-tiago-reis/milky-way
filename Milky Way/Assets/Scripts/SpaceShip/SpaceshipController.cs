@@ -9,131 +9,167 @@ public class SpaceshipController : MonoBehaviour {
 	// Spaceships ID
 	public int id;
 
-	// Spaceships Health
-	public float health
-	{ get; protected set; }
-	public float maximumHealth
-	{ get; protected set; }
-	public float minimumHealth
-	{ get; protected set; }
-
-	public const float healthZero = 100.0f;
-	public const float healthIncrement = 50.0f;
-
-	// Spaceships Weapon Power
-	public float power
-	{ get; protected set; }
-	public float maximumPower
-	{ get; protected set; }
-	public float minimumPower
-	{ get; protected set; }
-
-	public const float powerZero = 5.0f;
-	public const float powerIncrement = 5.0f;
-
-	// Spaceships Controller Attributes
-	public float acceleration
-	{ get; protected set; }
-	public float maximumAcceleration
-	{ get; protected set; }
-	public float minimumAcceleration
-	{ get; protected set; }
-
-	public const float accelerationStep = 5.0f;
-
-	public const float accelerationZero = 2.5f;
-	public const float accelerationIncrement = 1.25f;
-	
-	public float handling
-	{ get; protected set; }
-	public float maximumHandling
-	{ get; protected set; }
-	public float minimumHandling
-	{ get; protected set; }
-
-	public const float handlingZero = 10.0f;
-	public const float handlingIncrement = 5.0f;
-
-	// Spaceships Timeout counter
-	public float repairTime
-	{ get; protected set; }
-	public float maximumRepairTime
-	{ get; protected set; }
-	public float minimumRepairTime
-	{ get; protected set; }
-
-	// Spaceships Gold
-	public int gold
-	{ get; protected set; }
-	
-	// Spaceships PowerUp List
-	public List<string> powerUpList;
-
-	// Spaceships Direction Vectors
-	public Vector3 up
-	{ get; protected set; }
-	public Vector3 right
-	{ get; protected set; }
-	public Vector3 forward
-	{ get; protected set; }
-
-	public float directionInterpolator
-	{ get; protected set; }
-
-	// Spaceships Children Transforms
-	public Transform model
-	{ get; protected set; }
-	public Transform backLeftCorner
-	{ get; protected set; }
-	public Transform backRightCorner
-	{ get; protected set; }
-	public Transform frontLeftCorner
-	{ get; protected set; }
-	public Transform frontRightCorner
-	{ get; protected set; }
-
-	// Spaceships Shooter Controller
-	public ShooterController shooter
-	{ get; protected set; }
-	// Spaceships Joystick Controller
-	public JoystickController joystick
-	{ get; protected set; }
-
-	// Spaceships Race Record
+	// Spaceships Race Record - Defines the current standings, laps adnd lap times.
 	public RaceRecord raceRecord
 	{ get; protected set; }
 
+	// Spaceships Health Attributes
+
+		// Defines how much damage the Spaceship can take before needing repairs.
+		public float health
+		{ get; protected set; }
+		public float maximumHealth
+		{ get; protected set; }
+		public float minimumHealth
+		{ get; protected set; }
+
+		// Defines the Spaceships basic Health.
+		public const float healthZero = 100.0f;
+		// Defines the Spaceships extra Health for each point spent in the Spaceship Configuration.
+		public const float healthIncrement = 50.0f;
+
+	// Spaceships Weapon Power Attributes
+
+		//Defines how much damage the Spaceship deals with its basic weapon.
+		public float weaponPower
+		{ get; protected set; }
+		public float maximumWeaponPower
+		{ get; protected set; }
+		public float minimumWeaponPower
+		{ get; protected set; }
+
+		// Defines the Spaceships basic Weapon Power.
+		public const float powerZero = 5.0f;
+		// Defines the Spaceships extra Weapon Power for each point spent in the Spaceship Configuration.
+		public const float powerIncrement = 5.0f;
+
+	// Spaceships Acceleration Attributes
+
+		// Defines how fast the Spaceship can move.
+		public float acceleration
+		{ get; protected set; }
+		public float maximumAcceleration
+		{ get; protected set; }
+		public float minimumAcceleration
+		{ get; protected set; }
+
+		// Defines the Spaceships basic Acceleration step.
+		public const float accelerationStep = 5.0f;
+
+		// Defines the Spaceships basic Acceleration.
+		public const float accelerationZero = 2.5f;
+		// Defines the Spaceships extra Acceleration for each point spent in the Spaceship Configuration.
+		public const float accelerationIncrement = 1.25f;
+
+	// Spaceships Handling Attributes
+
+		// Defines how fast the Spaceship can turn.
+		public float handling
+		{ get; protected set; }
+		public float maximumHandling
+		{ get; protected set; }
+		public float minimumHandling
+		{ get; protected set; }
+
+		// Defines the Spaceships basic Handling.
+		public const float handlingZero = 10.0f;
+		// Defines the Spaceships extra Handling for each point spent in the Spaceship Configuration.
+		public const float handlingIncrement = 5.0f;
+
+	// Spaceships Reparation Attributes
+
+		// Defines how much time the Spaceship needs to regain Health.
+		public float repairTime
+		{ get; protected set; }
+		public float maximumRepairTime
+		{ get; protected set; }
+		public float minimumRepairTime
+		{ get; protected set; }
+
+	// Spaceships Gold - Defines the score accumulated from the collected Star Fragments during the Race.
+	public int gold
+	{ get; protected set; }
+
+	// Spaceships PowerUp List - Defines the PowerUps collected during the Race.
+	public List<string> powerUpList;
+
+	// Spaceships Orientation Attributes
+
+		// Defines the new Orientation Vectors used to align the Spaceship to the Track.
+		public Vector3 up
+		{ get; protected set; }
+		public Vector3 right
+		{ get; protected set; }
+		public Vector3 forward
+		{ get; protected set; }
+
+		// Defines how fast the Spaceship adjusts to its new Orientation
+		public float directionInterpolator
+		{ get; protected set; }
+
+	// Spaceships Children Transforms
+
+		// Used to Align the Model according to the Track Orientation and the Spaceships Movement.
+		public Transform model
+		{ get; protected set; }
+
+		// Used to Calculate the Orientation Vectors to Align the Model according to the Track Orientation.
+		public Transform backLeftCorner
+		{ get; protected set; }
+		public Transform backRightCorner
+		{ get; protected set; }
+		public Transform frontLeftCorner
+		{ get; protected set; }
+		public Transform frontRightCorner
+		{ get; protected set; }
+
+	// Spaceships Shooter Controller - Controls the Spaceships Basic Weapon
+	public ShooterController shooter
+	{ get; protected set; }
+
+	// Spaceships Joystick Controller - Controls the Spaceships Joystick Input
+	public JoystickController joystick
+	{ get; protected set; }
+
 	public void Awake () {
+		
+		// Spaceships Race Record
+		this.raceRecord = new RaceRecord();
 	
-		// Spaceships starting Health
+		// Spaceships starting, maximum and minimum Health values are defined by the SpaceshipConfiguration.
 		this.health = 0.0f;
 		this.maximumHealth = 0.0f;
 		this.minimumHealth = 0.0f;
 		
-		// Spaceships starting Power
-		this.power = 0.0f;
-		this.maximumPower = 0.0f;
-		this.minimumPower = 0.0f;
+		// Spaceships starting, maximum and minimum shooting Power values are defined by the SpaceshipConfiguration.
+		this.weaponPower = 0.0f;
+		this.maximumWeaponPower = 0.0f;
+		this.minimumWeaponPower = 0.0f;
 		
-		// Spaceships starting Speed
+		// Spaceships starting, maximum and minimum acceleration values are defined by the SpaceshipConfiguration.
 		this.acceleration = 0.0f;
 		this.maximumAcceleration = 0.0f;
 		this.minimumAcceleration = 0.0f;
 		
-		// Spaceships starting Handling
+		// Spaceships starting, maximum and minimum handling values are defined by the SpaceshipConfiguration.
 		this.handling = 0.0f;
 		this.maximumHandling = 0.0f;
 		this.minimumHandling = 0.0f;
 
-		// Spaceships Repair Time
+		// Initialize the Health, Weapon Power, Acceleration and Handling Attributes according to the SpaceshipConfiguration.
+		Initialize(new SpaceshipConfiguration(5,5,5,5));
+
+		// Initialize the Spaceships Repair Time.
 		this.repairTime = 0.0f;
 		this.maximumRepairTime = 2.5f;
 		this.minimumRepairTime = 1.0f;
 
-		// Spaceships starting Abilities
+		// Initialize the Spaceships Gold.
+		this.gold = 0;
+		// Initialize the Spaceships PowerUp List.
 		this.powerUpList = new List<string>();
 
-		// Spaceships reference to its Children
+		// Initialize the Spaceships reference to its Children.
 		this.model = this.transform.FindChild("Model");
 
 		this.backLeftCorner = this.transform.FindChild("Back Left Corner");
@@ -141,16 +177,10 @@ public class SpaceshipController : MonoBehaviour {
 		this.frontLeftCorner = this.transform.FindChild("Front Left Corner");
 		this.frontRightCorner = this.transform.FindChild("Front Right Corner");
 
-		// Spaceships reference to its Rocket
+		// Initialize the Shooter Controller
 		this.shooter = this.transform.GetComponent<ShooterController>();
-
-		// Spaceships reference to its Joystick
+		// Initialize the Joystick Controller
 		this.joystick = this.transform.GetComponent<JoystickController>();
-
-		// Spaceships Race Record
-		this.raceRecord = new RaceRecord();
-
-		Initialize(new SpaceshipConfiguration(5,5,5,5));
 	}
 
 	public void Initialize(SpaceshipConfiguration spaceshipConfiguration) {
@@ -162,10 +192,10 @@ public class SpaceshipController : MonoBehaviour {
 		this.health = SpaceshipController.healthZero + SpaceshipController.healthIncrement * spaceshipConfiguration.health;
 
 		// Power = starting value + a increment for each point spent
-		this.minimumPower = SpaceshipController.powerZero;
-		this.maximumPower = SpaceshipController.powerZero + SpaceshipController.powerIncrement * 5.0f;
+		this.minimumWeaponPower = SpaceshipController.powerZero;
+		this.maximumWeaponPower = SpaceshipController.powerZero + SpaceshipController.powerIncrement * 5.0f;
 
-		this.power = SpaceshipController.powerZero + SpaceshipController.powerIncrement * spaceshipConfiguration.power;
+		this.weaponPower = SpaceshipController.powerZero + SpaceshipController.powerIncrement * spaceshipConfiguration.power;
 
 		// Speed = starting value + a increment for each point spent
 		this.minimumAcceleration = 0.0f;
@@ -178,9 +208,6 @@ public class SpaceshipController : MonoBehaviour {
 		this.maximumHandling = SpaceshipController.handlingZero + SpaceshipController.handlingIncrement * 5.0f;
 
 		this.handling = SpaceshipController.handlingZero + SpaceshipController.handlingIncrement * spaceshipConfiguration.handling;
-
-		Debug.Log("SpaceshipController = " + spaceshipConfiguration.handling);
-		Debug.Log("Handling = " + this.handling);
 	}
 
 	public void FixedUpdate() {
@@ -203,10 +230,10 @@ public class SpaceshipController : MonoBehaviour {
 		if(movementStatus == false)
 			return;
 
-		// Ability Input
-		bool abilityStatus = CheckAbilities();
+		// PowerUp Input
+		bool powerUpStatus = CheckPowerUps();
 		
-		if(abilityStatus == false)
+		if(powerUpStatus == false)
 			return;
 	}
 
@@ -312,7 +339,7 @@ public class SpaceshipController : MonoBehaviour {
 
 		// Accelerator = Cross & Brake = Square
 		bool accelerator = 
-			(Input.GetKey(this.joystick.cross) == true && Input.GetKey(this.joystick.square) == false) ||			// Joystick
+			(Input.GetKey(this.joystick.cross) == true && Input.GetKey(this.joystick.square) == false) ||	// Joystick
 			(Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.Q) == false && this.id == 1) ||		// PC Player 1
 			(Input.GetKey(KeyCode.UpArrow) == true && Input.GetKey(KeyCode.B) == false && this.id == 2);	// PC Player 2
 
@@ -343,12 +370,14 @@ public class SpaceshipController : MonoBehaviour {
 			(Input.GetKey(KeyCode.B) == true && this.id == 2);		// PC Player 2
 
 		if(brake == true) {
+
+			this.acceleration = 0.0f;
 			
 			// Reduce the Spaceships Velocity (Acceleration)
-			this.rigidbody.velocity = this.rigidbody.velocity * 0.99f;
+			this.rigidbody.velocity = this.rigidbody.velocity * 0.95f;
 
 			// Reduce the Spaceships Angular Velocity (Steering)
-			this.rigidbody.angularVelocity = this.rigidbody.angularVelocity * 0.99f;
+			this.rigidbody.angularVelocity = this.rigidbody.angularVelocity * 0.95f;
 		}
 
 		if(Mathf.Abs(this.acceleration) < 0.05f)
@@ -390,47 +419,53 @@ public class SpaceshipController : MonoBehaviour {
 		return true;
 	}
 
-	public bool CheckAbilities() {
+	public bool CheckPowerUps() {
 
-		// Rockets - L1
-		bool shoot = 
+		// Lasers - L1
+		bool laser = 
 			(Input.GetKey(this.joystick.L1) == true) || 
 			(Input.GetKey(KeyCode.F1) == true && this.id == 1) ||
 			(Input.GetKey(KeyCode.Alpha1) == true && this.id == 2);
 
-		if(shoot == true) {
+		if(laser == true) {
 
 			this.shooter.Shoot();
+		}
+
+		// Rocket - L2
+		bool homingRocket = 
+			(Input.GetKey(this.joystick.L2) == true) || 
+				(Input.GetKey(KeyCode.F2) == true && this.id == 1) ||
+				(Input.GetKey(KeyCode.Alpha2) == true && this.id == 2);
+		
+		if(homingRocket == true && powerUpList.Contains("HomingRocket")) {
+			
+			PowerUp powerUp = this.transform.gameObject.GetComponent<HomingRocketPowerUp>();
+			powerUp.Activate();
 		}
 		
 		// Shield - R1
 		bool shield = 
 			(Input.GetKey(this.joystick.R1) == true) || 
-			(Input.GetKey(KeyCode.F2) == true && this.id == 1) ||
-			(Input.GetKey(KeyCode.Alpha2) == true && this.id == 2);
+			(Input.GetKey(KeyCode.F3) == true && this.id == 1) ||
+			(Input.GetKey(KeyCode.Alpha3) == true && this.id == 2);
 
 		if(shield == true && powerUpList.Contains("Shield")) {
 				
 			PowerUp powerUp = this.transform.gameObject.GetComponent<ShieldPowerUp>();
-
 			powerUp.Activate();
-					
-			powerUpList.Remove(powerUp.powerUpName);
 		}
 		
-		// Smokescreen - L2
+		// Smokescreen - R2
 		bool smokescreen = 
-			(Input.GetKey(this.joystick.L2) == true) || 
-			(Input.GetKey(KeyCode.F3) == true && this.id == 1) ||
-			(Input.GetKey(KeyCode.Alpha3) == true && this.id == 2);
+			(Input.GetKey(this.joystick.R2) == true) || 
+			(Input.GetKey(KeyCode.F4) == true && this.id == 1) ||
+			(Input.GetKey(KeyCode.Alpha4) == true && this.id == 2);
 
 		if(smokescreen == true && powerUpList.Contains("Smokescreen")) {
 			
 			PowerUp powerUp = this.transform.gameObject.GetComponent<SmokescreenPowerUp>();
-			
 			powerUp.Activate();
-				
-			powerUpList.Remove(powerUp.powerUpName);
 		}
 
 		return true;
@@ -456,9 +491,10 @@ public class SpaceshipController : MonoBehaviour {
 
 			foreach(ContactPoint contactPoint in collision.contacts) {
 
-				Vector3 contactNormal = contactPoint.normal;
+				Vector3 contactNormal = contactPoint.point - this.transform.position;
+				contactNormal.Normalize();
 
-				Debug.Log("Repulsion!");
+				Debug.Log("Repulsion!" + contactNormal);
 
 				this.rigidbody.velocity = Vector3.Reflect(this.rigidbody.velocity.normalized, contactNormal.normalized) * this.rigidbody.velocity.magnitude * 0.75f; 
 			}
@@ -477,7 +513,7 @@ public class SpaceshipController : MonoBehaviour {
 	
 	public bool AddPowerUp(string powerUpName) {
 
-		//Debug.Log("AddPowerUp(" + powerUpName + ")");
+		Debug.Log("AddPowerUp(" + powerUpName + ")");
 
 		// If the Spaceship already has this Ability, don't add it.
 		if(this.powerUpList.Contains(powerUpName) == true)
@@ -487,7 +523,28 @@ public class SpaceshipController : MonoBehaviour {
 		
 		// Add the PowerUp to the inventory	
 		this.powerUpList.Add(powerUpName);
+		Debug.Log("Power up List size = " + this.powerUpList.Count);
+		return true;
+	}
+
+	public bool RemovePowerUp(string powerUpName) {
 		
+		Debug.Log("RemovePowerUp(" + powerUpName + ")");
+
+		// If the Spaceship doesn't have this Ability, don't remove it.
+		if(this.powerUpList.Contains(powerUpName) == false)
+			return false;
+
+		// Remove the PowerUp from the inventory	
+		this.powerUpList.Remove(powerUpName);
+
+		// Destroy the PowerUp
+		PowerUp[] powerUpList = this.transform.GetComponents<PowerUp>();
+
+		foreach(PowerUp powerUp in powerUpList)
+			if(powerUp.name == powerUpName)
+				Destroy(powerUp.gameObject);
+
 		return true;
 	}
 	#endregion

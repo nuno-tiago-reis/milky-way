@@ -36,55 +36,31 @@ public class ProjectileController : MonoBehaviour {
 	
 	public virtual void OnTriggerEnter(Collider collider) {
 
-		Debug.Log("ProjectileController - OnTriggerEnter(" + collider.name +")");
-
 		// Collision with other Abilities
-		if(collider.gameObject.layer == LayerMask.NameToLayer("Abilities")) {
-			
-			ProjectileController abilityController = collider.transform.GetComponent<ProjectileController>();
-			
-			if(abilityController == null)
-				return;
+		if(collider.gameObject.layer == LayerMask.NameToLayer("PowerUps")) {
 
-			// Collision with friendly Abilities
-			if(abilityController.parent == this.parent) {
-				
-				Debug.Log("Ability Collision - Friendly Fire!");
-				
-				return;
-			}
-			
-			// Collision with hostile Abilities
-			if(abilityController.parent != this.parent) {
-				
-				Debug.Log("Ability Collision - Damage to " + collider.transform.name + "!");
-				
+			// Collision with the Shield PowerUp
+			if(collider.gameObject.tag == "Shield") {
+
 				Destroy(this.gameObject);
-				
+
 				return;
 			}
 		}
 			
-			// Collision with other Spaceships
+		// Collision with other Spaceships
 		if(collider.gameObject.layer == LayerMask.NameToLayer("Spaceships")) {
-				
-			SpaceshipController spaceshipController = collider.transform.GetComponent<SpaceshipController>();
-
-			// Collision with friendly Spaceships
-			if(collider.transform == this.parent) {
-
-				Debug.Log("Spaceship Collision - Friendly Fire!");
-
-				return;
-			}
 
 			// Collision with hostile Spaceships
 			if(collider.transform != this.parent) {
 				
 				Debug.Log("Spaceship Collision - Damage to " + collider.transform.name + "!");
 
+				SpaceshipController spaceshipController = collider.transform.GetComponent<SpaceshipController>();
 				spaceshipController.InflictDamage(this.damage);
 
+				Destroy(this.gameObject);
+				
 				return;
 			}
 		}

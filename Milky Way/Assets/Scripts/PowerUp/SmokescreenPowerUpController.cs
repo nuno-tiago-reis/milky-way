@@ -2,16 +2,12 @@ using UnityEngine;
 
 public class SmokescreenPowerUpController : PowerUpController {
 
+	// Defines the SmokescreenPowerUpController Radius.
 	public float radius
 	{ get; set; }
 
-	// When the game starts
+	// When the SmokescreenPowerUpController is Created
 	public override void Awake() {
-
-		base.Awake();
-		
-		// Initialize the Smokescreens radius.
-		this.radius = 0.0f;
 	}
 	
 	// Update is called once per frame

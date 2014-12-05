@@ -2,39 +2,51 @@ using UnityEngine;
 
 public class HomingRocketPowerUp : PowerUp {
 
-	public float damage
-	{ get; protected set; }
+	// Defines the HomingRocketPowerUps Damage.
+	public const float homingRocketDamage = 150.0f;
+	// Defines the HomingRocketPowerUps Force.
+	public const float homingRocketForce = 1.0f;
+	// Defines the HomingRocketPowerUps Lifetime.
+	public const float homingRocketLifetime = 10.0f;
 
+	// When the HomingRocketPowerUp is Created
 	public override void Awake() {
 
-		// Initialize the Abilitys Name.
+		// Initialize the PowerUps Name.
 		this.powerUpName = "HomingRocket";
-		// Initialize the Abilitys Lifetime - It will be destroyed when the lifetime ends.
-		this.lifetime = 5.0f;
-
-		// Initialize the HomingRockets Damage.
-		this.damage = 50.0f;
 	}
 	
-	public override void Activate() {
+	public override bool Activate() {
+
+		if(base.Activate() == false)
+			return false;
 
 		Debug.Log("HomingRocket - Activate(" + this.transform.parent.name + ")");
 
 		// Instantiate the HomingRockets GameObject
 		GameObject homingRocket = GameObject.Instantiate(Resources.Load("Prefabs/PowerUps/" + this.powerUpName)) as GameObject;
-		// Set the Parent transform to null
+		// Set the Parent transform to null so that it doesn't follow the parent.
 		homingRocket.transform.parent = null;
-		// Set the Rotation so that it matches the Spaceships.
-		homingRocket.transform.rotation = this.transform.parent.rotation;
-		// Set the Position  so that it matches the Spaceships Shooter Position.
-		homingRocket.transform.position = this.transform.parent.position;
+		// Set the Position and Rotation so that it matches the Spaceships Rotation and Position.
+		homingRocket.transform.rotation = this.transform.rotation;
+		homingRocket.transform.position = this.transform.position + this.transform.up * 15.0f;
 		
 		// Initialize the HomingRockets Controller
 		HomingRocketPowerUpController homingRocketController = homingRocket.GetComponent<HomingRocketPowerUpController>();
-		homingRocketController.parent = this.transform.parent;
-		homingRocketController.damage = this.damage;
-		homingRocketController.lifetime = this.lifetime;
+		// Set the PowerUps name.
+		homingRocketController.powerUpName = this.powerUpName;
+		// Store a reference to the Parent.
+		homingRocketController.parent = this.transform;
+		// Set the Damage, Force and Lifetime according to the PowerUps Constants.
+		homingRocketController.damage = HomingRocketPowerUp.homingRocketDamage;
+		homingRocketController.force = HomingRocketPowerUp.homingRocketForce;
+		homingRocketController.lifetime = HomingRocketPowerUp.homingRocketLifetime;
 
-		Destroy(this);
+		homingRocketController.FindTarget();
+
+		// Store a Reference to the PowerUp Controller.
+		this.powerUpController = homingRocketController;
+
+		return true;
 	}
 }

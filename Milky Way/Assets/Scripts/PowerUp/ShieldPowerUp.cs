@@ -2,39 +2,46 @@ using UnityEngine;
 
 public class ShieldPowerUp : PowerUp {
 
-	public float health
-	{ get; protected set; }
+	// Defines the ShieldPowerUp Health.
+	public const float shieldHealth = 500.0f;
+	// Defines the ShieldPowerUp Lifetime.
+	public const float shieldLifetime = 15.0f;
 
+	// When the ShieldPowerUp is Created
 	public override void Awake() {
 
 		// Initialize the Abilitys Name.
 		this.powerUpName = "Shield";
-		// Initialize the Abilitys Lifetime - It will be destroyed when the lifetime ends.
-		this.lifetime = 15.0f;
-		
-		// Initialize the Shields Health.
-		this.health = 500.0f;
 	}
 
-	public override void Activate() {
+	public override bool Activate() {
+
+		if(base.Activate() == false)
+			return false;
 		
 		Debug.Log("Shield - Activate(" + this.transform.parent.name + ")");
 
 		// Instantiate the Shields GameObject
 		GameObject shield = GameObject.Instantiate(Resources.Load("Prefabs/PowerUps/" + this.powerUpName)) as GameObject;
-		// Set the Parent transform to null
+		// Set the Parent transform so that it follows the parent
 		shield.transform.parent = this.transform;
-		// Set the Rotation so that it matches the Spaceships.
+		// Set the Position and Rotation so that it matches the Spaceships Rotation and Position.
 		shield.transform.rotation = this.transform.rotation;
-		// Set the Position  so that it matches the Spaceships Shooter Position.
 		shield.transform.position = this.transform.position;
 
 		// Initialize the Shields Controller
 		ShieldPowerUpController shieldController = shield.GetComponent<ShieldPowerUpController>();
+		// Set the PowerUps name.
+		shieldController.powerUpName = this.powerUpName;
+		// Store a reference to the Parent.
 		shieldController.parent = this.transform;
-		shieldController.health = this.health;
-		shieldController.lifetime = this.lifetime;
+		// Set the Health and Lifetime according to the PowerUps Constants.
+		shieldController.health = ShieldPowerUp.shieldHealth;
+		shieldController.lifetime = ShieldPowerUp.shieldLifetime;
 
-		Destroy(this);
+		// Store a Reference to the PowerUp Controller.
+		this.powerUpController = shieldController;
+
+		return true;
 	}
 }

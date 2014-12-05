@@ -15,19 +15,16 @@ public class CameraController : MonoBehaviour {
 
 		// Cameras reference to its Spaceships
 		this.spaceship = this.transform.parent.FindChild("Spaceship");
+	}
+
+	public void Initialize() {
 
 		// Set the Cameras Offset according to the Spaceships ID
 		Camera camera = this.transform.GetComponent<Camera>();
-
+		
 		SpaceshipController spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
-
-		if(spaceshipController.id != 0)
-			camera.rect = new Rect(0.5f * (float)(spaceshipController.id - 1), 0.0f, 0.5f, 1.0f);
-	}
-
-	// Update is called once per frame
-	public void Update () {
-
+		
+		camera.rect = new Rect(0.5f * (float)(spaceshipController.id - 1), 0.0f, 0.5f, 1.0f);
 	}
 
 	public void FixedUpdate() {

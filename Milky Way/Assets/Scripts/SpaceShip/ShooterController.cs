@@ -33,7 +33,7 @@ public class ShooterController : MonoBehaviour {
 			// Set the Rotation so that it matches the Spaceships.
 			laser.transform.rotation = shooterTransform.parent.rotation;
 			// Set the Position  so that it matches the Spaceships Shooter Position.
-			laser.transform.position = shooterTransform.position;
+			laser.transform.position = shooterTransform.position - this.transform.forward * 2.5f;
 			
 			// Initialize the Rockets Controller
 			LaserController laserController = laser.GetComponent<LaserController>();

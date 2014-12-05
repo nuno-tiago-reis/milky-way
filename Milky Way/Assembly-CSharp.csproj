@@ -50,6 +50,8 @@
      <Compile Include="Assets\Scripts\Item\Item.cs" />
      <Compile Include="Assets\Scripts\Item\PowerUpItem.cs" />
      <Compile Include="Assets\Scripts\Item\StarFragmentItem.cs" />
+     <Compile Include="Assets\Scripts\PowerUp\EnhancedLaserPowerUp.cs" />
+     <Compile Include="Assets\Scripts\PowerUp\EnhancedLaserPowerUpController.cs" />
      <Compile Include="Assets\Scripts\PowerUp\HomingRocketPowerUp.cs" />
      <Compile Include="Assets\Scripts\PowerUp\HomingRocketPowerUpController.cs" />
      <Compile Include="Assets\Scripts\PowerUp\PowerUp.cs" />
@@ -69,6 +71,7 @@
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUDBar.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUDLabel.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\StyleContainer.cs" />
+     <Compile Include="Assets\Scripts\SpaceShip\ExplosionController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Joystick\JoystickController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Model\ModelController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Model\TrailController.cs" />

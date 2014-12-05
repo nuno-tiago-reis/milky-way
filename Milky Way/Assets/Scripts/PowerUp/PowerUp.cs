@@ -1,19 +1,27 @@
 using UnityEngine;
 
 public abstract class PowerUp : MonoBehaviour {
-	
+
+	// Defines the PowerUps Name.
 	public string powerUpName
 	{ get; protected set;}
-	public float lifetime
-	{ get; protected set; }
+	// Defines the PowerUps Controller.
+	public PowerUpController powerUpController
+	{ get; protected set;}
 
+	// When the PowerUp is Created
 	public virtual void Awake() {
 		
-		// Initialize the Abilitys Name.
+		// Initialize the PowerUps Name.
 		this.powerUpName = "Generic PowerUp";
-		// Initialize the Abilitys Lifetime - It will be destroyed when the lifetime ends.
-		this.lifetime = 0.0f;
 	}
-	
-	public abstract void Activate();
+
+	// FixedUpdate is called once per fixed frame
+	public virtual bool Activate() {
+
+		if(this.powerUpController != null)
+			return false;
+			
+		return true;
+	}
 }

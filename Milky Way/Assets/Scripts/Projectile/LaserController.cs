@@ -13,7 +13,7 @@ public class LaserController : ProjectileController {
 		// Initialize the Lasers lifetime - It will be destroyed when the lifetime ends.
 		this.lifetime = 2.5f;
 		// Initialize the Lasers Force - Bigger force means faster laser
-		this.force = 25000.0f;
+		this.force = 15000.0f;
 	}
 	
 	// Update is called once per frame

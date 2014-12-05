@@ -115,9 +115,6 @@ public class HUD : MonoBehaviour {
 		// HUDs reference to the Race Manager
 		this.raceManager = GameObject.Find("Race Manager").GetComponent<RaceManager>();
 
-		// Set the ScreensID according to the Spaceships ID
-		this.screenID = spaceshipController.id - 1;
-
 		// Best Lap Attributes
 		this.bestLapTimeLabel = new HUDLabel();
 		this.bestLapTimeLabel.label = "Best Lap Time";
@@ -159,6 +156,12 @@ public class HUD : MonoBehaviour {
 
 		// PowerUp Attributes
 		this.powerUpTextureMap = new Dictionary<string, Texture2D>();
+	}
+
+	public void Initialize() {
+
+		// Set the ScreensID according to the Spaceships ID
+		this.screenID = spaceshipController.id - 1;
 	}
 	
 	// Update is called once per frame
@@ -303,9 +306,9 @@ public class HUD : MonoBehaviour {
 		this.goldBar.Draw();
 
 		// Draw the Standings
-		int standing = this.spaceshipController.raceRecord.currentStanding;
+		int standing = Mathf.Clamp(this.spaceshipController.raceRecord.currentStanding-1, 0, this.raceManager.spaceshipTotal-1);
 
-		GUI.DrawTexture(new Rect(this.standingPosition.x, this.standingPosition.y, this.standingWidth, this.standingHeight), this.standingsTextureList[standing-1]);
+		GUI.DrawTexture(new Rect(this.standingPosition.x, this.standingPosition.y, this.standingWidth, this.standingHeight), this.standingsTextureList[standing]);
 
 		// Draw the Laps
 		int lap = Mathf.Clamp(this.spaceshipController.raceRecord.currentLap, 0, this.raceManager.lapTotal-1);

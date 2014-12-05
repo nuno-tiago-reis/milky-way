@@ -40,16 +40,38 @@ public class RaceManager : MonoBehaviour {
 					this.spaceshipTotal++;
 					
 					spaceshipController.id = this.spaceshipTotal;
-					
+
+					// Initialize the Race Record
 					spaceshipController.raceRecord.currentCheckpoint = 0;
 					spaceshipController.raceRecord.currentLap = 0;
 					spaceshipController.raceRecord.currentStanding = this.spaceshipTotal;
 
+					// Initialize the Race Times
 					spaceshipController.raceRecord.bestLapTime = 0.0f;
 					spaceshipController.raceRecord.currentLapTime = 0.0f;
 					spaceshipController.raceRecord.totalLapTime = 0.0f;
 
 					this.spaceshipList.Add(spaceship);
+				}
+
+				Transform camera = player.FindChild("Camera");
+
+				CameraController cameraController = camera.GetComponent<CameraController>();
+
+				if(cameraController != null) {
+
+					// Initialize the Camera
+					cameraController.Initialize();
+				}
+
+				Transform hud = player.FindChild("HUD");
+				
+				HUD hudController = hud.GetComponent<HUD>();
+				
+				if(hudController != null) {
+					
+					// Initialize the HUD
+					hudController.Initialize();
 				}
 			}
 		}
