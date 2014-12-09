@@ -491,12 +491,12 @@ public class SpaceshipController : MonoBehaviour {
 
 			foreach(ContactPoint contactPoint in collision.contacts) {
 
-				Vector3 contactNormal = contactPoint.point - this.transform.position;
+				/*Vector3 contactNormal = contactPoint.point - this.transform.position;
 				contactNormal.Normalize();
 
 				Debug.Log("Repulsion!" + contactNormal);
 
-				this.rigidbody.velocity = Vector3.Reflect(this.rigidbody.velocity.normalized, contactNormal.normalized) * this.rigidbody.velocity.magnitude * 0.75f; 
+				this.rigidbody.velocity = Vector3.Reflect(this.rigidbody.velocity.normalized, contactNormal.normalized) * this.rigidbody.velocity.magnitude * 0.75f; */
 			}
 		}
 	}
