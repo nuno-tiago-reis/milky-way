@@ -38,6 +38,7 @@ public class SmokescreenPowerUp : PowerUp {
 		// Set the Health and Lifetime according to the PowerUps Constants.
 		smokescreenController.radius = SmokescreenPowerUp.smokescreenRadius;
 		smokescreenController.lifetime = SmokescreenPowerUp.smokescreenLifetime;
+		smokescreenController.maximumLifetime = SmokescreenPowerUp.smokescreenLifetime;
 
 		// Store a Reference to the PowerUp Controller.
 		this.powerUpController = smokescreenController;

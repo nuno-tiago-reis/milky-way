@@ -5,6 +5,12 @@ using System.Collections.Generic;
 
 public class ShooterController : MonoBehaviour {
 
+	public bool canShoot = true;
+
+	public float shooterTimer = 0.0f;
+
+	public float shooterDelay = 0.025f;
+
 	public List<Transform> shooterTransformList
 	{ get; protected set; }
 	
@@ -19,10 +25,24 @@ public class ShooterController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	public void Update () {
+	public void FixedUpdate () {
+
+		if(canShoot == false)
+			shooterTimer -= Time.fixedDeltaTime;
+
+		if(canShoot == false && shooterTimer < 0.0f)
+			canShoot = true;
 	}
 	
 	public void Shoot() {
+
+		if(canShoot == false)
+			return;
+
+		shooterTimer = shooterDelay;
+		canShoot = false;
+
+		float rand = Random.Range(0.0f,2.0f);
 
 		foreach(Transform shooterTransform in shooterTransformList) {
 
@@ -33,7 +53,7 @@ public class ShooterController : MonoBehaviour {
 			// Set the Rotation so that it matches the Spaceships.
 			laser.transform.rotation = shooterTransform.parent.rotation;
 			// Set the Position  so that it matches the Spaceships Shooter Position.
-			laser.transform.position = shooterTransform.position - this.transform.forward * 2.5f;
+			laser.transform.position = shooterTransform.position - this.transform.forward * rand;
 			
 			// Initialize the Rockets Controller
 			LaserController laserController = laser.GetComponent<LaserController>();

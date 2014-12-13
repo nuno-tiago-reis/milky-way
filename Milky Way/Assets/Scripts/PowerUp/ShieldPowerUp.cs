@@ -38,6 +38,7 @@ public class ShieldPowerUp : PowerUp {
 		// Set the Health and Lifetime according to the PowerUps Constants.
 		shieldController.health = ShieldPowerUp.shieldHealth;
 		shieldController.lifetime = ShieldPowerUp.shieldLifetime;
+		shieldController.maximumLifetime = ShieldPowerUp.shieldLifetime;
 
 		// Store a Reference to the PowerUp Controller.
 		this.powerUpController = shieldController;

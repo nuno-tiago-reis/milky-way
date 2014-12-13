@@ -12,6 +12,9 @@ public class PowerUpController : MonoBehaviour {
 	// Defines the PowerUpControllers lifetime, so that when its lifetime ends it is destroyed.
 	public float lifetime
 	{ get; set; }
+	// Defines the PowerUpControllers maximum lifetime.
+	public float maximumLifetime
+	{ get; set; }
 	
 	// When the PowerUpController is Created
 	public virtual void Awake() {
@@ -22,6 +25,8 @@ public class PowerUpController : MonoBehaviour {
 		this.powerUpName = "Generic PowerUp";
 		// Initialize the PowerUpControllers Lifetime.
 		this.lifetime = float.MinValue;
+		// Initialize the PowerUpControllers Maximum Lifetime.
+		this.maximumLifetime = float.MaxValue;
 	}
 	
 	// FixedUpdate is called once per fixed frame

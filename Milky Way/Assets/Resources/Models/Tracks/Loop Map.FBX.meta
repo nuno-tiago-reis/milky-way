@@ -10,6 +10,12 @@ ModelImporter:
     100008: SATURN
     100010: Torus001
     100012: Track
+    100014: Track_MeshPart0
+    100016: Track_MeshPart1
+    100018: Boundary_MeshPart0
+    100020: Boundary_MeshPart1
+    100022: Boundary_MeshPart2
+    100024: Boundary_MeshPart3
     400000: Boundary
     400002: fakeBoundary
     400004: Jupiter
@@ -17,24 +23,48 @@ ModelImporter:
     400008: SATURN
     400010: Torus001
     400012: Track
+    400014: Track_MeshPart0
+    400016: Track_MeshPart1
+    400018: Boundary_MeshPart0
+    400020: Boundary_MeshPart1
+    400022: Boundary_MeshPart2
+    400024: Boundary_MeshPart3
     2300000: Boundary
     2300002: fakeBoundary
     2300004: Jupiter
     2300006: SATURN
     2300008: Torus001
     2300010: Track
+    2300012: Track_MeshPart0
+    2300014: Track_MeshPart1
+    2300016: Boundary_MeshPart0
+    2300018: Boundary_MeshPart1
+    2300020: Boundary_MeshPart2
+    2300022: Boundary_MeshPart3
     3300000: Boundary
     3300002: fakeBoundary
     3300004: Jupiter
     3300006: SATURN
     3300008: Torus001
     3300010: Track
+    3300012: Track_MeshPart0
+    3300014: Track_MeshPart1
+    3300016: Boundary_MeshPart0
+    3300018: Boundary_MeshPart1
+    3300020: Boundary_MeshPart2
+    3300022: Boundary_MeshPart3
     4300000: Boundary
     4300002: Track
     4300004: SATURN
     4300006: Jupiter
     4300008: Torus001
     4300010: fakeBoundary
+    4300012: Track_MeshPart0
+    4300014: Track_MeshPart1
+    4300016: Boundary_MeshPart0
+    4300018: Boundary_MeshPart1
+    4300020: Boundary_MeshPart2
+    4300022: Boundary_MeshPart3
     9500000: //RootNode
   materials:
     importMaterials: 1

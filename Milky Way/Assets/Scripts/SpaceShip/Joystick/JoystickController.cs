@@ -42,7 +42,7 @@ public class JoystickController : MonoBehaviour {
 	{ get; protected set; }
 	
 	// Use this for initialization
-	public void Start () {
+	public void Initialize () {
 		
 		SpaceshipController spaceshipController = this.transform.GetComponent<SpaceshipController>();
 		
