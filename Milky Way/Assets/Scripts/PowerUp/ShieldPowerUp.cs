@@ -12,6 +12,9 @@ public class ShieldPowerUp : PowerUp {
 
 		// Initialize the Abilitys Name.
 		this.powerUpName = "Shield";
+
+        // Initilize the Abilitys Key
+        this.powerUpKey = "R1";
 	}
 
 	public override bool Activate() {

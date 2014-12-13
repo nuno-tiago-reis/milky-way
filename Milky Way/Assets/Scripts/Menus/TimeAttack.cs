@@ -17,8 +17,7 @@ public class TimeAttack : MonoBehaviour {
 	
 	}
 
-    public void onClick()
-    {
+    public void onClick() {
 
         Application.LoadLevel(levelToLoad);
     }

@@ -101,8 +101,20 @@ public class HUD : MonoBehaviour {
 	public float powerUpHeight
 	{ get; private set; }
 
+    // PowerUpKey Attributes
+    public Vector2 powerUpKeyPosition
+    { get; private set; }
+
+    public float powerUpKeyWidth
+    { get; private set; }
+    public float powerUpKeyHeight
+    { get; private set; }
+
 	public Dictionary<string, Texture2D> powerUpTextureMap
 	{ get; private set; }
+
+    public Dictionary<string, Texture2D> powerUpKeysMap
+    { get; private set; }
 
 	// Use this for initialization
 	public void Start () {
@@ -156,6 +168,8 @@ public class HUD : MonoBehaviour {
 
 		// PowerUp Attributes
 		this.powerUpTextureMap = new Dictionary<string, Texture2D>();
+
+        this.powerUpKeysMap = new Dictionary<string, Texture2D>();
 	}
 
 	public void Initialize() {
@@ -289,6 +303,11 @@ public class HUD : MonoBehaviour {
 
 		this.powerUpWidth = Screen.height * 0.10f;
 		this.powerUpHeight = Screen.height * 0.10f;
+
+        this.powerUpKeyPosition = new Vector2(Screen.width * 0.01f, Screen.height - this.powerUpKeyHeight) + screenOffset;
+
+        this.powerUpKeyWidth = Screen.height * 0.10f;
+        this.powerUpKeyHeight = Screen.height * 0.14f;
 	}
 			
 	public void OnGUI() {
@@ -340,16 +359,29 @@ public class HUD : MonoBehaviour {
 
 			Texture2D powerUpTexture;
 
+            Texture2D powerUpKeyTexture;
+
 			if(this.powerUpTextureMap.TryGetValue(powerUpName, out powerUpTexture) == false) {
 
 				powerUpTexture = (Texture2D)Resources.Load("Textures/HUD/PowerUps/" + powerUpName, typeof(Texture2D)) as Texture2D;
 
-				this.powerUpTextureMap.Add(powerUpName,powerUpTexture);
+				this.powerUpTextureMap.Add(powerUpName,powerUpTexture); 
 			}
+
+            if (this.powerUpKeysMap.TryGetValue(powerUpName + "K", out powerUpKeyTexture) == false) {
+                
+                powerUpKeyTexture = (Texture2D)Resources.Load("Textures/HUD/PowerUps/" + powerUpName + "K", typeof(Texture2D)) as Texture2D;
+
+                this.powerUpKeysMap.Add(powerUpName + "K", powerUpKeyTexture);
+            }
 
 			Vector2 powerUpPosition = this.powerUpPosition + new Vector2(powerUpOffset, 0.0f);
 
+            Vector2 powerUpKeyPosition = this.powerUpKeyPosition + new Vector2(powerUpOffset, 0.0f);
+
 			GUI.DrawTexture (new Rect(powerUpPosition.x, powerUpPosition.y, this.powerUpWidth, this.powerUpHeight), powerUpTexture);
+
+            GUI.DrawTexture(new Rect(powerUpKeyPosition.x, powerUpKeyPosition.y, 45, 45), powerUpKeyTexture);
 
 			powerUpOffset += powerUpWidth * 1.1f;
 		}

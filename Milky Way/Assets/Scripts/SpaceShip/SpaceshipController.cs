@@ -460,7 +460,8 @@ public class SpaceshipController : MonoBehaviour {
 		bool smokescreen = 
 			(Input.GetKey(this.joystick.R2) == true) || 
 			(Input.GetKey(KeyCode.F4) == true && this.id == 1) ||
-			(Input.GetKey(KeyCode.Alpha4) == true && this.id == 2);
+			(Input.GetKey(KeyCode.Alpha4) == true && this.id == 2) ||
+            (Input.GetKey(KeyCode.C) == true) ;
 
 		if(smokescreen == true && powerUpList.Contains("Smokescreen")) {
 			

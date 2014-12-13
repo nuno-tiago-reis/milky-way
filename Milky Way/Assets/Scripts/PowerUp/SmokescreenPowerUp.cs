@@ -12,6 +12,9 @@ public class SmokescreenPowerUp : PowerUp {
 		
 		// Initialize the Abilitys Name.
 		this.powerUpName = "Smokescreen";
+
+        // Initilize the Abilitys Key
+        this.powerUpKey = "R2";
 	}
 	
 	public override bool Activate() {
@@ -26,8 +29,8 @@ public class SmokescreenPowerUp : PowerUp {
 		// Set the Parent transform to null so that it doesn't follow the parent
 		smokescreen.transform.parent = null;
 		// Set the Position and Rotation so that it matches the Spaceships Rotation and Position.
-		smokescreen.transform.rotation = this.transform.parent.rotation;
-		smokescreen.transform.position = this.transform.parent.position;
+		smokescreen.transform.rotation = this.transform.rotation;
+		smokescreen.transform.position = this.transform.position;
 
 		// Initialize the Shields Controller
 		SmokescreenPowerUpController smokescreenController = smokescreen.GetComponent<SmokescreenPowerUpController>();

@@ -5,6 +5,9 @@ public abstract class PowerUp : MonoBehaviour {
 	// Defines the PowerUps Name.
 	public string powerUpName
 	{ get; protected set;}
+    // Define the PowerUps Key
+    public string powerUpKey
+    { get; protected set; }
 	// Defines the PowerUps Controller.
 	public PowerUpController powerUpController
 	{ get; protected set;}
