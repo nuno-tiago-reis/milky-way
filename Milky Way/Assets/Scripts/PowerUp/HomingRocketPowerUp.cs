@@ -14,6 +14,9 @@ public class HomingRocketPowerUp : PowerUp {
 
 		// Initialize the PowerUps Name.
 		this.powerUpName = "HomingRocket";
+
+        // Initilize the Abilitys Key
+        this.powerUpKey = "L2";
 	}
 	
 	public override bool Activate() {

@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Menus\Menu.cs" />
      <Compile Include="Assets\Scripts\Menus\MenuManager.cs" />
      <Compile Include="Assets\Scripts\Menus\TimeAttack.cs" />
+     <Compile Include="Assets\Scripts\Menus\Upgrades.cs" />
      <Compile Include="Assets\Scripts\PowerUp\EnhancedLaserPowerUp.cs" />
      <Compile Include="Assets\Scripts\PowerUp\EnhancedLaserPowerUpController.cs" />
      <Compile Include="Assets\Scripts\PowerUp\HomingRocketPowerUp.cs" />

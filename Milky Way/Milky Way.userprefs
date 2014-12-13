@@ -1,11 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SpaceShip\Display\HUD.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\shooter\Platform Game\Assets\Scripts\hover Script.js">
     <Files>
-      <File FileName="Assets\Scripts\SpaceShip\ShooterController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Projectile\LaserController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PowerUp\SmokescreenPowerUp.cs" Line="28" Column="1" />
-      <File FileName="Assets\Scripts\SpaceShip\Display\HUD.cs" Line="146" Column="28" />
+      <File FileName="..\..\shooter\Platform Game\Assets\Scripts\hover Script.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
