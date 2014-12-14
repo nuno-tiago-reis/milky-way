@@ -11,7 +11,7 @@ public class Upgrades : MonoBehaviour {
 
     protected string fileName = "upgrades.txt";
 
-    protected Dictionary<string, int> spaceshipUpgrades;
+    protected Dictionary<string, string> spaceshipUpgrades;
 
     protected Text[] values;
 
@@ -22,86 +22,98 @@ public class Upgrades : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        spaceshipUpgrades = new Dictionary<string, int>();
+        spaceshipUpgrades = new Dictionary<string, string>();
 
         values = GetComponentsInChildren<Text>();
+        
+        foreach(Text value in values)
+            Debug.Log("v = " + value.text);
 
         sliders = GetComponentsInChildren<Slider>();
 
-        sliders[0].maxValue = sliders[1].maxValue = initialPoints = int.Parse(values[3].text);
+        if (loadFile() == true) {
 
-        loadFile();
+            values[1].text = spaceshipUpgrades["Health"];
+            values[2].text = spaceshipUpgrades["Power"];
+            values[3].text = spaceshipUpgrades["Speed"];
+            values[4].text = spaceshipUpgrades["Handling"];
+        }
+
+        sliders[0].maxValue = sliders[1].maxValue = sliders[2].maxValue = sliders[3].maxValue = initialPoints = int.Parse(values[5].text);
 	}
 
     public bool loadFile() {
 
-         try {
+        if (File.Exists(fileName)) {
 
-             string line;
+            try {
 
-             StreamReader streamReader = new StreamReader(fileName);
+                string line;
 
-             using (streamReader) {
+                StreamReader streamReader = new StreamReader(fileName);
 
-                 do {
+                using (streamReader) {
 
-                     line = streamReader.ReadLine();
+                    do {
 
-                     if (line != null) {
+                        line = streamReader.ReadLine();
 
-                         string[] entries = line.Split(' ');
+                        if (line != null) {
 
-                         if (entries.Length > 0) {
+                            string[] entries = line.Split(' ');
 
-                             spaceshipUpgrades.Add(entries[0], int.Parse(entries[1]));
+                            if (entries.Length > 0) {
 
-                         }
-                     }
-                 }
-                 while (line != null);
+                                // Upgrade Type, value
+                                spaceshipUpgrades.Add(entries[0], entries[1]);
 
-                 streamReader.Close();
+                            }
+                        }
+                    }
+                    while (line != null);
 
-                 return true;
-             }
-         }
-         catch (System.Exception e) {
+                    streamReader.Close();
 
-             Debug.Log("Exception when reading the file!" + e.ToString());
+                    return true;
+                }
+            }
+            catch (System.Exception e)
+            {
 
-             return false;
-         }
+                Debug.Log("Exception when reading the file!" + e.ToString());
+
+                return false;
+            }
+        }
+        return false;
     }
 
-    public bool writeFile() {
+    public void writeFile() {
 
         try {
 
-            string[] contents = { "Health " + values[1], "Speed " + values[2] };
+            string[] contents = { "Health " + values[1].text, "Power " + values[2].text, 
+                                  "Speed " + values[3].text, "Handling " + values[4].text };
 
             if (File.Exists(fileName))
             {
                 System.IO.File.WriteAllText(fileName, string.Empty);
 
                 System.IO.File.WriteAllLines(fileName, contents);
-
-                return true;
             }
 
             StreamWriter streamWriter = File.CreateText(fileName);
 
-            streamWriter.WriteLine("Health " + values[1]);
-            streamWriter.WriteLine("Speed " + values[2]);
+            streamWriter.WriteLine("Health " + values[1].text);
+            streamWriter.WriteLine("Power " + values[2].text);
+            streamWriter.WriteLine("Speed " + values[3].text);
+            streamWriter.WriteLine("Handling " + values[4].text);
 
             streamWriter.Close();
-
-            return true;
         }
         catch (System.Exception e) {
 
             Debug.Log("Exception when reading the file!" + e.ToString());
-
-            return false;
         }
     }
 
@@ -114,18 +126,44 @@ public class Upgrades : MonoBehaviour {
         values[1].text = sliderValue.ToString();
 
         //update points
-        values[3].text = (initialPoints - sliderValue).ToString();
+        values[5].text = (initialPoints - sliderValue).ToString();
+    }
+
+    public void addPower()
+    {
+
+        //read slider value
+        int sliderValue = (int)sliders[1].value;
+
+        //update power value
+        values[2].text = sliderValue.ToString();
+
+        //update points
+        values[5].text = (initialPoints - sliderValue).ToString();
     }
 
     public void addSpeed() {
 
         //read slider value
-        int sliderValue = (int)sliders[1].value;
+        int sliderValue = (int)sliders[2].value;
 
-        //update health value
-        values[2].text = sliderValue.ToString();
+        //update speed value
+        values[3].text = sliderValue.ToString();
 
         //update points
-        values[3].text = (initialPoints - sliderValue).ToString();  
+        values[5].text = (initialPoints - sliderValue).ToString();  
+    }
+
+    public void addHandling()
+    {
+
+        //read slider value
+        int sliderValue = (int)sliders[3].value;
+
+        //update handling value
+        values[4].text = sliderValue.ToString();
+
+        //update points
+        values[5].text = (initialPoints - sliderValue).ToString();
     }
 }

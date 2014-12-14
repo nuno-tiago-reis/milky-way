@@ -1,4 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
+
+using System.Collections;
+using System.Collections.Generic;
+
+using System.Text;
+using System.IO;
 
 public class SpaceshipConfiguration {
 	
@@ -6,7 +13,7 @@ public class SpaceshipConfiguration {
 	public int health
 	{ get; protected set; }
 	private const int minimumHealth = 0;
-	private const int maximumHealth = 5;
+	private int maximumHealth = 5;
 
 	// Spaceships Power Stats
 	public int power
@@ -18,7 +25,7 @@ public class SpaceshipConfiguration {
 	public int acceleration
 	{ get; protected set; }
 	private const int minimumAcceleration = 0;
-	private const int maximumAcceleration = 5;
+	private int maximumAcceleration = 5;
 
 	// Spaceships Handling Stats
 	public int handling
@@ -40,7 +47,7 @@ public class SpaceshipConfiguration {
 
 	public void SetHealth(int health) {
 
-		this.health = Mathf.Clamp(health, SpaceshipConfiguration.minimumHealth, SpaceshipConfiguration.maximumHealth);
+        this.health = Mathf.Clamp(health, SpaceshipConfiguration.minimumHealth, this.maximumHealth);
 	}
 
 	public void SetPower(int power) {
@@ -50,7 +57,7 @@ public class SpaceshipConfiguration {
 
 	public void SetAcceleration(int acceleration) {
 		
-		this.acceleration = Mathf.Clamp(acceleration, SpaceshipConfiguration.minimumAcceleration, SpaceshipConfiguration.maximumAcceleration);
+		this.acceleration = Mathf.Clamp(acceleration, SpaceshipConfiguration.minimumAcceleration, this.maximumAcceleration);
 	}
 
 	public void SetHandling(int handling) {

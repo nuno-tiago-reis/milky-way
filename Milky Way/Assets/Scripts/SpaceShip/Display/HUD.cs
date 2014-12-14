@@ -163,8 +163,8 @@ public class HUD : MonoBehaviour {
 		this.lapTextureList.Add((Texture2D)Resources.Load("Textures/HUD/Laps/3rdLap",typeof(Texture2D)) as Texture2D);
 
 		// Speedometer Attributes
-		this.pointerTexture = (Texture2D)Resources.Load("Textures/HUD/Speedometer/Pointer",typeof(Texture2D)) as Texture2D;
-		this.speedometerTexture = (Texture2D)Resources.Load("Textures/HUD/Speedometer/Speedometer",typeof(Texture2D)) as Texture2D;
+		this.pointerTexture = (Texture2D)Resources.Load("Textures/HUD/Speedometer/PointerV2",typeof(Texture2D)) as Texture2D;
+		this.speedometerTexture = (Texture2D)Resources.Load("Textures/HUD/Speedometer/SpeedometerV2",typeof(Texture2D)) as Texture2D;
 
 		// PowerUp Attributes
 		this.powerUpTextureMap = new Dictionary<string, Texture2D>();

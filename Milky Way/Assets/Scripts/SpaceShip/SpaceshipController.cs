@@ -15,6 +15,9 @@ public class SpaceshipController : MonoBehaviour {
 
 	// Spaceships Health Attributes
 
+        // Upgrade System
+        public Dictionary<string, string> upgradesMap;
+
 		// Defines how much damage the Spaceship can take before needing repairs.
 		public float health
 		{ get; protected set; }
@@ -135,6 +138,9 @@ public class SpaceshipController : MonoBehaviour {
 		
 		// Spaceships Race Record
 		this.raceRecord = new RaceRecord();
+
+        // Upgrades Map
+        upgradesMap = new Dictionary<string, string>();
 	
 		// Spaceships starting, maximum and minimum Health values are defined by the SpaceshipConfiguration.
 		this.health = 0.0f;
@@ -155,6 +161,9 @@ public class SpaceshipController : MonoBehaviour {
 		this.handling = 0.0f;
 		this.maximumHandling = 0.0f;
 		this.minimumHandling = 0.0f;
+
+        //Load the file with the upgrades
+        loadFile();
 
 		// Initialize the Health, Weapon Power, Acceleration and Handling Attributes according to the SpaceshipConfiguration.
 		Initialize(new SpaceshipConfiguration(5,5,5,5));
@@ -549,6 +558,60 @@ public class SpaceshipController : MonoBehaviour {
 		return true;
 	}
 	#endregion
+
+    public bool loadFile()
+    {
+        string fileName = "upgrades.txt";
+
+        if (File.Exists(fileName))
+        {
+
+            try
+            {
+
+                string line;
+
+                StreamReader streamReader = new StreamReader(fileName);
+
+                using (streamReader)
+                {
+
+                    do
+                    {
+
+                        line = streamReader.ReadLine();
+
+                        if (line != null)
+                        {
+
+                            string[] entries = line.Split(' ');
+
+                            if (entries.Length > 0)
+                            {
+
+                                // Upgrade Type, value
+                                upgradesMap.Add(entries[0], entries[1]);
+
+                            }
+                        }
+                    }
+                    while (line != null);
+
+                    streamReader.Close();
+
+                    return true;
+                }
+            }
+            catch (System.Exception e)
+            {
+
+                Debug.Log("Exception when reading the file!" + e.ToString());
+
+                return false;
+            }
+        }
+        return false;
+    }
 
 	#region Gizmos
 	public void OnDrawGizmos() {	
