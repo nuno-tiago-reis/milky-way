@@ -1,8 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\shooter\Platform Game\Assets\Scripts\hover Script.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Shaders\InterlacePatternAdditive.shader">
     <Files>
-      <File FileName="..\..\shooter\Platform Game\Assets\Scripts\hover Script.js" Line="1" Column="1" />
+      <File FileName="Assets\Shaders\InterlacePatternAdditive.shader" Line="2" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
