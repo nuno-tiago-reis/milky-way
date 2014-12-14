@@ -18,12 +18,7 @@ public class Menu : MonoBehaviour {
         canvasGroup = GetComponent<CanvasGroup>();
 
         var rect = GetComponent <RectTransform>();
-        rect.offsetMax = rect.offsetMin = new Vector2(-100, -50);
-
-        if (this.name == "UpgradesMenu")
-        {
-            rect.offsetMax = rect.offsetMin = new Vector2(-200, -50);
-        }
+        rect.offsetMax = rect.offsetMin = new Vector2(0, -50);
 
         isOpen = false;
     }
