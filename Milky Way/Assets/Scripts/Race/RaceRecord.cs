@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class RaceRecord {
 
+	public int id
+	{ get; set; }
+
 	public int currentStanding
 	{ get; set ; }
 
@@ -19,12 +22,15 @@ public class RaceRecord {
 	public float totalLapTime
 	{ get; set ; }
 	
-	public RaceRecord() {
+	public RaceRecord(int id) {
 
+		this.id = id;
+		
 		this.currentStanding = 0;
+		
 		this.currentLap = 0;
 		this.currentCheckpoint = 0;
-
+		
 		this.bestLapTime = 0.0f;
 		this.currentLapTime = 0.0f;
 		this.totalLapTime = 0.0f;

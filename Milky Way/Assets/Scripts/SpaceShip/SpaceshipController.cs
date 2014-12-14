@@ -6,17 +6,11 @@ using System.IO;
 
 public class SpaceshipController : MonoBehaviour {
 
-	// Spaceships ID
-	public int id;
-
 	// Spaceships Race Record - Defines the current standings, laps adnd lap times.
 	public RaceRecord raceRecord
 	{ get; protected set; }
 
 	// Spaceships Health Attributes
-
-        // Upgrade System
-        public Dictionary<string, string> upgradesMap;
 
 		// Defines how much damage the Spaceship can take before needing repairs.
 		public float health
@@ -135,13 +129,13 @@ public class SpaceshipController : MonoBehaviour {
 	{ get; protected set; }
 
 	public void Awake () {
-		
-		// Spaceships Race Record
-		this.raceRecord = new RaceRecord();
+	}
 
-        // Upgrades Map
-        upgradesMap = new Dictionary<string, string>();
-	
+	public void Initialize(int id) {
+
+		// Spaceships Race Record
+		this.raceRecord = new RaceRecord(id);
+		
 		// Spaceships starting, maximum and minimum Health values are defined by the SpaceshipConfiguration.
 		this.health = 0.0f;
 		this.maximumHealth = 0.0f;
@@ -161,42 +155,32 @@ public class SpaceshipController : MonoBehaviour {
 		this.handling = 0.0f;
 		this.maximumHandling = 0.0f;
 		this.minimumHandling = 0.0f;
-
-        //Load the file with the upgrades
-        loadFile(id);
-
-        int healthValue = 5 + int.Parse(upgradesMap["Health"]);
-        int powerValue = 5 + int.Parse(upgradesMap["Power"]);
-        int speedValue = 5 + int.Parse(upgradesMap["Speed"]);
-        int handlingValue = 5 + int.Parse(upgradesMap["Handling"]);
-
-
-		// Initialize the Health, Weapon Power, Acceleration and Handling Attributes according to the SpaceshipConfiguration.
-		Initialize(new SpaceshipConfiguration(5,5,5,5));
-        Initialize(new SpaceshipConfiguration(healthValue, powerValue, speedValue, handlingValue));
-
+		
 		// Initialize the Spaceships Repair Time.
 		this.repairTime = 0.0f;
 		this.maximumRepairTime = 2.5f;
 		this.minimumRepairTime = 1.0f;
-
+		
 		// Initialize the Spaceships Gold.
 		this.gold = 0;
 		// Initialize the Spaceships PowerUp List.
 		this.powerUpList = new List<string>();
-
+		
 		// Initialize the Spaceships reference to its Children.
 		this.model = this.transform.FindChild("Model");
-
+		
 		this.backLeftCorner = this.transform.FindChild("Back Left Corner");
 		this.backRightCorner = this.transform.FindChild("Back Right Corner");
 		this.frontLeftCorner = this.transform.FindChild("Front Left Corner");
 		this.frontRightCorner = this.transform.FindChild("Front Right Corner");
-
+		
 		// Initialize the Shooter Controller
 		this.shooter = this.transform.GetComponent<ShooterController>();
 		// Initialize the Joystick Controller
 		this.joystick = this.transform.GetComponent<JoystickController>();
+
+		// Initialize the Health, Weapon Power, Acceleration and Handling Attributes according to the SpaceshipConfiguration.
+		Initialize(new SpaceshipConfiguration(5,5,5,5));
 	}
 
 	public void Initialize(SpaceshipConfiguration spaceshipConfiguration) {
@@ -324,7 +308,7 @@ public class SpaceshipController : MonoBehaviour {
 			
 		this.repairTime = Mathf.Clamp(this.repairTime + Time.deltaTime, 0.0f, this.maximumRepairTime);
 
-		bool repair = Input.GetKey(this.joystick.circle) == true || (Input.GetKey(KeyCode.E) && this.id == 1) || (Input.GetKey(KeyCode.R) && this.id == 2);
+		bool repair = Input.GetKey(this.joystick.circle) == true || (Input.GetKey(KeyCode.E) && this.raceRecord.id == 1) || (Input.GetKey(KeyCode.R) && this.raceRecord.id == 2);
 
 		// If the Player wants to move before the repairs are complete
 		if(repair == true && this.repairTime <= this.maximumRepairTime && this.repairTime >= minimumRepairTime) {
@@ -358,8 +342,8 @@ public class SpaceshipController : MonoBehaviour {
 		// Accelerator = Cross & Brake = Square
 		bool accelerator = 
 			(Input.GetKey(this.joystick.cross) == true && Input.GetKey(this.joystick.square) == false) ||	// Joystick
-			(Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.Q) == false && this.id == 1) ||		// PC Player 1
-			(Input.GetKey(KeyCode.UpArrow) == true && Input.GetKey(KeyCode.B) == false && this.id == 2);	// PC Player 2
+			(Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.Q) == false && this.raceRecord.id == 1) ||		// PC Player 1
+			(Input.GetKey(KeyCode.UpArrow) == true && Input.GetKey(KeyCode.B) == false && this.raceRecord.id == 2);	// PC Player 2
 
 		if(accelerator == true) {
 			
@@ -372,8 +356,8 @@ public class SpaceshipController : MonoBehaviour {
 		// Reverse = Triangle & Brake = Square
 		bool reverse = 
 			(Input.GetKey(this.joystick.triangle) == true && Input.GetKey(this.joystick.square) == false) ||			//Joystick
-			(Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.Q) == false && this.id == 1) ||		// PC Player 1
-			(Input.GetKey(KeyCode.DownArrow) == true && Input.GetKey(KeyCode.B) == false && this.id == 2);	// PC Player 2
+			(Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.Q) == false && this.raceRecord.id == 1) ||		// PC Player 1
+			(Input.GetKey(KeyCode.DownArrow) == true && Input.GetKey(KeyCode.B) == false && this.raceRecord.id == 2);	// PC Player 2
 
 		if(reverse == true) {
 			
@@ -384,8 +368,8 @@ public class SpaceshipController : MonoBehaviour {
 		// Brake = Square
 		bool brake = 
 			(Input.GetKey(this.joystick.square) == true) ||			// Joystick
-			(Input.GetKey(KeyCode.Q) == true && this.id == 1) ||	// PC Player 1
-			(Input.GetKey(KeyCode.B) == true && this.id == 2);		// PC Player 2
+			(Input.GetKey(KeyCode.Q) == true && this.raceRecord.id == 1) ||	// PC Player 1
+			(Input.GetKey(KeyCode.B) == true && this.raceRecord.id == 2);		// PC Player 2
 
 		if(brake == true) {
 
@@ -405,9 +389,9 @@ public class SpaceshipController : MonoBehaviour {
 		float horizontalAxis = 
 			Input.GetAxis(this.joystick.horizontalAxis);
 	
-		if(horizontalAxis == 0.0f && this.id == 1)
+		if(horizontalAxis == 0.0f && this.raceRecord.id == 1)
 			horizontalAxis = Input.GetAxis("Horizontal Axis PC 1");
-		else if(horizontalAxis == 0.0f && this.id == 2)
+		else if(horizontalAxis == 0.0f && this.raceRecord.id == 2)
 			horizontalAxis = Input.GetAxis("Horizontal Axis PC 2");
 
 		if(horizontalAxis != 0.0f) {
@@ -442,8 +426,8 @@ public class SpaceshipController : MonoBehaviour {
 		// Lasers - L1
 		bool laser = 
 			(Input.GetKey(this.joystick.L1) == true) || 
-			(Input.GetKey(KeyCode.F1) == true && this.id == 1) ||
-			(Input.GetKey(KeyCode.Alpha1) == true && this.id == 2);
+			(Input.GetKey(KeyCode.F1) == true && this.raceRecord.id == 1) ||
+			(Input.GetKey(KeyCode.Alpha1) == true && this.raceRecord.id == 2);
 
 		if(laser == true) {
 
@@ -453,8 +437,8 @@ public class SpaceshipController : MonoBehaviour {
 		// Rocket - L2
 		bool homingRocket = 
 			(Input.GetKey(this.joystick.L2) == true) || 
-				(Input.GetKey(KeyCode.F2) == true && this.id == 1) ||
-				(Input.GetKey(KeyCode.Alpha2) == true && this.id == 2);
+				(Input.GetKey(KeyCode.F2) == true && this.raceRecord.id == 1) ||
+				(Input.GetKey(KeyCode.Alpha2) == true && this.raceRecord.id == 2);
 		
 		if(homingRocket == true && powerUpList.Contains("HomingRocket")) {
 			
@@ -465,8 +449,8 @@ public class SpaceshipController : MonoBehaviour {
 		// Shield - R1
 		bool shield = 
 			(Input.GetKey(this.joystick.R1) == true) || 
-			(Input.GetKey(KeyCode.F3) == true && this.id == 1) ||
-			(Input.GetKey(KeyCode.Alpha3) == true && this.id == 2);
+			(Input.GetKey(KeyCode.F3) == true && this.raceRecord.id == 1) ||
+			(Input.GetKey(KeyCode.Alpha3) == true && this.raceRecord.id == 2);
 
 		if(shield == true && powerUpList.Contains("Shield")) {
 				
@@ -477,8 +461,8 @@ public class SpaceshipController : MonoBehaviour {
 		// Smokescreen - R2
 		bool smokescreen = 
 			(Input.GetKey(this.joystick.R2) == true) || 
-			(Input.GetKey(KeyCode.F4) == true && this.id == 1) ||
-			(Input.GetKey(KeyCode.Alpha4) == true && this.id == 2) ||
+			(Input.GetKey(KeyCode.F4) == true && this.raceRecord.id == 1) ||
+			(Input.GetKey(KeyCode.Alpha4) == true && this.raceRecord.id == 2) ||
             (Input.GetKey(KeyCode.C) == true) ;
 
 		if(smokescreen == true && powerUpList.Contains("Smokescreen")) {
@@ -568,14 +552,9 @@ public class SpaceshipController : MonoBehaviour {
 	}
 	#endregion
 
-    public bool loadFile(int id)
+    public bool loadFile()
     {
-        string fileName;
-
-        if(id == 0)
-            fileName = "upgradesShip0.txt";
-        else
-            fileName = "upgradesShip1.txt";
+        string fileName = "upgrades.txt";
 
         if (File.Exists(fileName))
         {
@@ -604,7 +583,7 @@ public class SpaceshipController : MonoBehaviour {
                             {
 
                                 // Upgrade Type, value
-                                upgradesMap.Add(entries[0], entries[1]);
+                               // upgradesMap.Add(entries[0], entries[1]);
 
                             }
                         }

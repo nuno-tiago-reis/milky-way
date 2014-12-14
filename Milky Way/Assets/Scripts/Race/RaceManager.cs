@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 public class RaceManager : MonoBehaviour {
 
+	public enum RaceMode { Arena, TimeAttack, SingleRace };
+
+	public RaceMode mode;
+
 	public int lapTotal
 	{ get; protected set; }
 
@@ -18,170 +22,203 @@ public class RaceManager : MonoBehaviour {
 
 	public void Start () {
 
-		this.lapTotal = 3;
-
-		this.checkpointManager = this.transform.FindChild("Checkpoint Manager").GetComponent<CheckpointManager>();
-
 		this.spaceshipTotal = 0;
 		this.spaceshipList = new List<Transform>();
 
-		for(int i=0; i<this.transform.childCount; i++) {
+		if(this.mode == RaceMode.SingleRace) {
+			
+			this.lapTotal = 3;
+			
+			this.checkpointManager = this.transform.FindChild("Checkpoint Manager").GetComponent<CheckpointManager>();
 
-			Transform player = this.transform.GetChild(i);
+			// Initialize the Spaceships
+			for(int i=0; i<this.transform.childCount; i++)
+				InitializeSpaceship(this.transform.GetChild(i));
+		}
 
-			if(player.name.StartsWith("Player")) {
+		if(this.mode == RaceMode.TimeAttack) {
+			
+			this.lapTotal = 3;
+			
+			this.checkpointManager = this.transform.FindChild("Checkpoint Manager").GetComponent<CheckpointManager>();
 
-				Transform spaceship = player.FindChild("Spaceship");
+			// Initialize the Spaceship
+			InitializeSpaceship(this.transform.FindChild("Player"));
+		}
+		
+		if(this.mode == RaceMode.Arena) {
+
+			this.lapTotal = 0;
+			
+			this.checkpointManager = null;
+
+			// Initialize the Spaceships
+			for(int i=0; i<this.transform.childCount; i++)
+				InitializeSpaceship(this.transform.GetChild(i));
+		}
+	}
+
+	public void InitializeSpaceship(Transform player) {
+
+		if(player.name.StartsWith("Player")) {
+			
+			Transform spaceshipTransform = player.FindChild("Spaceship");
+			
+			SpaceshipController spaceshipController = spaceshipTransform.GetComponent<SpaceshipController>();
+			
+			if(spaceshipController != null) {
 				
-				SpaceshipController spaceshipController = spaceship.GetComponent<SpaceshipController>();
+				this.spaceshipTotal++;
+
+				// Initialize the Spaceships
+				spaceshipController.Initialize(this.spaceshipTotal);
 				
-				if(spaceshipController != null) {
-
-					this.spaceshipTotal++;
-					
-					spaceshipController.id = this.spaceshipTotal;
-
-					// Initialize the Race Record
-					spaceshipController.raceRecord.currentCheckpoint = 0;
-					spaceshipController.raceRecord.currentLap = 0;
-					spaceshipController.raceRecord.currentStanding = this.spaceshipTotal;
-
-					// Initialize the Race Times
-					spaceshipController.raceRecord.bestLapTime = 0.0f;
-					spaceshipController.raceRecord.currentLapTime = 0.0f;
-					spaceshipController.raceRecord.totalLapTime = 0.0f;
-
-					this.spaceshipList.Add(spaceship);
-				}
-
-				Transform camera = player.FindChild("Camera");
-
-				CameraController cameraController = camera.GetComponent<CameraController>();
-
-				if(cameraController != null) {
-
-					// Initialize the Camera
-					cameraController.Initialize();
-				}
-
-				Transform hud = player.FindChild("HUD");
+				this.spaceshipList.Add(spaceshipTransform);
+			}
+			
+			Transform cameraTransform = player.FindChild("Camera");
+			
+			CameraController cameraController = cameraTransform.GetComponent<CameraController>();
+			
+			if(cameraController != null) {
 				
-				HUD hudController = hud.GetComponent<HUD>();
+				// Initialize the Spaceships Camera
+				cameraController.Initialize();
+			}
+			
+			Transform hudTransform = player.FindChild("HUD");
+			
+			HUD hudController = hudTransform.GetComponent<HUD>();
+			
+			if(hudController != null) {
 				
-				if(hudController != null) {
-					
-					// Initialize the HUD
-					hudController.Initialize();
-				}
-
-				Transform joystick = player.FindChild("Spaceship");
+				// Initialize the Spaceships HUD
+				hudController.Initialize();
+			}
+			
+			Transform joystickTransform = player.FindChild("Spaceship");
+			
+			JoystickController joystickController = joystickTransform.GetComponent<JoystickController>();
+			
+			if(joystickController != null) {
 				
-				JoystickController joystickController = joystick.GetComponent<JoystickController>();
-				
-				if(joystickController != null) {
-					
-					// Initialize the HUD
-					joystickController.Initialize();
-				}
+				// Initialize the Spaceships JoystickController
+				joystickController.Initialize();
 			}
 		}
 	}
 	
 	public void FixedUpdate() {
 
-		// Lap Check
-		foreach(Transform spaceship in spaceshipList) {
+		if(this.mode == RaceMode.Arena) {
 
-			SpaceshipController spaceshipController = spaceship.GetComponent<SpaceshipController>();
+			foreach(Transform spaceship in spaceshipList) {
+				
+				SpaceshipController spaceshipController = spaceship.GetComponent<SpaceshipController>();
 
-			spaceshipController.raceRecord.currentLapTime += Time.fixedDeltaTime;
-			spaceshipController.raceRecord.totalLapTime += Time.fixedDeltaTime;
-
-			int currentCheckpoint = spaceshipController.raceRecord.currentCheckpoint;
-
-			if(currentCheckpoint == this.checkpointManager.checkpointTotal) {
-
-				spaceshipController.raceRecord.currentLap++;
-				spaceshipController.raceRecord.currentCheckpoint = 0;
-
-				if(spaceshipController.raceRecord.currentLapTime < spaceshipController.raceRecord.bestLapTime || spaceshipController.raceRecord.bestLapTime == 0.0f) {
-
-					spaceshipController.raceRecord.bestLapTime = spaceshipController.raceRecord.currentLapTime;
-
-					spaceshipController.raceRecord.currentLapTime = 0.0f;
-				}
-			}
-
-			int currentLap = spaceshipController.raceRecord.currentLap;
-
-			if(currentLap == this.lapTotal) {
-
-				Debug.Log("Winrar!");
+				// Time Increment
+				spaceshipController.raceRecord.currentLapTime += Time.fixedDeltaTime;
+				spaceshipController.raceRecord.totalLapTime += Time.fixedDeltaTime;
 			}
 		}
 
-		// Standings Check
-		List<Transform> spaceshipStandings = new List<Transform>();
+		if(this.mode == RaceMode.TimeAttack || this.mode == RaceMode.SingleRace) {
 
-		foreach(Transform spaceship in spaceshipList) {
+			// Lap Check
+			foreach(Transform spaceship in spaceshipList) {
 
-			SpaceshipController spaceshipController = spaceship.GetComponent<SpaceshipController>();
+				SpaceshipController spaceshipController = spaceship.GetComponent<SpaceshipController>();
 
-			if(spaceshipStandings.Count == 0) {
-				
-				spaceshipStandings.Add(spaceship);
-			}
-			else {
+				// Time Increment
+				spaceshipController.raceRecord.currentLapTime += Time.fixedDeltaTime;
+				spaceshipController.raceRecord.totalLapTime += Time.fixedDeltaTime;
+
+				int currentCheckpoint = spaceshipController.raceRecord.currentCheckpoint;
+
+				if(currentCheckpoint == this.checkpointManager.checkpointTotal) {
+
+					spaceshipController.raceRecord.currentLap++;
+					spaceshipController.raceRecord.currentCheckpoint = 0;
+
+					if(spaceshipController.raceRecord.currentLapTime < spaceshipController.raceRecord.bestLapTime || spaceshipController.raceRecord.bestLapTime == 0.0f) {
+
+						spaceshipController.raceRecord.bestLapTime = spaceshipController.raceRecord.currentLapTime;
+
+						spaceshipController.raceRecord.currentLapTime = 0.0f;
+					}
+				}
 
 				int currentLap = spaceshipController.raceRecord.currentLap;
-				int currentCheckpoint =  spaceshipController.raceRecord.currentCheckpoint;
 
-				int currentStanding = 0;
+				if(currentLap == this.lapTotal) {
 
-				foreach(Transform auxiliarySpaceship in spaceshipStandings) {
+					Debug.Log("Winrar!");
+				}
+			}
 
-					SpaceshipController auxiliarySpaceshipController = auxiliarySpaceship.GetComponent<SpaceshipController>();
+			// Standings Check
+			List<Transform> spaceshipStandings = new List<Transform>();
 
-					if(currentLap > auxiliarySpaceshipController.raceRecord.currentLap) {
+			foreach(Transform spaceship in spaceshipList) {
 
-						break;
-					}
+				SpaceshipController spaceshipController = spaceship.GetComponent<SpaceshipController>();
 
-					if(currentLap == auxiliarySpaceshipController.raceRecord.currentLap && 
-					   currentCheckpoint > auxiliarySpaceshipController.raceRecord.currentCheckpoint) {
+				if(spaceshipStandings.Count == 0) {
+					
+					spaceshipStandings.Add(spaceship);
+				}
+				else {
 
-						break;
-					}
+					int currentLap = spaceshipController.raceRecord.currentLap;
+					int currentCheckpoint =  spaceshipController.raceRecord.currentCheckpoint;
 
-					if(currentLap == auxiliarySpaceshipController.raceRecord.currentLap && 
-					   currentCheckpoint == auxiliarySpaceshipController.raceRecord.currentCheckpoint) {
+					int currentStanding = 0;
 
-						Transform checkpoint = this.checkpointManager.GetCheckpoint(currentCheckpoint + 1);
+					foreach(Transform auxiliarySpaceship in spaceshipStandings) {
 
-						float distance1 = Vector3.Distance(checkpoint.position, spaceship.position);
-						float distance2 = Vector3.Distance(checkpoint.position, auxiliarySpaceship.position);
+						SpaceshipController auxiliarySpaceshipController = auxiliarySpaceship.GetComponent<SpaceshipController>();
 
-						if(distance1 < distance2) {
+						if(currentLap > auxiliarySpaceshipController.raceRecord.currentLap) {
 
 							break;
 						}
+
+						if(currentLap == auxiliarySpaceshipController.raceRecord.currentLap && 
+						   currentCheckpoint > auxiliarySpaceshipController.raceRecord.currentCheckpoint) {
+
+							break;
+						}
+
+						if(currentLap == auxiliarySpaceshipController.raceRecord.currentLap && 
+						   currentCheckpoint == auxiliarySpaceshipController.raceRecord.currentCheckpoint) {
+
+							Transform checkpoint = this.checkpointManager.GetCheckpoint(currentCheckpoint + 1);
+
+							float distance1 = Vector3.Distance(checkpoint.position, spaceship.position);
+							float distance2 = Vector3.Distance(checkpoint.position, auxiliarySpaceship.position);
+
+							if(distance1 < distance2) {
+
+								break;
+							}
+						}
+
+						currentStanding++;
 					}
 
-					currentStanding++;
+					spaceshipStandings.Insert(currentStanding, spaceship);
 				}
-
-				spaceshipStandings.Insert(currentStanding, spaceship);
 			}
-		}
 
-		int standing = 0;
-		
-		foreach(Transform spaceship in spaceshipStandings) {
+			int standing = 0;
+			
+			foreach(Transform spaceship in spaceshipStandings) {
 
-			standing++;
+				standing++;
 
-			SpaceshipController spaceshipController = spaceship.GetComponent<SpaceshipController>();
-			spaceshipController.raceRecord.currentStanding = standing;
+				SpaceshipController spaceshipController = spaceship.GetComponent<SpaceshipController>();
+				spaceshipController.raceRecord.currentStanding = standing;
+			}
 		}
 	}
 }

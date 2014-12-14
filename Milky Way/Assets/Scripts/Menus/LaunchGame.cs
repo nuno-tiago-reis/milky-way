@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 using System.Collections;
 
-public class TimeAttack : MonoBehaviour {
+public class LaunchGame : MonoBehaviour {
 
     public string levelToLoad;
 

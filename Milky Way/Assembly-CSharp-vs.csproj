@@ -50,9 +50,9 @@
      <Compile Include="Assets\Scripts\Item\Item.cs" />
      <Compile Include="Assets\Scripts\Item\PowerUpItem.cs" />
      <Compile Include="Assets\Scripts\Item\StarFragmentItem.cs" />
+     <Compile Include="Assets\Scripts\Menus\LaunchGame.cs" />
      <Compile Include="Assets\Scripts\Menus\Menu.cs" />
      <Compile Include="Assets\Scripts\Menus\MenuManager.cs" />
-     <Compile Include="Assets\Scripts\Menus\TimeAttack.cs" />
      <Compile Include="Assets\Scripts\Menus\Upgrades.cs" />
      <Compile Include="Assets\Scripts\PowerUp\EnhancedLaserPowerUp.cs" />
      <Compile Include="Assets\Scripts\PowerUp\EnhancedLaserPowerUpController.cs" />

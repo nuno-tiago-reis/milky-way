@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Shaders\InterlacePatternAdditive.shader">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SpaceShip\SpaceshipConfiguration.cs">
     <Files>
-      <File FileName="Assets\Shaders\InterlacePatternAdditive.shader" Line="2" Column="22" />
+      <File FileName="Assets\Scripts\SpaceShip\SpaceshipConfiguration.cs" Line="18" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
