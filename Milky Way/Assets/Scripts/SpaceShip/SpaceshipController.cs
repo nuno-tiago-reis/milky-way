@@ -163,10 +163,17 @@ public class SpaceshipController : MonoBehaviour {
 		this.minimumHandling = 0.0f;
 
         //Load the file with the upgrades
-        loadFile();
+        loadFile(id);
+
+        int healthValue = 5 + int.Parse(upgradesMap["Health"]);
+        int powerValue = 5 + int.Parse(upgradesMap["Power"]);
+        int speedValue = 5 + int.Parse(upgradesMap["Speed"]);
+        int handlingValue = 5 + int.Parse(upgradesMap["Handling"]);
+
 
 		// Initialize the Health, Weapon Power, Acceleration and Handling Attributes according to the SpaceshipConfiguration.
 		Initialize(new SpaceshipConfiguration(5,5,5,5));
+        Initialize(new SpaceshipConfiguration(healthValue, powerValue, speedValue, handlingValue));
 
 		// Initialize the Spaceships Repair Time.
 		this.repairTime = 0.0f;
@@ -561,9 +568,14 @@ public class SpaceshipController : MonoBehaviour {
 	}
 	#endregion
 
-    public bool loadFile()
+    public bool loadFile(int id)
     {
-        string fileName = "upgrades.txt";
+        string fileName;
+
+        if(id == 0)
+            fileName = "upgradesShip0.txt";
+        else
+            fileName = "upgradesShip1.txt";
 
         if (File.Exists(fileName))
         {
