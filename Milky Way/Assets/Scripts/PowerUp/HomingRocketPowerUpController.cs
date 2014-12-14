@@ -12,11 +12,21 @@ public class HomingRocketPowerUpController : PowerUpController {
 	// Defines the HomingRocketPowerUpControllers Force.
 	public float force
 	{ get; set; }
+
+	// Defines the HomingRocketPowerUpControllers Setup Time.
+	public float setupTime
+	{ get; set; }
 	
 	// When the HomingRocketPowerUpController is Created
 	public override void Awake() {
 	}
-	
+
+	// Update is called once per frame
+	public void Update() {
+
+
+	}
+
 	// FixedUpdate is called once per fixed frame
 	public override void FixedUpdate() {
 		
@@ -25,13 +35,24 @@ public class HomingRocketPowerUpController : PowerUpController {
 		// Rotate the HomingRocket towards the target.
 		this.transform.LookAt(this.target, Vector3.up);
 
-		// Increase the Push Force
-		this.force = this.force + 0.025f;
+		this.setupTime -= Time.fixedDeltaTime;
 
-		Vector3 direction = this.target.position - this.transform.position;
-		direction.Normalize();
+		if(this.setupTime > 0.0f) {
 
-		this.transform.Translate(direction * this.force, Space.World);
+			this.transform.position += this.transform.up * 0.05f;
+		}
+		else {
+
+			this.transform.parent = null;
+
+			// Increase the Push Force
+			this.force = this.force + 0.015f;
+
+			Vector3 direction = this.target.position - this.transform.position;
+			direction.Normalize();
+
+			this.transform.Translate(direction * this.force, Space.World);
+		}
 	}
 
 	public void FindTarget() {

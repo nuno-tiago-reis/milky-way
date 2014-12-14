@@ -20,6 +20,20 @@ public class LaserController : ProjectileController {
 	public override void FixedUpdate() {
 
 		base.FixedUpdate();
+
+		// Spaceships Position Adjustments
+		RaycastHit centerHit;
+		
+		// Cast a Ray from he Spaceships Center heading towards the Track
+		if(Physics.Raycast(this.transform.position + this.transform.up * 5.0f, -this.transform.up, out centerHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks")) == true) {
+			
+			// If there is a Collision, adjust the Spaceships Position
+			if(centerHit.collider.tag == "Road") {
+				
+				// Adjust the Spaceships Position so that it's slightly above the Track.
+				this.transform.position = centerHit.point + this.transform.up * 4.25f;
+			}
+		}
 	}
 	
 	public override void Activate() {

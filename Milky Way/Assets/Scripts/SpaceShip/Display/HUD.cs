@@ -187,7 +187,7 @@ public class HUD : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	public void Update () {
+	public void Update() {
 			
 		// Update the Screens Offset so that it matches the Spaceships ID
 		if(this.raceManager.spaceshipTotal != 1) {

@@ -7,7 +7,7 @@ public class CheckpointManager : MonoBehaviour {
 	
 	public void Start () {
 		
-		for(int i=0; i<this.transform.childCount; i++) {
+		/*for(int i=0; i<this.transform.childCount; i++) {
 
 			Transform track = this.transform.GetChild(i);
 			Transform checkpoint = track.FindChild("Checkpoint");
@@ -20,7 +20,7 @@ public class CheckpointManager : MonoBehaviour {
 
 				checkpointController.id = checkpointTotal;
 			}
-		}
+		}*/
 	}
 
 	public Transform GetCheckpoint(int index) {

@@ -101,8 +101,4 @@ public class JoystickController : MonoBehaviour {
 		this.verticalAxis = "Vertical Axis Joystick " + this.joystickID;
 		this.horizontalAxis = "Horizontal Axis Joystick " + this.joystickID;
 	}
-
-	public void Update() {
-
-	}
 }

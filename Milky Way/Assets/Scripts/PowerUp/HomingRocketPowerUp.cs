@@ -8,6 +8,8 @@ public class HomingRocketPowerUp : PowerUp {
 	public const float homingRocketForce = 1.0f;
 	// Defines the HomingRocketPowerUps Lifetime.
 	public const float homingRocketLifetime = 10.0f;
+	// Defines the HomingRocketPowerUps Setup Time.
+	public const float homingRocketSetupTime = 1.5f;
 
 	// When the HomingRocketPowerUp is Created
 	public override void Awake() {
@@ -29,7 +31,7 @@ public class HomingRocketPowerUp : PowerUp {
 		// Instantiate the HomingRockets GameObject
 		GameObject homingRocket = GameObject.Instantiate(Resources.Load("Prefabs/PowerUps/" + this.powerUpName)) as GameObject;
 		// Set the Parent transform to null so that it doesn't follow the parent.
-		homingRocket.transform.parent = null;
+		homingRocket.transform.parent = this.transform;
 		// Set the Position and Rotation so that it matches the Spaceships Rotation and Position.
 		homingRocket.transform.rotation = this.transform.rotation;
 		homingRocket.transform.position = this.transform.position + this.transform.up * 15.0f;
@@ -45,6 +47,7 @@ public class HomingRocketPowerUp : PowerUp {
 		homingRocketController.force = HomingRocketPowerUp.homingRocketForce;
 		homingRocketController.lifetime = HomingRocketPowerUp.homingRocketLifetime;
 		homingRocketController.maximumLifetime = HomingRocketPowerUp.homingRocketLifetime;
+		homingRocketController.setupTime = HomingRocketPowerUp.homingRocketSetupTime;
 
 		homingRocketController.FindTarget();
 

@@ -17,7 +17,7 @@ public class ShieldPowerUpController : PowerUpController {
 
 		// Calculate the Shields Rotation
 		Vector3 eulerAngles = this.transform.localRotation.eulerAngles;
-		eulerAngles.y += 5.0f;
+		eulerAngles.y += 2.5f;
 
 		// Rotate the Shield around the Parents Up Vector
 		this.transform.localRotation = Quaternion.Euler(eulerAngles.x, eulerAngles.y, eulerAngles.z);

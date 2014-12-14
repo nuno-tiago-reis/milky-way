@@ -272,16 +272,8 @@ public class SpaceshipController : MonoBehaviour {
 				this.directionInterpolator = 0.0f;
 			}
 		}
-		
-		/*this.directionInterpolator += Time.deltaTime * 2.0f;
-		
-		Vector3 interpolatedUp = Vector3.Slerp(this.transform.up, this.up, directionInterpolator);
-		Vector3 interpolatedRight = Vector3.Slerp(this.transform.right, this.right, directionInterpolator);
-		Vector3 interpolatedForward = Vector3.Slerp(this.transform.forward, this.forward, directionInterpolator);
-		*/
 
 		// Adjust the Spaceships Rotation so that it's parallel to the Track
-		//this.transform.LookAt(this.transform.position + interpolatedForward * 5.0f, interpolatedUp);
 		this.transform.LookAt(this.transform.position + this.forward * 5.0f, this.up);
 		
 		// Spaceships Position Adjustments
@@ -349,8 +341,8 @@ public class SpaceshipController : MonoBehaviour {
 			
 			// "Shifts"
 			this.acceleration = 
-				Mathf.Clamp(this.acceleration + 
-				            SpaceshipController.accelerationStep * (this.maximumAcceleration / (this.acceleration + 2.5f)), this.minimumAcceleration, this.maximumAcceleration);
+				Mathf.Clamp(this.acceleration + SpaceshipController.accelerationStep * (this.maximumAcceleration / (this.acceleration + 2.5f)), 
+				            this.minimumAcceleration, this.maximumAcceleration);
 		}
 
 		// Reverse = Triangle & Brake = Square
@@ -409,14 +401,14 @@ public class SpaceshipController : MonoBehaviour {
 			
 			this.acceleration *= 0.85f;
 
-			horizontalAxis *= Mathf.Sign(this.acceleration);
+			horizontalAxis *= Mathf.Sign(this.acceleration) * 50.0f;
 			
 			// Increment the Spaceships Angular Velocity
-			this.rigidbody.AddTorque(this.transform.up * horizontalAxis * handling, ForceMode.Impulse);
+			this.rigidbody.AddTorque(this.transform.up * horizontalAxis * handling, ForceMode.Force);
 		}
 		
 		// Increment the Spaceships Velocity
-		this.rigidbody.velocity += this.transform.forward * acceleration;
+		this.rigidbody.AddForce(this.transform.forward * acceleration* 500.0f, ForceMode.Force);
 
 		return true;
 	}
@@ -494,12 +486,43 @@ public class SpaceshipController : MonoBehaviour {
 
 			foreach(ContactPoint contactPoint in collision.contacts) {
 
-				/*Vector3 contactNormal = contactPoint.point - this.transform.position;
-				contactNormal.Normalize();
+				Debug.Log("Repulsion!");
 
-				Debug.Log("Repulsion!" + contactNormal);
+				// Spaceships Position Adjustments
+				RaycastHit centerHit;
+				
+				// Cast a Ray from he Spaceships Center heading towards the Track
+				if(Physics.Raycast(this.transform.position + this.transform.up * 5.0f, -this.transform.up, out centerHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks")) == true) {
+					
+					// If there is a Collision, adjust the Spaceships Position
+					if(centerHit.collider.tag == "Road") {
 
-				this.rigidbody.velocity = Vector3.Reflect(this.rigidbody.velocity.normalized, contactNormal.normalized) * this.rigidbody.velocity.magnitude * 0.75f; */
+						Vector3 contactNormal = contactPoint.point - centerHit.point;
+						contactNormal.Normalize();
+						
+						Vector3 contactDirection = this.transform.forward - Vector3.Project(this.transform.forward, contactNormal);
+						contactDirection.Normalize();
+
+						
+						this.rigidbody.velocity = -this.rigidbody.velocity.magnitude * contactDirection;
+						this.rigidbody.velocity *= 0.75f;
+
+						this.transform.position -= contactDirection * 2.0f;
+						
+						Debug.Log("Contact Normal = " + contactNormal);
+						Debug.Log("Contact Direction = " + contactDirection);
+						Debug.Log("Contact Position = " + contactPoint.point);
+					}
+				}
+
+				// Adjust the Spaceships Rotation so that it's parallel to the Track
+				/*this.transform.LookAt(this.transform.position + contactDirection * 5.0f, this.transform.up);
+
+				this.rigidbody.velocity = contactDirection * this.rigidbody.velocity.magnitude;// + contactNormal * 50.0f;
+				this.rigidbody.velocity *= 0.75f;*/
+
+				//this.rigidbody.AddForce(contactNormal * (this.rigidbody.velocity.magnitude + 2.0f), ForceMode.Impulse);
+
 			}
 		}
 	}
