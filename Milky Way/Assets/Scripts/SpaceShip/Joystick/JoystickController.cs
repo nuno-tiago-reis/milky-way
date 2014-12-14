@@ -47,7 +47,7 @@ public class JoystickController : MonoBehaviour {
 		SpaceshipController spaceshipController = this.transform.GetComponent<SpaceshipController>();
 		
 		// Set the Joystick ID according to the Spaceship
-		this.joystickID = spaceshipController.id;
+		this.joystickID = spaceshipController.raceRecord.id;
 
 		if(this.joystickID != 1 && this.joystickID != 2)
 			this.joystickID = 1;

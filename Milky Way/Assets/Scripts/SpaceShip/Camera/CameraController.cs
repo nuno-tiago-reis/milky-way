@@ -2,30 +2,41 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-	// Cameras ID
-	public int joystickID
+	// Cameras reference to the RaceManager
+	public RaceManager raceManager
 	{ get; protected set; }
 
-	// Cameras Spaceship
+	// Cameras reference to its Spaceship
 	public Transform spaceship
 	{ get; protected set; }
-	
-	// Use this for initialization
-	public void Start () {
+	// Cameras reference to its Spaceship Controller
+	public SpaceshipController spaceshipController
+	{ get; protected set; }
 
-		// Cameras reference to its Spaceships
-		this.spaceship = this.transform.parent.FindChild("Spaceship");
+	public void Awake() {
 	}
 
 	public void Initialize() {
 
-		// Set the Cameras Offset according to the Spaceships ID
-		Camera camera = this.transform.GetComponent<Camera>();
+		// Initialize the Cameras reference to the RaceManager
+		this.raceManager = this.transform.parent.parent.GetComponent<RaceManager>();
 
+		// Initialize the Cameras reference to its Spaceship
 		this.spaceship = this.transform.parent.FindChild("Spaceship");
-		SpaceshipController spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
-		
-		camera.rect = new Rect(0.5f * (float)(spaceshipController.id - 1), 0.0f, 0.5f, 1.0f);
+		// Initialize the Cameras reference to its SpaceshipController
+		this.spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
+
+		// Set the Cameras Offset according to the Spaceships ID
+		if(this.raceManager.mode == RaceManager.RaceMode.Arena || this.raceManager.mode == RaceManager.RaceMode.SingleRace) {
+
+			Camera camera = this.transform.GetComponent<Camera>();
+
+			// Create the Viewport Coordinates acoording the the Spaceships ID
+			Rect viewport = new Rect(0.5f * (float)(spaceshipController.raceRecord.id - 1), 0.0f, 0.5f, 1.0f);
+
+			// Update the Cameras Viewport
+			camera.rect = viewport;
+		}
 	}
 
 	public void FixedUpdate() {
