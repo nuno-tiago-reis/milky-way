@@ -174,6 +174,11 @@ public class HUD : MonoBehaviour {
 
 	public void Initialize() {
 
+		// HUDs reference to its Spaceship 
+		this.spaceship = this.transform.parent.FindChild("Spaceship");
+		// HUDs reference to its Spaceship Controller
+		this.spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
+
 		// Set the ScreensID according to the Spaceships ID
 		this.screenID = spaceshipController.id - 1;
 	}

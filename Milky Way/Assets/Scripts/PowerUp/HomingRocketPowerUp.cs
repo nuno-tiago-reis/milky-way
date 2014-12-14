@@ -44,6 +44,7 @@ public class HomingRocketPowerUp : PowerUp {
 		homingRocketController.damage = HomingRocketPowerUp.homingRocketDamage;
 		homingRocketController.force = HomingRocketPowerUp.homingRocketForce;
 		homingRocketController.lifetime = HomingRocketPowerUp.homingRocketLifetime;
+		homingRocketController.maximumLifetime = HomingRocketPowerUp.homingRocketLifetime;
 
 		homingRocketController.FindTarget();
 

@@ -282,14 +282,16 @@ public class SpaceshipController : MonoBehaviour {
 			}
 		}
 		
-		this.directionInterpolator += Time.deltaTime * 2.0f;
+		/*this.directionInterpolator += Time.deltaTime * 2.0f;
 		
 		Vector3 interpolatedUp = Vector3.Slerp(this.transform.up, this.up, directionInterpolator);
 		Vector3 interpolatedRight = Vector3.Slerp(this.transform.right, this.right, directionInterpolator);
 		Vector3 interpolatedForward = Vector3.Slerp(this.transform.forward, this.forward, directionInterpolator);
-		
+		*/
+
 		// Adjust the Spaceships Rotation so that it's parallel to the Track
-		this.transform.LookAt(this.transform.position + interpolatedForward * 5.0f, interpolatedUp);
+		//this.transform.LookAt(this.transform.position + interpolatedForward * 5.0f, interpolatedUp);
+		this.transform.LookAt(this.transform.position + this.forward * 5.0f, this.up);
 		
 		// Spaceships Position Adjustments
 		RaycastHit centerHit;
@@ -501,12 +503,12 @@ public class SpaceshipController : MonoBehaviour {
 
 			foreach(ContactPoint contactPoint in collision.contacts) {
 
-				Vector3 contactNormal = contactPoint.point - this.transform.position;
+				/*Vector3 contactNormal = contactPoint.point - this.transform.position;
 				contactNormal.Normalize();
 
 				Debug.Log("Repulsion!" + contactNormal);
 
-				this.rigidbody.velocity = Vector3.Reflect(this.rigidbody.velocity.normalized, contactNormal.normalized) * this.rigidbody.velocity.magnitude * 0.75f; 
+				this.rigidbody.velocity = Vector3.Reflect(this.rigidbody.velocity.normalized, contactNormal.normalized) * this.rigidbody.velocity.magnitude * 0.75f; */
 			}
 		}
 	}
@@ -625,10 +627,32 @@ public class SpaceshipController : MonoBehaviour {
 			RaycastHit frontRightHit;
 			
 			// Cast Rays from each of the Spaceships Corners heading towards the Track
-			bool backLeftRay = Physics.Raycast(backLeftCorner.position, -this.transform.up, out backLeftHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks"));
-			bool backRightRay = Physics.Raycast(backRightCorner.position, -this.transform.up, out backRightHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks"));
-			bool frontLeftRay = Physics.Raycast(frontLeftCorner.position, -this.transform.up, out frontLeftHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks"));
-			bool frontRightRay = Physics.Raycast(frontRightCorner.position, -this.transform.up, out frontRightHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks"));
+			bool backLeftRay = Physics.Raycast(backLeftCorner.position + this.transform.up * 5.0f, -this.transform.up, out backLeftHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks"));
+			bool backRightRay = Physics.Raycast(backRightCorner.position + this.transform.up * 5.0f, -this.transform.up, out backRightHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks"));
+			bool frontLeftRay = Physics.Raycast(frontLeftCorner.position + this.transform.up * 5.0f, -this.transform.up, out frontLeftHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks"));
+			bool frontRightRay = Physics.Raycast(frontRightCorner.position + this.transform.up * 5.0f, -this.transform.up, out frontRightHit, 25.0f, 1 << LayerMask.NameToLayer("Tracks"));
+			
+			if(backLeftRay == true && backRightRay == true && frontLeftRay == true && frontRightRay == true) {
+				
+				// If there is a Collision, adjust the Spaceships Rotation
+				if(backLeftHit.collider.tag == "Road" && backRightHit.collider.tag == "Road" && frontLeftHit.collider.tag == "Road"  && frontRightHit.collider.tag == "Road" ) {
+					
+					this.up = 
+						Vector3.Cross(backRightHit.point - backRightHit.normal, backLeftHit.point - backLeftHit.normal) +
+							Vector3.Cross(backLeftHit.point - backLeftHit.normal, frontLeftHit.point - frontLeftHit.normal) +
+							Vector3.Cross(frontLeftHit.point - frontLeftHit.normal, frontRightHit.point - frontRightHit.normal) +
+							Vector3.Cross(frontRightHit.point - frontRightHit.normal, backRightHit.point  - backRightHit.normal);
+					this.up.Normalize();
+					
+					this.right = this.transform.right;
+					this.right.Normalize();
+					
+					this.forward = Vector3.Cross(right, up);
+					this.forward.Normalize();
+					
+					this.directionInterpolator = 0.0f;
+				}
+			}
 			
 			if(backLeftRay == true && backRightRay == true && frontLeftRay == true && frontRightRay == true) {
 				

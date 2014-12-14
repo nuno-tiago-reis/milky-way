@@ -73,6 +73,16 @@ public class RaceManager : MonoBehaviour {
 					// Initialize the HUD
 					hudController.Initialize();
 				}
+
+				Transform joystick = player.FindChild("Spaceship");
+				
+				JoystickController joystickController = joystick.GetComponent<JoystickController>();
+				
+				if(joystickController != null) {
+					
+					// Initialize the HUD
+					joystickController.Initialize();
+				}
 			}
 		}
 	}

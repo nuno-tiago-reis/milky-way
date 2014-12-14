@@ -21,7 +21,8 @@ public class CameraController : MonoBehaviour {
 
 		// Set the Cameras Offset according to the Spaceships ID
 		Camera camera = this.transform.GetComponent<Camera>();
-		
+
+		this.spaceship = this.transform.parent.FindChild("Spaceship");
 		SpaceshipController spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
 		
 		camera.rect = new Rect(0.5f * (float)(spaceshipController.id - 1), 0.0f, 0.5f, 1.0f);
@@ -30,7 +31,7 @@ public class CameraController : MonoBehaviour {
 	public void FixedUpdate() {
 
 		// Calculate the Destination from the Spaceships position and place it behind it.
-		Vector3 destination = this.spaceship.transform.position - this.spaceship.transform.forward * 10.0f + this.spaceship.transform.up * 12.5f;
+		Vector3 destination = this.spaceship.transform.position - this.spaceship.transform.forward * 10.0f + this.spaceship.transform.up * 5.0f;
 
 		Vector3 velocity = Vector3.zero;
 		// Dampen time - Higher values means the Camera takes more time to adjust.
