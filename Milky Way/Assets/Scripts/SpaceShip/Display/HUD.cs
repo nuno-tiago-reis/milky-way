@@ -121,6 +121,7 @@ public class HUD : MonoBehaviour {
 
 	// Use this for initialization
 	public void Start () {
+
 	}
 
 	public void Initialize() {
@@ -499,8 +500,10 @@ public class HUD : MonoBehaviour {
 				this.powerUpKeysMap.Add(powerUpName + "K", powerUpKeyTexture);
 			}
 			
+            // Power Up Position
 			Vector2 powerUpPosition = this.powerUpPosition + new Vector2(powerUpOffset, 0.0f);
 			
+            // Power Up Key Position
 			Vector2 powerUpKeyPosition = this.powerUpKeyPosition + new Vector2(powerUpOffset, 0.0f);
 			
 			GUI.DrawTexture (new Rect(powerUpPosition.x, powerUpPosition.y, this.powerUpWidth, this.powerUpHeight), powerUpTexture);

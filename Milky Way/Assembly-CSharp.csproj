@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUD.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUDBar.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUDLabel.cs" />
+     <Compile Include="Assets\Scripts\SpaceShip\Display\ProgressBar.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\StyleContainer.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\ExplosionController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Joystick\JoystickController.cs" />
