@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SpaceShip\SpaceshipController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Race\CheckpointController.cs">
     <Files>
+      <File FileName="Assets\Scripts\Race\CheckpointManager.cs" Line="29" Column="3" />
       <File FileName="Assets\Scripts\SpaceShip\SpaceshipController.cs" Line="510" Column="32" />
+      <File FileName="Assets\Scripts\Race\CheckpointController.cs" Line="28" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
