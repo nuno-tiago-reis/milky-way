@@ -21,5 +21,7 @@ public class CheckpointController : MonoBehaviour {
 			if(spaceshipController.raceRecord.currentCheckpoint == this.id - 1)
 				spaceshipController.raceRecord.currentCheckpoint = this.id;
 		}
+
+		Debug.Log (this.id);
 	}
 }

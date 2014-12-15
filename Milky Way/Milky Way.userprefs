@@ -1,12 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SpaceShip\Display\HUD.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SpaceShip\SpaceshipController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Race\RaceManager.cs" Line="11" Column="2" />
-      <File FileName="Assets\Scripts\Race\RaceRecord.cs" Line="5" Column="26" />
-      <File FileName="Assets\Scripts\SpaceShip\SpaceshipController.cs" Line="429" Column="59" />
-      <File FileName="Assets\Scripts\SpaceShip\Display\HUD.cs" Line="431" Column="23" />
-      <File FileName="Assets\Scripts\SpaceShip\Camera\CameraController.cs" Line="29" Column="59" />
+      <File FileName="Assets\Scripts\Race\CheckpointManager.cs" Line="22" Column="4" />
+      <File FileName="Assets\Scripts\SpaceShip\SpaceshipController.cs" Line="402" Column="29" />
+      <File FileName="Assets\Scripts\Race\CheckpointController.cs" Line="28" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

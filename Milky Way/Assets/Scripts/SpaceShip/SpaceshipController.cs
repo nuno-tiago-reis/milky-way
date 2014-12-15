@@ -329,11 +329,11 @@ public class SpaceshipController : MonoBehaviour {
 
 	public bool CheckMovement() {
 
-		this.acceleration = this.acceleration * 0.99f;
+		this.acceleration = this.acceleration * 0.95f;
 
 		// Accelerator = Cross & Brake = Square
 		bool accelerator = 
-			(Input.GetKey(this.joystick.cross) == true && Input.GetKey(this.joystick.square) == false) ||	// Joystick
+			(Input.GetKey(this.joystick.cross) == true && Input.GetKey(this.joystick.square) == false) ||			// Joystick
 			(Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.Q) == false && this.raceRecord.id == 1) ||		// PC Player 1
 			(Input.GetKey(KeyCode.UpArrow) == true && Input.GetKey(KeyCode.B) == false && this.raceRecord.id == 2);	// PC Player 2
 
@@ -348,7 +348,7 @@ public class SpaceshipController : MonoBehaviour {
 		// Reverse = Triangle & Brake = Square
 		bool reverse = 
 			(Input.GetKey(this.joystick.triangle) == true && Input.GetKey(this.joystick.square) == false) ||			//Joystick
-			(Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.Q) == false && this.raceRecord.id == 1) ||		// PC Player 1
+			(Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.Q) == false && this.raceRecord.id == 1) ||			// PC Player 1
 			(Input.GetKey(KeyCode.DownArrow) == true && Input.GetKey(KeyCode.B) == false && this.raceRecord.id == 2);	// PC Player 2
 
 		if(reverse == true) {
@@ -359,9 +359,9 @@ public class SpaceshipController : MonoBehaviour {
 
 		// Brake = Square
 		bool brake = 
-			(Input.GetKey(this.joystick.square) == true) ||			// Joystick
+			(Input.GetKey(this.joystick.square) == true) ||					// Joystick
 			(Input.GetKey(KeyCode.Q) == true && this.raceRecord.id == 1) ||	// PC Player 1
-			(Input.GetKey(KeyCode.B) == true && this.raceRecord.id == 2);		// PC Player 2
+			(Input.GetKey(KeyCode.B) == true && this.raceRecord.id == 2);	// PC Player 2
 
 		if(brake == true) {
 
@@ -399,7 +399,7 @@ public class SpaceshipController : MonoBehaviour {
 			if(angle > -45.0f && horizontalAxis > 0.0f)
 				this.model.RotateAround(this.model.position, this.model.forward, -horizontalAxis * 0.50f);
 			
-			this.acceleration *= 0.85f;
+			this.acceleration *= 0.75f;
 
 			horizontalAxis *= Mathf.Sign(this.acceleration) * 50.0f;
 			
@@ -505,9 +505,9 @@ public class SpaceshipController : MonoBehaviour {
 
 						
 						this.rigidbody.velocity = -this.rigidbody.velocity.magnitude * contactDirection;
-						this.rigidbody.velocity *= 0.75f;
+						this.rigidbody.velocity *= 0.25f;
 
-						this.transform.position -= contactDirection * 2.0f;
+						this.transform.position -= contactDirection * 1.0f;
 						
 						Debug.Log("Contact Normal = " + contactNormal);
 						Debug.Log("Contact Direction = " + contactDirection);
