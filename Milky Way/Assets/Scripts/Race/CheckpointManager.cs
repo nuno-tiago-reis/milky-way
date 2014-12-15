@@ -7,9 +7,9 @@ public class CheckpointManager : MonoBehaviour {
 	
 	public void Start () {
 
-		for(int i=0; i<this.transform.childCount; i++) {
+		for(int i=1; i<this.transform.childCount+1; i++) {
 
-			Transform checkpoint = this.transform.FindChild("Checkpoint");
+			Transform checkpoint = this.transform.FindChild("Checkpoint " + i);
 			
 			CheckpointController checkpointController = checkpoint.GetComponent<CheckpointController>();
 
@@ -20,14 +20,11 @@ public class CheckpointManager : MonoBehaviour {
 				checkpointController.id = checkpointTotal;
 			}
 		}
-
-		Debug.Log (checkpointTotal);
 	}
 
 	public Transform GetCheckpoint(int index) {
 
-
-		Transform checkpoint = this.transform.FindChild("Checkpoint");
+		Transform checkpoint = this.transform.FindChild("Checkpoint " + index);
 
 		return checkpoint;
 	}
