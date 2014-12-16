@@ -23,8 +23,6 @@ public class HomingRocketPowerUpController : PowerUpController {
 
 	// Update is called once per frame
 	public void Update() {
-
-
 	}
 
 	// FixedUpdate is called once per fixed frame
@@ -39,7 +37,7 @@ public class HomingRocketPowerUpController : PowerUpController {
 
 		if(this.setupTime > 0.0f) {
 
-			this.transform.position += this.transform.up * 0.05f;
+			this.transform.position += this.transform.up * 0.25f;
 		}
 		else {
 

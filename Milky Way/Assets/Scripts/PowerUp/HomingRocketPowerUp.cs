@@ -34,7 +34,7 @@ public class HomingRocketPowerUp : PowerUp {
 		homingRocket.transform.parent = this.transform;
 		// Set the Position and Rotation so that it matches the Spaceships Rotation and Position.
 		homingRocket.transform.rotation = this.transform.rotation;
-		homingRocket.transform.position = this.transform.position + this.transform.up * 15.0f;
+		homingRocket.transform.position = this.transform.position;
 		
 		// Initialize the HomingRockets Controller
 		HomingRocketPowerUpController homingRocketController = homingRocket.GetComponent<HomingRocketPowerUpController>();
