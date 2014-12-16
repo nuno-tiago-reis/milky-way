@@ -10,6 +10,8 @@ public class ProgressBar : MonoBehaviour {
 
     public float timeToComplete;
 
+    public bool isEnabled = true;
+
     void Start()
     {
         circleImage = (Image)GetComponent("Image");
@@ -17,11 +19,11 @@ public class ProgressBar : MonoBehaviour {
         circleImage.type = Image.Type.Filled;
         circleImage.fillMethod = Image.FillMethod.Radial360;
         circleImage.fillOrigin = 0;
-
-        StartCoroutine(RadialProgress(timeToComplete));
+     
+       StartCoroutine(RadialProgress(timeToComplete));
     }
 
-    IEnumerator RadialProgress(float time)
+    public IEnumerator RadialProgress(float time)
     {
         float rate = 1 / time;
         float i = 0;
@@ -29,7 +31,10 @@ public class ProgressBar : MonoBehaviour {
         {
             i += Time.deltaTime * rate;
             if (i > 1)
+            {
                 circleImage.enabled = false;
+                isEnabled = false;
+            }
 
             circleImage.fillAmount = i;
             yield return 0;

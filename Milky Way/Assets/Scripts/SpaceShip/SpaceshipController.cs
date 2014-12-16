@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,11 @@ public class SpaceshipController : MonoBehaviour {
 	// Spaceships Race Record - Defines the current standings, laps adnd lap times.
 	public RaceRecord raceRecord
 	{ get; protected set; }
+
+    // Canvas
+    Image[] images;
+
+    bool inUse;
 
 	// Spaceships Health Attributes
 
@@ -129,6 +135,16 @@ public class SpaceshipController : MonoBehaviour {
 	{ get; protected set; }
 
 	public void Awake () {
+
+        images = this.transform.parent.parent.FindChild("Canvas").GetComponentsInChildren<Image>();
+
+        inUse = false;
+
+        foreach(Image image in images)
+            image.enabled = false;
+
+        foreach (Image image in images)
+            image.GetComponent<ProgressBar>().enabled = false;
 	}
 
 	public void Initialize(int id) {
@@ -211,6 +227,15 @@ public class SpaceshipController : MonoBehaviour {
 	}
 
 	public void FixedUpdate() {
+
+        if (images[0].GetComponent<ProgressBar>().isEnabled == false)
+        {
+            images[0].enabled = false;
+        }
+        if (images[1].GetComponent<ProgressBar>().isEnabled == false)
+        {
+            images[1].enabled = false;
+        }
 
 		// Road-sticking
 		bool positionStatus = CheckPosition();
@@ -447,6 +472,9 @@ public class SpaceshipController : MonoBehaviour {
 		if(shield == true && powerUpList.Contains("Shield")) {
 				
 			PowerUp powerUp = this.transform.gameObject.GetComponent<ShieldPowerUp>();
+
+            drawThingys(powerUpList.IndexOf("Shield"), "Shield");
+
 			powerUp.Activate();
 		}
 		
@@ -460,11 +488,92 @@ public class SpaceshipController : MonoBehaviour {
 		if(smokescreen == true && powerUpList.Contains("Smokescreen")) {
 			
 			PowerUp powerUp = this.transform.gameObject.GetComponent<SmokescreenPowerUp>();
+
+            drawThingys(powerUpList.IndexOf("Smokescreen"), "Smokescreen");
+
 			powerUp.Activate();
 		}
 
 		return true;
 	}
+
+    public void drawThingys(int index, string powerUpName)
+    {
+        Image image = images[0];
+
+        if (raceRecord.id == 0)
+        {
+            if (index == 0)
+            {
+                image = images[0];
+            }
+            else if (index == 1)
+            {
+                image = images[1];
+            }
+            else if (index == 2)
+            {
+                image = images[2];
+            }
+        }
+
+        if(raceRecord.id == 1) {
+
+            if (index == 0)
+            {
+                image = images[3];
+            }
+            else if (index == 1)
+            {
+                image = images[4];
+            }
+            else if (index == 2)
+            {
+                image = images[5];
+            }
+        }
+
+        Debug.Log("using = " + image.name);
+
+        ProgressBar progressBar = image.GetComponent<ProgressBar>();
+
+        progressBar.enabled = true;
+
+        image.enabled = true;
+
+        float offset = Screen.width * 0.5f;
+
+        if (raceRecord.id == 0)
+        {
+            if (index == 0)
+                image.rectTransform.position = new Vector3(50.0f + offset, 40.0f, 0.0f);
+            if (index == 1)
+                image.rectTransform.position = new Vector3(130.0f + offset, 40.0f, 0.0f);
+            if (index == 2)
+                image.rectTransform.position = new Vector3(210.0f + offset, 40.0f, 0.0f);
+        }
+        if (raceRecord.id == 1)
+        {
+            if (index == 0)
+                image.rectTransform.position = new Vector3(50.0f, 40.0f, 0.0f);
+            if (index == 1)
+                image.rectTransform.position = new Vector3(130.0f, 40.0f, 0.0f);
+            if (index == 2)
+                image.rectTransform.position = new Vector3(210.0f, 40.0f, 0.0f);
+        }
+
+        if (powerUpName == "Shield")
+        {
+            progressBar.timeToComplete = 15;
+        }
+        else if (powerUpName == "Smokescreen")
+        {
+            image.enabled = true;
+
+            progressBar.timeToComplete = 30;
+        }
+        progressBar.enabled = true;
+    }
 
 	public void InflictDamage(float damage) {
 
