@@ -61,50 +61,54 @@ public class RaceManager : MonoBehaviour {
 	public void InitializeSpaceship(Transform player) {
 
 		if(player.name.StartsWith("Player")) {
-			
+
+			// Initialize the Spaceship
 			Transform spaceshipTransform = player.FindChild("Spaceship");
 			
-			SpaceshipController spaceshipController = spaceshipTransform.GetComponent<SpaceshipController>();
-			
-			if(spaceshipController != null) {
+				SpaceshipController spaceshipController = spaceshipTransform.GetComponent<SpaceshipController>();
 				
-				this.spaceshipTotal++;
+				// Initialize the Spaceship Controller
+				if(spaceshipController != null) {
+					
+					this.spaceshipTotal++;
 
-				// Initialize the Spaceships
-				spaceshipController.Initialize(this.spaceshipTotal);
-				
-				this.spaceshipList.Add(spaceshipTransform);
-			}
-			
+					spaceshipController.Initialize(this.spaceshipTotal);
+					
+					this.spaceshipList.Add(spaceshipTransform);
+				}
+
+			// Initialize the Spaceships Camera 
 			Transform cameraTransform = player.FindChild("Camera");
 			
-			CameraController cameraController = cameraTransform.GetComponent<CameraController>();
-			
-			if(cameraController != null) {
+				CameraController cameraController = cameraTransform.GetComponent<CameraController>();
 				
-				// Initialize the Spaceships Camera
-				cameraController.Initialize();
-			}
-			
+				// Initialize the Spaceships Camera Controller
+				if(cameraController != null)
+					cameraController.Initialize();
+
+			// Initialize the Spaceships HUD 
 			Transform hudTransform = player.FindChild("HUD");
 			
-			HUD hudController = hudTransform.GetComponent<HUD>();
-			
-			if(hudController != null) {
+				HUD hudController = hudTransform.GetComponent<HUD>();
 				
-				// Initialize the Spaceships HUD
-				hudController.Initialize();
-			}
-			
+				// Initialize the Spaceships HUD Controller
+				if(hudController != null)					
+					hudController.Initialize();
+				
+				HUDMinimap hudMinimapController = hudTransform.GetComponent<HUDMinimap>();
+				
+				// Initialize the Spaceships HUD Minimap Controller
+				if(hudMinimapController != null)
+					hudMinimapController.Initialize();
+
+			// Initialize the Spaceships Joystick
 			Transform joystickTransform = player.FindChild("Spaceship");
 			
-			JoystickController joystickController = joystickTransform.GetComponent<JoystickController>();
-			
-			if(joystickController != null) {
-				
-				// Initialize the Spaceships JoystickController
-				joystickController.Initialize();
-			}
+				JoystickController joystickController = joystickTransform.GetComponent<JoystickController>();
+
+				// Initialize the Spaceships Joystick Controller
+				if(joystickController != null)
+					joystickController.Initialize();
 		}
 	}
 	

@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUD.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUDBar.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\HUDLabel.cs" />
+     <Compile Include="Assets\Scripts\SpaceShip\Display\HUDMinimap.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\ProgressBar.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\Display\StyleContainer.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\ExplosionController.cs" />
@@ -83,6 +84,7 @@
      <Compile Include="Assets\Scripts\SpaceShip\ShooterController.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\SpaceshipConfiguration.cs" />
      <Compile Include="Assets\Scripts\SpaceShip\SpaceshipController.cs" />
+     <Compile Include="Assets\Scripts\SpaceShip\Tracker\TrackerController.cs" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />

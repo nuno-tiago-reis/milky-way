@@ -20,8 +20,6 @@ public class HUD : MonoBehaviour {
 	{ get; protected set; }
 
 	// HUD Screen offset
-	public int screenID
-	{ get; protected set; }
 	public Vector2 screenOffset
 	{ get; protected set; }
 	public Vector2 speedometerOffset
@@ -121,8 +119,7 @@ public class HUD : MonoBehaviour {
     { get; private set; }
 
 	// Use this for initialization
-	public void Start () {
-
+	public void Awake () {
 	}
 
 	public void Initialize() {
@@ -134,9 +131,6 @@ public class HUD : MonoBehaviour {
 		this.spaceship = this.transform.parent.FindChild("Spaceship");
 		// Initialize the Cameras reference to its SpaceshipController
 		this.spaceshipController = this.spaceship.GetComponent<SpaceshipController>();
-
-		// Set the ScreensID according to the Spaceships ID
-		this.screenID = spaceshipController.raceRecord.id - 1;
 
 		// HUDs reference to its Spaceship 
 		this.spaceship = this.transform.parent.FindChild("Spaceship");
@@ -194,8 +188,8 @@ public class HUD : MonoBehaviour {
 		// Update the Screens Offset so that it matches the Spaceships ID
 		if(this.raceManager.spaceshipTotal != 1) {
 
-			this.screenOffset = new Vector2(Screen.width * (0.5f * (float)this.screenID), 0.0f);
-			this.speedometerOffset = new Vector2(Screen.width * (0.5f * (float)(this.screenID - 1)), 0.0f);
+			this.screenOffset = new Vector2(Screen.width * (0.5f * (float)(this.spaceshipController.raceRecord.id - 1)), 0.0f);
+			this.speedometerOffset = new Vector2(Screen.width * (0.5f * (float)(this.spaceshipController.raceRecord.id - 2)), 0.0f);
 		}
 		else {
 
