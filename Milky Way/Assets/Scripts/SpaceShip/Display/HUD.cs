@@ -223,9 +223,7 @@ public class HUD : MonoBehaviour {
 		if(this.raceManager.mode == RaceManager.RaceMode.SingleRace) {
 
 			// Update the Standings Texture Position and Dimensions according to the Screens Resolution
-			this.standingPosition = 
-				new Vector2(Screen.width * 0.01f, Screen.height * 0.01f) + 
-					screenOffset;
+			this.standingPosition = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f) + screenOffset;
 			
 			this.standingWidth = Screen.height * 0.15f;
 			this.standingHeight = Screen.height * 0.05f;
@@ -233,7 +231,7 @@ public class HUD : MonoBehaviour {
 		else if(this.raceManager.mode == RaceManager.RaceMode.TimeAttack || this.raceManager.mode == RaceManager.RaceMode.Arena) {
 
 			// Reset the Standings Texture Position and Dimensions
-			this.standingPosition = new Vector2(0.0f, 0.0f) + screenOffset;
+			this.standingPosition = new Vector2(Screen.width * 0.01f, Screen.height * 0.01f) + screenOffset;
 
 			this.standingWidth = 0.0f;
 			this.standingHeight = 0.0f;
@@ -245,9 +243,7 @@ public class HUD : MonoBehaviour {
 		if(this.raceManager.mode == RaceManager.RaceMode.SingleRace || this.raceManager.mode == RaceManager.RaceMode.TimeAttack) {
 			
 			// Update the Laps Texture Position and Dimensions according to the Screens Resolution
-			this.lapPosition = 
-				new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
-				            this.standingHeight * 1.1f) + screenOffset;
+			this.lapPosition = standingPosition + new Vector2(0.0f, this.standingHeight * 1.1f);
 			
 			this.lapWidth = Screen.height * 0.15f;
 			this.lapHeight = Screen.height * 0.05f;
@@ -255,7 +251,7 @@ public class HUD : MonoBehaviour {
 		else if(this.raceManager.mode == RaceManager.RaceMode.Arena) {
 			
 			// Reset the Laps Texture Position and Dimensions
-			this.lapPosition = new Vector2(0.0f, 0.0f) + screenOffset;
+			this.lapPosition = new Vector2(0.0f, 0.0f);
 			
 			this.lapWidth = 0.0f;
 			this.lapHeight = 0.0f;
@@ -267,10 +263,7 @@ public class HUD : MonoBehaviour {
 		if(this.raceManager.mode == RaceManager.RaceMode.TimeAttack) {
 
 			// Update the Best Lap Time Labels Position and Dimensions according to the Screens Resolution
-			this.bestLapTimeLabel.position = 
-				new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
-				            this.standingHeight * 1.1f + 
-				            this.lapHeight * 1.75f) + screenOffset;
+			this.bestLapTimeLabel.position = lapPosition + new Vector2(0.0f, this.lapHeight * 2.0f);
 			
 			this.bestLapTimeLabel.width = Screen.height * 0.15f;
 			this.bestLapTimeLabel.height = Screen.height * 0.025f;
@@ -283,18 +276,14 @@ public class HUD : MonoBehaviour {
 		else if(this.raceManager.mode == RaceManager.RaceMode.SingleRace || this.raceManager.mode == RaceManager.RaceMode.Arena) {
 			
 			// Reset the Best Lap Time Labels Position and Dimensions
-			this.bestLapTimeLabel.position = new Vector2(0.0f, 0.0f) + screenOffset;
+			this.bestLapTimeLabel.position = new Vector2(0.0f, 0.0f);
 			
 			this.bestLapTimeLabel.width = 0.0f;
 			this.bestLapTimeLabel.height = 0.0f;
 		}
 		
 		// Update the Current Lap Time Position and Dimensions according to the Screens Resolution
-		this.currentLapTimeLabel.position = 
-			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
-			            this.standingHeight * 1.1f + 
-			            this.lapHeight * 1.75f + 
-			            this.bestLapTimeLabel.height * 2.0f) + screenOffset;
+		this.currentLapTimeLabel.position = this.bestLapTimeLabel.position + new Vector2(0.0f, this.bestLapTimeLabel.height * 3.0f);
 		
 		this.currentLapTimeLabel.width = Screen.height * 0.15f;
 		this.currentLapTimeLabel.height = Screen.height * 0.025f;
@@ -308,12 +297,7 @@ public class HUD : MonoBehaviour {
 	public void UpdateHealth() {
 
 		// Update the Health Bars Position and Dimensions according to the Screens Resolution
-		this.healthBar.position = 
-			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
-			            this.standingHeight * 1.1f + 
-			            this.lapHeight * 2.0f + 
-			            this.bestLapTimeLabel.height * 2.0f + 
-			            this.currentLapTimeLabel.height * 2.0f) + screenOffset;
+		this.healthBar.position = this.currentLapTimeLabel.position + new Vector2(0.0f, this.currentLapTimeLabel.height * 3.0f);
 		
 		this.healthBar.width = Screen.width * 0.15f;
 		this.healthBar.height = Screen.height * 0.025f;
@@ -326,13 +310,7 @@ public class HUD : MonoBehaviour {
 	public void UpdateRepair() {
 
 		// Update the Repair Bars Position and Dimensions according to the Screens Resolution
-		this.repairBar.position = 
-			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
-			            this.standingHeight * 1.1f + 
-			            this.lapHeight * 2.0f + 
-			            this.bestLapTimeLabel.height * 2.0f + 
-			            this.currentLapTimeLabel.height * 2.0f +
-			            this.healthBar.height * 2.0f) + screenOffset;
+		this.repairBar.position = this.healthBar.position + new Vector2(0.0f, this.healthBar.height * 3.0f);
 		
 		this.repairBar.width = Screen.width * 0.15f;
 		this.repairBar.height = Screen.height * 0.025f;
@@ -345,14 +323,7 @@ public class HUD : MonoBehaviour {
 	public void UpdateGold() {
 
 		// Update the Gold Bars Position and Dimensions according to the Screens Resolution
-		this.goldBar.position = 
-			new Vector2(Screen.width * 0.01f, Screen.height * 0.01f + 
-			            this.standingHeight * 1.1f + 
-			            this.lapHeight * 2.0f + 
-			            this.bestLapTimeLabel.height * 2.0f + 
-			            this.currentLapTimeLabel.height * 2.0f +
-			            this.healthBar.height * 2.0f + 
-			            this.repairBar.height * 2.0f) + screenOffset;
+		this.goldBar.position = this.repairBar.position + new Vector2(0.0f, this.repairBar.height * 3.0f);
 		
 		this.goldBar.width = Screen.width * 0.15f;
 		this.goldBar.height = Screen.height * 0.025f;

@@ -192,6 +192,9 @@ public class SpaceshipController : MonoBehaviour {
 			trackerChildRenderer.material = trackerMaterial;
 		}
 
+		MeshRenderer spaceshipRenderer = this.transform.FindChild("Model").GetComponent<MeshRenderer>();
+		spaceshipRenderer.material = trackerMaterial;
+
 		// Initialize the Health, Weapon Power, Acceleration and Handling Attributes according to the SpaceshipConfiguration.
 		Initialize(new SpaceshipConfiguration(5,5,5,5));
 	}

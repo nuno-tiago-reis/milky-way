@@ -1,12 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SpaceShip\SpaceshipController.cs">
     <Files>
-      <File FileName="Assets\Scripts\SpaceShip\SpaceshipController.cs" Line="185" Column="55" />
-      <File FileName="Assets\Scripts\SpaceShip\Display\HUD.cs" Line="367" Column="3" />
-      <File FileName="Assets\Scripts\Race\RaceManager.cs" Line="64" Column="4" />
-      <File FileName="Assets\Scripts\SpaceShip\Display\HUDMinimap.cs" Line="72" Column="58" />
-      <File FileName="Assets\Scripts\Race\CheckpointManager.cs" Line="14" Column="1" />
+      <File FileName="Assets\Scripts\Race\RaceManager.cs" Line="98" Column="37" />
+      <File FileName="Assets\Scripts\SpaceShip\SpaceshipController.cs" Line="192" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
