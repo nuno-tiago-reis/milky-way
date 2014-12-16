@@ -45,7 +45,7 @@ public class HUDMinimap : MonoBehaviour {
 		if(this.raceManager.spaceshipTotal != 1) {
 			
 			// Resize the Rendering Viewport
-			camera.rect = new Rect(0.30f + (float)(this.spaceshipController.raceRecord.id - 1) * 0.5f, 1.0f - 0.20f * aspectRatio, 0.20f, 0.20f * aspectRatio);
+			camera.rect = new Rect(0.35f + (float)(this.spaceshipController.raceRecord.id - 1) * 0.5f, 1.0f - 0.15f * aspectRatio, 0.15f, 0.15f * aspectRatio);
 		}
 		else {
 			

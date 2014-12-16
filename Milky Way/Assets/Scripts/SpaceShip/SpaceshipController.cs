@@ -338,8 +338,6 @@ public class SpaceshipController : MonoBehaviour {
 			return true;
 		}
 			
-		Debug.Log("Repair Time = " + this.repairTime + " seconds");
-			
 		return false;
 	}
 
@@ -487,8 +485,6 @@ public class SpaceshipController : MonoBehaviour {
 		this.health = Mathf.Clamp(this.health - damage, this.minimumHealth, this.maximumHealth);
 
 		this.acceleration *= 0.75f;
-
-		Debug.Log("Took Damage (" + damage + ")! Remaining Health is " + this.health + "!");
 	}
 
 	public void OnCollisionEnter(Collision collision) {
@@ -498,11 +494,7 @@ public class SpaceshipController : MonoBehaviour {
 
 			this.acceleration *= 0.5f;
 
-			Debug.Log("Boundary Hit!");
-
 			foreach(ContactPoint contactPoint in collision.contacts) {
-
-				Debug.Log("Repulsion!");
 
 				// Spaceships Position Adjustments
 				RaycastHit centerHit;
@@ -525,20 +517,11 @@ public class SpaceshipController : MonoBehaviour {
 
 						this.transform.position -= contactDirection * 1.0f;
 						
-						Debug.Log("Contact Normal = " + contactNormal);
+						/*Debug.Log("Contact Normal = " + contactNormal);
 						Debug.Log("Contact Direction = " + contactDirection);
-						Debug.Log("Contact Position = " + contactPoint.point);
+						Debug.Log("Contact Position = " + contactPoint.point);*/
 					}
 				}
-
-				// Adjust the Spaceships Rotation so that it's parallel to the Track
-				/*this.transform.LookAt(this.transform.position + contactDirection * 5.0f, this.transform.up);
-
-				this.rigidbody.velocity = contactDirection * this.rigidbody.velocity.magnitude;// + contactNormal * 50.0f;
-				this.rigidbody.velocity *= 0.75f;*/
-
-				//this.rigidbody.AddForce(contactNormal * (this.rigidbody.velocity.magnitude + 2.0f), ForceMode.Impulse);
-
 			}
 		}
 	}
@@ -555,8 +538,6 @@ public class SpaceshipController : MonoBehaviour {
 	
 	public bool AddPowerUp(string powerUpName) {
 
-		Debug.Log("AddPowerUp(" + powerUpName + ")");
-
 		// If the Spaceship already has this Ability, don't add it.
 		if(this.powerUpList.Contains(powerUpName) == true)
 			return false;
@@ -565,13 +546,11 @@ public class SpaceshipController : MonoBehaviour {
 		
 		// Add the PowerUp to the inventory	
 		this.powerUpList.Add(powerUpName);
-		Debug.Log("Power up List size = " + this.powerUpList.Count);
+
 		return true;
 	}
 
 	public bool RemovePowerUp(string powerUpName) {
-		
-		Debug.Log("RemovePowerUp(" + powerUpName + ")");
 
 		// If the Spaceship doesn't have this Ability, don't remove it.
 		if(this.powerUpList.Contains(powerUpName) == false)
