@@ -179,6 +179,19 @@ public class SpaceshipController : MonoBehaviour {
 		// Initialize the Joystick Controller
 		this.joystick = this.transform.GetComponent<JoystickController>();
 
+		// Initialize the Trackers Material
+		Transform tracker = this.transform.FindChild("Tracker");
+
+		Material trackerMaterial = Resources.Load("Materials/Spaceships/Trackers/Marker " + this.raceRecord.id) as Material;
+
+		for(int index=0; index<tracker.childCount;index++) {
+
+			Transform trackerChild = tracker.GetChild(index);
+
+			MeshRenderer trackerChildRenderer = trackerChild.GetComponent<MeshRenderer>();
+			trackerChildRenderer.material = trackerMaterial;
+		}
+
 		// Initialize the Health, Weapon Power, Acceleration and Handling Attributes according to the SpaceshipConfiguration.
 		Initialize(new SpaceshipConfiguration(5,5,5,5));
 	}
