@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 using System;
 
@@ -10,7 +11,7 @@ public class HUD : MonoBehaviour {
 	// HUDs reference to the RaceManager
 	public RaceManager raceManager
 	{ get; protected set; }
-	
+
 	// HUDs reference to the Spaceship
 	public Transform spaceship
 	{ get; protected set; }
@@ -188,7 +189,7 @@ public class HUD : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Update() {
-			
+
 		// Update the Screens Offset so that it matches the Spaceships ID
 		if(this.raceManager.spaceshipTotal != 1) {
 
@@ -372,10 +373,10 @@ public class HUD : MonoBehaviour {
 		this.powerUpWidth = Screen.height * 0.10f;
 		this.powerUpHeight = Screen.height * 0.10f;
 		
-		this.powerUpKeyPosition = new Vector2(Screen.width * 0.01f, Screen.height - this.powerUpKeyHeight) + screenOffset;
+		this.powerUpKeyPosition = new Vector2(Screen.width * 0.018f, Screen.height * 0.84f) + screenOffset;
 		
-		this.powerUpKeyWidth = Screen.height * 0.10f;
-		this.powerUpKeyHeight = Screen.height * 0.14f;
+		this.powerUpKeyWidth = Screen.height * 0.06f;
+		this.powerUpKeyHeight = Screen.height * 0.06f;
 	}
 			
 	public void OnGUI() {
@@ -481,9 +482,10 @@ public class HUD : MonoBehaviour {
 			
 			GUI.DrawTexture (new Rect(powerUpPosition.x, powerUpPosition.y, this.powerUpWidth, this.powerUpHeight), powerUpTexture);
 			
-			GUI.DrawTexture(new Rect(powerUpKeyPosition.x, powerUpKeyPosition.y, 45, 45), powerUpKeyTexture);
-			
+			GUI.DrawTexture(new Rect(powerUpKeyPosition.x, powerUpKeyPosition.y, this.powerUpKeyWidth, this.powerUpKeyHeight), powerUpKeyTexture);
+
 			powerUpOffset += powerUpWidth * 1.1f;
+
 		}
 	}
 }

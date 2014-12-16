@@ -5,7 +5,7 @@ public class SmokescreenPowerUp : PowerUp {
 	// Defines the SmokescreenPowerUp Radius.
 	public const float smokescreenRadius = 50.0f;
 	// Defines the ShieldPowerUp Lifetime.
-	public const float smokescreenLifetime = 15.0f;
+	public const float smokescreenLifetime = 30.0f;
 
 	// When the SmokescreenPowerUp is Created
 	public override void Awake() {
