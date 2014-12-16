@@ -95,7 +95,7 @@ public class RaceManager : MonoBehaviour {
 				if(hudController != null)					
 					hudController.Initialize();
 				
-				HUDMinimap hudMinimapController = hudTransform.GetComponent<HUDMinimap>();
+				HUDMinimap hudMinimapController = hudTransform.FindChild("Camera").GetComponent<HUDMinimap>();
 				
 				// Initialize the Spaceships HUD Minimap Controller
 				if(hudMinimapController != null)
