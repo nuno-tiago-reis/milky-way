@@ -37,7 +37,7 @@ public class HomingRocketPowerUpController : PowerUpController {
 
 		if(this.setupTime > 0.0f) {
 
-			this.transform.position += this.transform.up * 0.25f;
+			this.transform.position += this.transform.up * 0.35f;
 		}
 		else {
 
@@ -45,6 +45,9 @@ public class HomingRocketPowerUpController : PowerUpController {
 
 			// Increase the Push Force
 			this.force = this.force + 0.015f;
+
+
+			this.transform.RotateAround(this.transform.forward, 15.0f);
 
 			Vector3 direction = this.target.position - this.transform.position;
 			direction.Normalize();
@@ -80,9 +83,14 @@ public class HomingRocketPowerUpController : PowerUpController {
 		
 		// Collision with other Abilities
 		if(collider.gameObject.layer == LayerMask.NameToLayer("PowerUps")) {
-			
+
 			// Collision with the Shield PowerUp
 			if(collider.gameObject.tag == "Shield") {
+
+				ShieldPowerUpController shieldPowerUpController = collider.transform.GetComponent<ShieldPowerUpController>();
+
+				if(shieldPowerUpController.parent == this.parent)
+					return;
 
 				// Remove the PowerUp from the Parent
 				SpaceshipController parentSpaceshipController = this.parent.GetComponent<SpaceshipController>();
@@ -111,7 +119,11 @@ public class HomingRocketPowerUpController : PowerUpController {
 
 				// Inflict Damage to the targeted Spaceship
 				SpaceshipController colliderSpaceshipController = collider.transform.GetComponent<SpaceshipController>();
-				colliderSpaceshipController.InflictDamage(this.damage);
+
+				if(colliderSpaceshipController.raceRecord.currentStanding == 1)
+					colliderSpaceshipController.InflictDamage(this.damage * 10);
+				else
+					colliderSpaceshipController.InflictDamage(this.damage);
 
 				// Remove the PowerUp from the Parent
 				SpaceshipController parentSpaceshipController = this.parent.GetComponent<SpaceshipController>();

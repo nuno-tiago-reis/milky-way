@@ -42,7 +42,7 @@ public class CameraController : MonoBehaviour {
 	public void FixedUpdate() {
 
 		// Calculate the Destination from the Spaceships position and place it behind it.
-		Vector3 destination = this.spaceship.transform.position - this.spaceship.transform.forward * 10.0f + this.spaceship.transform.up * 5.0f;
+		Vector3 destination = this.spaceship.transform.position - this.spaceship.transform.forward * 15.0f + this.spaceship.transform.up * 12.5f;
 
 		Vector3 velocity = Vector3.zero;
 		// Dampen time - Higher values means the Camera takes more time to adjust.

@@ -11,11 +11,6 @@ public class SpaceshipController : MonoBehaviour {
 	public RaceRecord raceRecord
 	{ get; protected set; }
 
-    // Canvas
-    Image[] images;
-
-    bool inUse;
-
 	// Spaceships Health Attributes
 
 		// Defines how much damage the Spaceship can take before needing repairs.
@@ -135,16 +130,6 @@ public class SpaceshipController : MonoBehaviour {
 	{ get; protected set; }
 
 	public void Awake () {
-
-        images = this.transform.parent.parent.FindChild("Canvas").GetComponentsInChildren<Image>();
-
-        inUse = false;
-
-        foreach(Image image in images)
-            image.enabled = false;
-
-        foreach (Image image in images)
-            image.GetComponent<ProgressBar>().enabled = false;
 	}
 
 	public void Initialize(int id) {
@@ -211,6 +196,15 @@ public class SpaceshipController : MonoBehaviour {
 		MeshRenderer spaceshipRenderer = this.transform.FindChild("Model").GetComponent<MeshRenderer>();
 		spaceshipRenderer.material = trackerMaterial;
 
+		/*SpaceshipConfiguration spaceshipConfiguration = loadFile(this.raceRecord.id);
+
+		Debug.Log(this.raceRecord.id + " Health = " + spaceshipConfiguration.health);
+		Debug.Log(this.raceRecord.id + " Power = " + spaceshipConfiguration.power);
+		Debug.Log(this.raceRecord.id + " Speed = " + spaceshipConfiguration.acceleration);
+		Debug.Log(this.raceRecord.id + " Handling = " + spaceshipConfiguration.handling);
+		
+		Initialize(spaceshipConfiguration);*/
+
 		// Initialize the Health, Weapon Power, Acceleration and Handling Attributes according to the SpaceshipConfiguration.
 		Initialize(new SpaceshipConfiguration(5,5,5,5));
 	}
@@ -243,15 +237,6 @@ public class SpaceshipController : MonoBehaviour {
 	}
 
 	public void FixedUpdate() {
-
-        if (images[0].GetComponent<ProgressBar>().isEnabled == false)
-        {
-            images[0].enabled = false;
-        }
-        if (images[1].GetComponent<ProgressBar>().isEnabled == false)
-        {
-            images[1].enabled = false;
-        }
 
 		// Road-sticking
 		bool positionStatus = CheckPosition();
@@ -382,6 +367,12 @@ public class SpaceshipController : MonoBehaviour {
 			this.acceleration = 
 				Mathf.Clamp(this.acceleration + SpaceshipController.accelerationStep * (this.maximumAcceleration / (this.acceleration + 2.5f)), 
 				            this.minimumAcceleration, this.maximumAcceleration);
+
+			if(this.raceRecord.id == 1)
+				this.acceleration *= 1.325f;
+
+			if(this.raceRecord.currentStanding > 1)
+				this.acceleration *= 1.15f;
 		}
 
 		// Reverse = Triangle & Brake = Square
@@ -487,8 +478,6 @@ public class SpaceshipController : MonoBehaviour {
 				
 			PowerUp powerUp = this.transform.gameObject.GetComponent<ShieldPowerUp>();
 
-            drawThingys(powerUpList.IndexOf("Shield"), "Shield");
-
 			powerUp.Activate();
 		}
 		
@@ -503,91 +492,11 @@ public class SpaceshipController : MonoBehaviour {
 			
 			PowerUp powerUp = this.transform.gameObject.GetComponent<SmokescreenPowerUp>();
 
-            drawThingys(powerUpList.IndexOf("Smokescreen"), "Smokescreen");
-
 			powerUp.Activate();
 		}
 
 		return true;
 	}
-
-    public void drawThingys(int index, string powerUpName)
-    {
-        Image image = images[0];
-
-        if (raceRecord.id == 0)
-        {
-            if (index == 0)
-            {
-                image = images[0];
-            }
-            else if (index == 1)
-            {
-                image = images[1];
-            }
-            else if (index == 2)
-            {
-                image = images[2];
-            }
-        }
-
-        if(raceRecord.id == 1) {
-
-            if (index == 0)
-            {
-                image = images[3];
-            }
-            else if (index == 1)
-            {
-                image = images[4];
-            }
-            else if (index == 2)
-            {
-                image = images[5];
-            }
-        }
-
-        Debug.Log("using = " + image.name);
-
-        ProgressBar progressBar = image.GetComponent<ProgressBar>();
-
-        progressBar.enabled = true;
-
-        image.enabled = true;
-
-        float offset = Screen.width * 0.5f;
-
-        if (raceRecord.id == 0)
-        {
-            if (index == 0)
-                image.rectTransform.position = new Vector3(50.0f + offset, 40.0f, 0.0f);
-            if (index == 1)
-                image.rectTransform.position = new Vector3(130.0f + offset, 40.0f, 0.0f);
-            if (index == 2)
-                image.rectTransform.position = new Vector3(210.0f + offset, 40.0f, 0.0f);
-        }
-        if (raceRecord.id == 1)
-        {
-            if (index == 0)
-                image.rectTransform.position = new Vector3(50.0f, 40.0f, 0.0f);
-            if (index == 1)
-                image.rectTransform.position = new Vector3(130.0f, 40.0f, 0.0f);
-            if (index == 2)
-                image.rectTransform.position = new Vector3(210.0f, 40.0f, 0.0f);
-        }
-
-        if (powerUpName == "Shield")
-        {
-            progressBar.timeToComplete = 15;
-        }
-        else if (powerUpName == "Smokescreen")
-        {
-            image.enabled = true;
-
-            progressBar.timeToComplete = 30;
-        }
-        progressBar.enabled = true;
-    }
 
 	public void InflictDamage(float damage) {
 
@@ -679,12 +588,13 @@ public class SpaceshipController : MonoBehaviour {
 	}
 	#endregion
 
-    public bool loadFile()
-    {
-        string fileName = "upgrades.txt";
+    public SpaceshipConfiguration loadFile(int id) {
 
-        if (File.Exists(fileName))
-        {
+        string fileName = "upgradesShip" + (id -1) + ".txt";
+
+		SpaceshipConfiguration spaceshipConfiguration = new SpaceshipConfiguration();
+
+        if (File.Exists(fileName)) {
 
             try
             {
@@ -711,7 +621,17 @@ public class SpaceshipController : MonoBehaviour {
 
                                 // Upgrade Type, value
                                // upgradesMap.Add(entries[0], entries[1]);
+								if(entries[0] == "Health")
+									spaceshipConfiguration.SetHealth(int.Parse(entries[1]));
 
+								if(entries[0] == "Power")
+									spaceshipConfiguration.SetPower(int.Parse(entries[1]));
+
+								if(entries[0] == "Speed")
+									spaceshipConfiguration.SetAcceleration(int.Parse(entries[1]));
+
+								if(entries[0] == "Handling")
+									spaceshipConfiguration.SetHandling(int.Parse(entries[1]));
                             }
                         }
                     }
@@ -719,7 +639,7 @@ public class SpaceshipController : MonoBehaviour {
 
                     streamReader.Close();
 
-                    return true;
+					return spaceshipConfiguration;
                 }
             }
             catch (System.Exception e)
@@ -727,10 +647,10 @@ public class SpaceshipController : MonoBehaviour {
 
                 Debug.Log("Exception when reading the file!" + e.ToString());
 
-                return false;
+                return null;
             }
         }
-        return false;
+		return null;
     }
 
 	#region Gizmos

@@ -5,7 +5,7 @@ public class HomingRocketPowerUp : PowerUp {
 	// Defines the HomingRocketPowerUps Damage.
 	public const float homingRocketDamage = 150.0f;
 	// Defines the HomingRocketPowerUps Force.
-	public const float homingRocketForce = 1.0f;
+	public const float homingRocketForce = 5.0f;
 	// Defines the HomingRocketPowerUps Lifetime.
 	public const float homingRocketLifetime = 10.0f;
 	// Defines the HomingRocketPowerUps Setup Time.
@@ -53,6 +53,8 @@ public class HomingRocketPowerUp : PowerUp {
 
 		// Store a Reference to the PowerUp Controller.
 		this.powerUpController = homingRocketController;
+
+		Debug.Log(homingRocketController);
 
 		return true;
 	}

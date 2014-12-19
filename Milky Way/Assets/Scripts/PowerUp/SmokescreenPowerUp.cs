@@ -5,7 +5,7 @@ public class SmokescreenPowerUp : PowerUp {
 	// Defines the SmokescreenPowerUp Radius.
 	public const float smokescreenRadius = 50.0f;
 	// Defines the ShieldPowerUp Lifetime.
-	public const float smokescreenLifetime = 30.0f;
+	public const float smokescreenLifetime = 25.0f;
 
 	// When the SmokescreenPowerUp is Created
 	public override void Awake() {
@@ -25,7 +25,8 @@ public class SmokescreenPowerUp : PowerUp {
 		Debug.Log("Smokescreen - Activate(" + this.transform.parent.name + ")");
 
 		// Instantiate the Smokescreens GameObject
-		GameObject smokescreen = GameObject.Instantiate(Resources.Load("Prefabs/PowerUps/" + this.powerUpName)) as GameObject;
+		//GameObject smokescreen = GameObject.Instantiate(Resources.Load("Prefabs/PowerUps/" + this.powerUpName)) as GameObject;
+		GameObject smokescreen = GameObject.Instantiate(Resources.Load("Prefabs/Explosions/" + this.powerUpName)) as GameObject;
 		// Set the Parent transform to null so that it doesn't follow the parent
 		smokescreen.transform.parent = null;
 		// Set the Position and Rotation so that it matches the Spaceships Rotation and Position.

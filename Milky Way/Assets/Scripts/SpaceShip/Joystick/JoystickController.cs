@@ -6,6 +6,10 @@ public class JoystickController : MonoBehaviour {
 	public int joystickID
 	{ get; protected set; }
 
+	public enum ControllerType { Xbox, PS3};
+
+	public ControllerType controllerType;
+
 	// Key Mappings
 	public KeyCode triangle
 	{ get; protected set; }
@@ -56,45 +60,81 @@ public class JoystickController : MonoBehaviour {
 		switch(this.joystickID) {
 
 			case 1:	// Shape Buttons
-					this.triangle = KeyCode.Joystick1Button0;
-					this.circle = KeyCode.Joystick1Button1;
-					this.cross = KeyCode.Joystick1Button2;
-					this.square = KeyCode.Joystick1Button3;
 
-					// Bumpers
-					this.L1 = KeyCode.Joystick1Button4;
-					this.L2 = KeyCode.Joystick1Button6;
-					this.L3 = KeyCode.Joystick1Button9;
-					this.R1 = KeyCode.Joystick1Button5;
-					this.R2 = KeyCode.Joystick1Button7;
-					this.R3 = KeyCode.Joystick1Button10;
+					if(this.controllerType == ControllerType.PS3) {
 
-					// Miscelaneous
-					this.start = KeyCode.Joystick1Button11;
-					this.select = KeyCode.Joystick1Button9;
-					this.playstation = KeyCode.Joystick1Button12;
+						this.triangle = KeyCode.Joystick1Button0;
+						this.circle = KeyCode.Joystick1Button1;
+						this.cross = KeyCode.Joystick1Button2;
+						this.square = KeyCode.Joystick1Button3;
+
+						// Bumpers
+						this.L1 = KeyCode.Joystick1Button4;
+						this.L2 = KeyCode.Joystick1Button6;
+						this.L3 = KeyCode.Joystick1Button9;
+						this.R1 = KeyCode.Joystick1Button5;
+						this.R2 = KeyCode.Joystick1Button7;
+						this.R3 = KeyCode.Joystick1Button10;
+
+						// Miscelaneous
+						this.start = KeyCode.Joystick1Button11;
+						this.select = KeyCode.Joystick1Button9;
+						this.playstation = KeyCode.Joystick1Button12;
+					}
+					else {
+
+						this.triangle = KeyCode.Joystick1Button3;
+						this.circle = KeyCode.Joystick1Button1;
+						this.cross = KeyCode.Joystick1Button0;
+						this.square = KeyCode.Joystick1Button2;
+						
+						// Bumpers
+						this.L1 = KeyCode.Joystick1Button4;
+						this.L2 = KeyCode.Joystick1Button6;
+						this.L3 = KeyCode.Joystick1Button8;
+						this.R1 = KeyCode.Joystick1Button5;
+						this.R2 = KeyCode.Joystick1Button7;
+						this.R3 = KeyCode.Joystick1Button9;
+					}
 
 					break;
 
-			case 2:	// Shape Buttons
-					this.triangle = KeyCode.Joystick2Button0;
-					this.circle = KeyCode.Joystick2Button1;
-					this.cross = KeyCode.Joystick2Button2;
-					this.square = KeyCode.Joystick2Button3;
+			case 2:	if(this.controllerType == ControllerType.PS3) {// Shape Buttons
+
+						this.triangle = KeyCode.Joystick2Button0;
+						this.circle = KeyCode.Joystick2Button1;
+						this.cross = KeyCode.Joystick2Button2;
+						this.square = KeyCode.Joystick2Button3;
+							
+						// Bumpers
+						this.L1 = KeyCode.Joystick2Button4;
+						this.L2 = KeyCode.Joystick2Button6;
+						this.L3 = KeyCode.Joystick2Button9;
+						this.R1 = KeyCode.Joystick2Button5;
+						this.R2 = KeyCode.Joystick2Button7;
+						this.R3 = KeyCode.Joystick2Button10;
 						
-					// Bumpers
-					this.L1 = KeyCode.Joystick2Button4;
-					this.L2 = KeyCode.Joystick2Button6;
-					this.L3 = KeyCode.Joystick2Button9;
-					this.R1 = KeyCode.Joystick2Button5;
-					this.R2 = KeyCode.Joystick2Button7;
-					this.R3 = KeyCode.Joystick2Button10;
-					
-					// Miscelaneous
-					this.start = KeyCode.Joystick2Button11;
-					this.select = KeyCode.Joystick2Button9;
-					this.playstation = KeyCode.Joystick2Button12;
-					
+						// Miscelaneous
+						this.start = KeyCode.Joystick2Button11;
+						this.select = KeyCode.Joystick2Button9;
+						this.playstation = KeyCode.Joystick2Button12;
+					}
+					else {
+						
+						this.triangle = KeyCode.Joystick2Button3;
+						this.circle = KeyCode.Joystick2Button1;
+						this.cross = KeyCode.Joystick2Button0;
+						this.square = KeyCode.Joystick2Button2;
+						
+						// Bumpers
+						this.L1 = KeyCode.Joystick2Button4;
+						this.L2 = KeyCode.Joystick2Button6;
+						this.L3 = KeyCode.Joystick2Button8;
+						this.R1 = KeyCode.Joystick2Button5;
+						this.R2 = KeyCode.Joystick2Button7;
+						this.R3 = KeyCode.Joystick2Button9;
+					}
+
 					break;
 		}
 

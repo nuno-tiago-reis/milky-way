@@ -123,6 +123,18 @@ public class HUD : MonoBehaviour {
     public Dictionary<string, Texture2D> powerUpKeysMap
     { get; private set; }
 
+	// Gold Attributes
+	public HUDBar rocketBar
+	{ get; protected set; }
+
+	// Gold Attributes
+	public HUDBar shieldBar
+	{ get; protected set; }
+
+	// Gold Attributes
+	public HUDBar smokescreenBar
+	{ get; protected set; }
+
 	// Use this for initialization
 	public void Awake () {
 	}
@@ -185,6 +197,13 @@ public class HUD : MonoBehaviour {
 		this.powerUpTextureMap = new Dictionary<string, Texture2D>();
 		
 		this.powerUpKeysMap = new Dictionary<string, Texture2D>();
+
+		// Gold Attributes
+		this.rocketBar = new HUDBar();
+
+		this.shieldBar = new HUDBar();
+		
+		this.smokescreenBar = new HUDBar();
 	}
 	
 	// Update is called once per frame
@@ -483,6 +502,65 @@ public class HUD : MonoBehaviour {
 			GUI.DrawTexture (new Rect(powerUpPosition.x, powerUpPosition.y, this.powerUpWidth, this.powerUpHeight), powerUpTexture);
 			
 			GUI.DrawTexture(new Rect(powerUpKeyPosition.x, powerUpKeyPosition.y, this.powerUpKeyWidth, this.powerUpKeyHeight), powerUpKeyTexture);
+
+			if(powerUpName == "HomingRocket") {
+
+				PowerUp powerUp = (PowerUp)this.spaceship.GetComponent(powerUpName+"PowerUp");
+
+				if(powerUp.powerUpStatus == true && powerUp.powerUpController != null) {
+
+					rocketBar.amount = powerUp.powerUpController.lifetime;
+					rocketBar.minimumAmount = 0.0f;
+					rocketBar.maximumAmount = powerUp.powerUpController.maximumLifetime;
+
+					rocketBar.position = new Vector2(powerUpPosition.x, powerUpPosition.y+70.0f);
+					rocketBar.width = 100.0f;
+					rocketBar.height = 20.0f;
+
+					rocketBar.text = "";
+					rocketBar.textActive = false;
+
+					rocketBar.Draw();
+				}
+			}
+			else if(powerUpName == "Smokescreen") {
+				
+				PowerUp powerUp = (PowerUp)this.spaceship.GetComponent(powerUpName+"PowerUp");
+				
+				if(powerUp.powerUpStatus == true && powerUp.powerUpController != null) {
+					
+					smokescreenBar.amount = powerUp.powerUpController.lifetime;
+					smokescreenBar.minimumAmount = 0.0f;
+					smokescreenBar.maximumAmount = powerUp.powerUpController.maximumLifetime;
+					
+					smokescreenBar.position = new Vector2(powerUpPosition.x, powerUpPosition.y+70.0f);
+					smokescreenBar.width = 100.0f;
+					smokescreenBar.height = 20.0f;
+					
+					smokescreenBar.text = "";
+					smokescreenBar.textActive = false;
+					smokescreenBar.Draw();
+				}
+			}
+			else if(powerUpName == "Shield") {
+				
+				PowerUp powerUp = (PowerUp)this.spaceship.GetComponent(powerUpName+"PowerUp");
+				
+				if(powerUp.powerUpStatus == true && powerUp.powerUpController != null) {
+					
+					shieldBar.amount = powerUp.powerUpController.lifetime;
+					shieldBar.minimumAmount = 0.0f;
+					shieldBar.maximumAmount = powerUp.powerUpController.maximumLifetime;
+					
+					shieldBar.position = new Vector2(powerUpPosition.x, powerUpPosition.y+70.0f);
+					shieldBar.width = 100.0f;
+					shieldBar.height = 20.0f;
+					
+					shieldBar.text = "";
+					shieldBar.textActive = false;
+					shieldBar.Draw();
+				}
+			}
 
 			powerUpOffset += powerUpWidth * 1.1f;
 

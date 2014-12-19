@@ -20,6 +20,12 @@ public class Menu : MonoBehaviour {
         var rect = GetComponent <RectTransform>();
         rect.offsetMax = rect.offsetMin = new Vector2(0, -50);
 
+		if(this.name == "UpgradesMenu") {
+
+			
+			rect.offsetMax = rect.offsetMin = new Vector2(-300, -50);
+		}
+
         isOpen = false;
     }
 

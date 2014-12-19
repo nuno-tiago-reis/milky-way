@@ -28,11 +28,16 @@ public class HUDBar {
 	
 	public GUIStyle defaultStyle
 	{ get; set; } 
-	
+
+	public bool textActive 
+	{ get; set; } 	
+
 	/* Default Constructor */
 	public HUDBar() {
 		
 		this.text = "Uninitialized";
+
+		this.textActive = true;
 		
 		this.position = new Vector2(0.0f,0.0f);
 		
@@ -71,16 +76,19 @@ public class HUDBar {
 		GUI.Box(new Rect(position.x + 5.0f, position.y + 2.0f, (width - 10.0f) * percentage, height - 4.0f), "", style);
 		
 		/* Draw the Bar Label */
-		style = styleManager.GetStyle("Black Label");
-		
-		GUI.TextField(new Rect(position.x + 10, position.y - 20, width * 0.5f, height * 0.75f), text, style);
-		
-		/* Draw the Text Overlay */
-		style = styleManager.GetStyle("Transparent Label");
+		if(textActive == true) {
 
-		if(this.maximumAmount != 0.0f)
-			GUI.TextField(new Rect(position.x + 5.0f, position.y + 2.0f, (width - 10.0f), height - 5.0f), amount.ToString("0.0") + "/" + maximumAmount.ToString("0.0"), style);	
-		else
-			GUI.TextField(new Rect(position.x + 5.0f, position.y + 2.0f, (width - 10.0f), height - 5.0f), amount.ToString("F0"), style);	
+			style = styleManager.GetStyle("Black Label");
+			
+			GUI.TextField(new Rect(position.x + 10, position.y - 20, width * 0.5f, height * 0.75f), text, style);
+			
+			/* Draw the Text Overlay */
+			style = styleManager.GetStyle("Transparent Label");
+
+			if(this.maximumAmount != 0.0f)
+				GUI.TextField(new Rect(position.x + 5.0f, position.y + 2.0f, (width - 10.0f), height - 5.0f), amount.ToString("0.0") + "/" + maximumAmount.ToString("0.0"), style);	
+			else
+				GUI.TextField(new Rect(position.x + 5.0f, position.y + 2.0f, (width - 10.0f), height - 5.0f), amount.ToString("F0"), style);	
+		}
 	}
 }

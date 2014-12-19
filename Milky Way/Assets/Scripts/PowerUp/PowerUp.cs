@@ -8,6 +8,9 @@ public abstract class PowerUp : MonoBehaviour {
     // Define the PowerUps Key
     public string powerUpKey
     { get; protected set; }
+	// Define the PowerUps Key
+	public bool powerUpStatus
+	{ get; protected set; }
 	// Defines the PowerUps Controller.
 	public PowerUpController powerUpController
 	{ get; protected set;}
@@ -17,6 +20,8 @@ public abstract class PowerUp : MonoBehaviour {
 		
 		// Initialize the PowerUps Name.
 		this.powerUpName = "Generic PowerUp";
+
+		this.powerUpStatus = false;
 	}
 
 	// FixedUpdate is called once per fixed frame
@@ -24,7 +29,9 @@ public abstract class PowerUp : MonoBehaviour {
 
 		if(this.powerUpController != null)
 			return false;
-			
+
+		this.powerUpStatus = true;
+
 		return true;
 	}
 }

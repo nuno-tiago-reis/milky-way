@@ -45,6 +45,18 @@ public class SpaceshipConfiguration {
 		SetHandling(handling);
 	}
 
+	public SpaceshipConfiguration() {
+		
+		// Spaceships starting Health
+		SetHealth(0);
+		// Spaceships starting Power
+		SetPower(0);
+		// Spaceships starting Speed
+		SetAcceleration(0);
+		// Spaceships starting Handling
+		SetHandling(0);
+	}
+
 	public void SetHealth(int health) {
 
         this.health = Mathf.Clamp(health, SpaceshipConfiguration.minimumHealth, this.maximumHealth);

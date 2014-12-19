@@ -41,10 +41,13 @@ public class ProjectileController : MonoBehaviour {
 
 			// Collision with the Shield PowerUp
 			if(collider.gameObject.tag == "Shield") {
+				
+				ShieldPowerUpController shieldPowerUpController = collider.transform.GetComponent<ShieldPowerUpController>();
+				
+				if(shieldPowerUpController.parent == this.parent)
+					return;
 
 				Destroy(this.gameObject);
-
-				return;
 			}
 		}
 			
