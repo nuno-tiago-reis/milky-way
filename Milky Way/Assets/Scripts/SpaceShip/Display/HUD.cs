@@ -374,7 +374,7 @@ public class HUD : MonoBehaviour {
 		this.pointerHeight = speedometerWidth * 0.35f;
 		
 		// Update the Pointers position according to the Screens Resolution and to the Spaceships Velocity
-		float pointerAngle = (Mathf.Abs(this.spaceship.rigidbody.velocity.magnitude) / 300.0f  + 0.75f) * Mathf.PI;
+		float pointerAngle = (Mathf.Abs(this.spaceship.GetComponent<Rigidbody>().velocity.magnitude) / 300.0f  + 0.75f) * Mathf.PI;
 		
 		Vector2 pointerDistance = new Vector3(
 			this.pointerHeight * Mathf.Cos (pointerAngle) - this.pointerHeight * Mathf.Sin (pointerAngle),

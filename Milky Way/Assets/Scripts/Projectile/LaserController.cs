@@ -40,7 +40,7 @@ public class LaserController : ProjectileController {
 		
 		// Apply the Initial Force
 		Rigidbody rigidBody = this.transform.GetComponent<Rigidbody>();
-		rigidbody.useGravity = false;
+		GetComponent<Rigidbody>().useGravity = false;
 		rigidBody.AddForce(this.transform.forward * this.force);
 	}
 }

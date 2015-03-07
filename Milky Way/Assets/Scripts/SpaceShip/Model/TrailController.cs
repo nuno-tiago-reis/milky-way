@@ -14,8 +14,8 @@ public class TrailController : MonoBehaviour {
 	// Update is called once per frame
 	public void Update () {
 		
-		float velocity = this.spaceship.rigidbody.velocity.magnitude;
+		float velocity = this.spaceship.GetComponent<Rigidbody>().velocity.magnitude;
 
-		this.particleSystem.startSpeed = (velocity / 100.0f) * 10.0f;
+		this.GetComponent<ParticleSystem>().startSpeed = (velocity / 100.0f) * 10.0f;
 	}
 }

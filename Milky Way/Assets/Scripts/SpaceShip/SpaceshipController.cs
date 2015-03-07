@@ -398,10 +398,10 @@ public class SpaceshipController : MonoBehaviour {
 			this.acceleration = 0.0f;
 			
 			// Reduce the Spaceships Velocity (Acceleration)
-			this.rigidbody.velocity = this.rigidbody.velocity * 0.95f;
+			this.GetComponent<Rigidbody>().velocity = this.GetComponent<Rigidbody>().velocity * 0.95f;
 
 			// Reduce the Spaceships Angular Velocity (Steering)
-			this.rigidbody.angularVelocity = this.rigidbody.angularVelocity * 0.95f;
+			this.GetComponent<Rigidbody>().angularVelocity = this.GetComponent<Rigidbody>().angularVelocity * 0.95f;
 		}
 
 		if(Mathf.Abs(this.acceleration) < 0.05f)
@@ -434,11 +434,11 @@ public class SpaceshipController : MonoBehaviour {
 			horizontalAxis *= Mathf.Sign(this.acceleration) * 50.0f;
 			
 			// Increment the Spaceships Angular Velocity
-			this.rigidbody.AddTorque(this.transform.up * horizontalAxis * handling, ForceMode.Force);
+			this.GetComponent<Rigidbody>().AddTorque(this.transform.up * horizontalAxis * handling, ForceMode.Force);
 		}
 		
 		// Increment the Spaceships Velocity
-		this.rigidbody.AddForce(this.transform.forward * acceleration* 500.0f, ForceMode.Force);
+		this.GetComponent<Rigidbody>().AddForce(this.transform.forward * acceleration* 500.0f, ForceMode.Force);
 
 		return true;
 	}
@@ -530,8 +530,8 @@ public class SpaceshipController : MonoBehaviour {
 						contactDirection.Normalize();
 
 						
-						this.rigidbody.velocity = -this.rigidbody.velocity.magnitude * contactDirection;
-						this.rigidbody.velocity *= 0.25f;
+						this.GetComponent<Rigidbody>().velocity = -this.GetComponent<Rigidbody>().velocity.magnitude * contactDirection;
+						this.GetComponent<Rigidbody>().velocity *= 0.25f;
 
 						this.transform.position -= contactDirection * 1.0f;
 						
@@ -560,7 +560,7 @@ public class SpaceshipController : MonoBehaviour {
 		if(this.powerUpList.Contains(powerUpName) == true)
 			return false;
 
-		this.transform.gameObject.AddComponent(powerUpName + "PowerUp");
+		UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(this.transform.gameObject, "Assets/Scripts/SpaceShip/SpaceshipController.cs (563,3)", powerUpName + "PowerUp");
 		
 		// Add the PowerUp to the inventory	
 		this.powerUpList.Add(powerUpName);
