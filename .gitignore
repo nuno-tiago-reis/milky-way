@@ -1,4 +1,38 @@
-/Milky Way/Library
-/Milky Way/Temp
-/Milky Way/upgradesShip0.txt
-/Milky Way/upgradesShip1.txt
+# ===================================== #
+# Unity generated                       #
+# ===================================== #
+Library/
+library/
+Temp/
+temp/
+Obj/
+obj/
+UnityGenerated
+unityGenerated
+
+*.unityproj
+*.unitypackage
+
+# ===================================== #
+# Milky Way generated                   #
+# ===================================== #
+
+Executable/
+Callibration/
+
+/Milky Way/.vs
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+
+ExportedObj/
+
+*.svd
+*.csproj
+*.userprefs
+*.pidb
+*.suo
+*.sln
+*.user
+*.booproj
