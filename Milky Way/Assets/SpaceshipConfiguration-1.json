@@ -1,0 +1,9 @@
+{
+	"$id": "1",
+	"$type": "MilkyWay.Objects.Spaceships.SpaceshipConfiguration, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+	"SpaceshipID": 1,
+	"Health": 5,
+	"Handling": 5,
+	"WeaponPower": 0,
+	"Acceleration": 5
+}
